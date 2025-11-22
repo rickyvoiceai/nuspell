@@ -42,8 +42,10 @@ if (BUILD_API_DOCS)
 	# Configuration options related to diagram generator tools
 	set(DOXYGEN_DOT_IMAGE_FORMAT svg)
 
-	# consider using argument USE_STAMP_FILE from CMake v3.16
-	doxygen_add_docs(api_docs nuspell ALL
+	get_target_property(sources Nuspell::nuspell SOURCES)
+	list(TRANSFORM sources PREPEND nuspell/)
+	doxygen_add_docs(api_docs ${sources} ALL
+		USE_STAMP_FILE
 		WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/src)
 	install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html
 		DESTINATION ${CMAKE_INSTALL_DOCDIR})

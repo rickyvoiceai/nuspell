@@ -1,16 +1,12 @@
 /build/
 
-# Doxygen https://www.stack.nl/~dimitri/doxygen/
-/doxygen/
-/Doxyfile.bak
-
-# QtCreator https://qt.io
-/CMakeLists.txt.user
+# QtCreator
+/.qtcreator/
 
 # Visual Studio
 /.vs/
 /out/
 /CMakeSettings.json
 
-# https://vim.sourceforge.io/
+# Vim
 .?*.swp

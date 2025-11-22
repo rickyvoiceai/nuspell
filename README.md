@@ -26,7 +26,7 @@ Main features of Nuspell spelling checker:
 Build-only dependencies:
 
   - C++ 17 compiler with support for `std::filesystem`, e.g. GCC >= v9
-  - CMake >= v3.12
+  - CMake >= v3.16
   - Catch2 >= v3.1.1 (optional, needed only when building the tests is enabled)
   - Getopt (Needed only on Windows + MSVC and only when the CLI tool or
     the tests are built. It is available in Vcpkg. Other platforms provide
@@ -56,7 +56,7 @@ Then run the following commands inside the Nuspell directory:
 ```bash
 mkdir build
 cd build
-cmake .. -DBUILD_API_DOCS=ON
+cmake ..
 make
 sudo make install
 ```
@@ -114,7 +114,7 @@ manuals.
 ```bat
 mkdir build
 cd build
-cmake .. -DCMAKE_TOOLCHAIN_FILE=c:\vcpkg\scripts\buildsystems\vcpkg.cmake -A x64 -DBUILD_API_DOCS=ON
+cmake .. -DCMAKE_TOOLCHAIN_FILE=c:\vcpkg\scripts\buildsystems\vcpkg.cmake -A x64
 cmake --build .
 ```
 
@@ -132,7 +132,7 @@ Then from inside the Nuspell folder run:
 ```bash
 mkdir build
 cd build
-cmake .. -G "Unix Makefiles" -DBUILD_MAN=OFF -DBUILD_API_DOCS=ON
+cmake .. -G "Unix Makefiles" -DBUILD_MAN=OFF
 make
 make install
 ```

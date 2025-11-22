@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.16)
 project(nuspell
 	VERSION 5.1.6
 	DESCRIPTION "Nuspell spellchecking library"
@@ -14,7 +14,7 @@ option(BUILD_TESTING "Build the testing tree." ON)
 option(BUILD_TOOLS "Build the CLI tool." ON)
 option(BUILD_DOCS "Build the docs." ON)
 cmake_dependent_option(BUILD_MAN "Build man-pages." ON BUILD_DOCS OFF)
-cmake_dependent_option(BUILD_API_DOCS "Build API docs." OFF BUILD_DOCS OFF)
+cmake_dependent_option(BUILD_API_DOCS "Build API docs." ON BUILD_DOCS OFF)
 
 find_package(ICU 60 REQUIRED COMPONENTS uc data)
 get_directory_property(subproject PARENT_DIRECTORY)
@@ -48,16 +48,11 @@ macro(fetch_catch2)
 		GIT_REPOSITORY https://github.com/catchorg/Catch2.git
 		GIT_TAG 3f0283de7a9c43200033da996ff9093be3ac84dc #v3.3.2
 	)
-        FetchContent_GetProperties(Catch2)
-	if(NOT catch2_POPULATED)
-		FetchContent_Populate(Catch2)
-		set(old_build_shared_libs ${BUILD_SHARED_LIBS})
-		set(BUILD_SHARED_LIBS OFF)
-		add_subdirectory(${catch2_SOURCE_DIR} ${catch2_BINARY_DIR})
-		target_compile_features(Catch2 PRIVATE cxx_std_17)
-		list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/contrib)
-		set(BUILD_SHARED_LIBS ${old_build_shared_libs})
-	endif()
+	set(old_build_shared_libs ${BUILD_SHARED_LIBS})
+	set(BUILD_SHARED_LIBS OFF)
+	FetchContent_MakeAvailable(Catch2)
+	target_compile_features(Catch2 PRIVATE cxx_std_17)
+	set(BUILD_SHARED_LIBS ${old_build_shared_libs})
 endmacro()
 
 if (BUILD_TESTING)
