@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.7] - 2025-11-25
+### Added
+- Add API documentation that is generated when building by Doxygen. Doxygen
+  is a new build-only dependency.
+
+### Changed
+- Raise the minimum required version of CMake to 3.18.
+
 ## [5.1.6] - 2024-07-04
 ### Changed
 - Be more explicit about Pandoc dependency, do not quietly continue building if
@@ -288,6 +296,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Spelling error detection (checking) is closely matching Hunspell
 - Support for spelling error correction (suggestions)
 
+[5.1.7]: https://github.com/nuspell/nuspell/compare/v5.1.6...v5.1.7
 [5.1.6]: https://github.com/nuspell/nuspell/compare/v5.1.5...v5.1.6
 [5.1.5]: https://github.com/nuspell/nuspell/compare/v5.1.4...v5.1.5
 [5.1.4]: https://github.com/nuspell/nuspell/compare/v5.1.3...v5.1.4
