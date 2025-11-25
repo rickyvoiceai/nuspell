@@ -13,7 +13,7 @@ if (NOT BUILD_SHARED_LIBS)
 endif()
 target_include_directories(hunspell INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 if (MSVC)
-    # Supress some useless warnings
+    # Suppress some useless warnings
     target_compile_definitions(hunspell PRIVATE _CRT_SECURE_NO_WARNINGS)
     target_compile_options(hunspell PRIVATE /wd4251)
 endif()

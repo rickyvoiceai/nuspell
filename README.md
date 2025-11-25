@@ -59,9 +59,9 @@ cd build
 cmake ..
 make
 sudo make install
+sudo ldconfig       # needed only sometimes and only on Linux
 ```
 
-<!--sudo ldconfig-->
 
 For faster build process run `make -j`, or use Ninja instead
 of Make.
@@ -106,7 +106,7 @@ manuals.
 4.  Install Pandoc. You can manually install or use `choco install pandoc`.
 4.  Install Doxygen. You can manually install or use
     `choco install doxygen.install`.
-5.  Run the commands bellow. Vcpkg will work in manifest mode and it will
+5.  Run the commands below. Vcpkg will work in manifest mode and it will
     automatically install the dependencies.
 
 <!-- end list -->
@@ -296,7 +296,7 @@ To run the tests, run the following command after building:
 Full documentation in the [wiki](https://github.com/nuspell/nuspell/wiki).
 
 API Documentation for developers will be generated from the source files
-by configuring CMake with `-DBUILD_API_DOCS=ON` and building.
+by configuring CMake with `-DBUILD_API_DOCS=ON` (ON by default) and building.
 
 The result can be viewed by opening `BUILD_DIR/docs/html/index.html` during
 development, or by opening `INSTALL_PREFIX/share/doc/nuspell/html/index.html`
