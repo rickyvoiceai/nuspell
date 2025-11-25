@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.18)
 project(nuspell
 	VERSION 5.1.6
 	DESCRIPTION "Nuspell spellchecking library"
@@ -21,14 +21,8 @@ get_directory_property(subproject PARENT_DIRECTORY)
 add_subdirectory(src/nuspell)
 
 if (MSVC AND (BUILD_TOOLS OR BUILD_TESTING))
-	find_path(GETOPT_INCLUDE_DIR getopt.h)
-	if (NOT GETOPT_INCLUDE_DIR)
-		message(FATAL_ERROR "Can not find getopt.h")
-	endif()
-	find_library(GETOPT_LIBRARY getopt)
-	if (NOT GETOPT_LIBRARY)
-		message(FATAL_ERROR "Can not find library getopt")
-	endif()
+	find_path(GETOPT_INCLUDE_DIR getopt.h REQUIRED)
+	find_library(GETOPT_LIBRARY getopt REQUIRED)
 endif()
 if (BUILD_TOOLS)
 	add_subdirectory(src/tools)

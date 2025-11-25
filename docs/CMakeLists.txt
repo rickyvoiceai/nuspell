@@ -1,11 +1,5 @@
 if (BUILD_MAN)
-	find_program(PANDOC_EXECUTABLE pandoc)
-
-	if (NOT PANDOC_EXECUTABLE)
-		message(FATAL_ERROR "Pandoc not found, can not build the "
-			"man-pages. Either install Pandoc or disable building "
-			"the man-pages with cmake -DBUILD_MAN=OFF.")
-	endif()
+	find_program(PANDOC_EXECUTABLE pandoc REQUIRED)
 
 	if (BUILD_TOOLS)
 		add_custom_command(OUTPUT nuspell.1
