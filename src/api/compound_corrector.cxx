@@ -158,6 +158,48 @@ struct CompoundCorrector::Impl {
 		return diff;
 	}
 
+	static bool is_ascii_trailing_punct(char c) {
+		return c == '.' || c == ',' || c == ';' || c == ':' || c == '!' || c == '?';
+	}
+
+	static bool is_utf8_punct_3b(unsigned char c1, unsigned char c2, unsigned char c3) {
+		// CJK Symbols and Punctuation U+3000–U+303F
+		if (c1 == 0xE3 && c2 == 0x80 && c3 >= 0x80 && c3 <= 0xBF)
+			return true;
+		// Fullwidth forms U+FF00–U+FFEF
+		if (c1 == 0xEF && c2 >= 0xBC && c2 <= 0xBF && c3 >= 0x80 && c3 <= 0xBF)
+			return true;
+		return false;
+	}
+
+	// Strip trailing punctuation (ASCII and CJK fullwidth).
+	static std::string strip_trailing_punct(const std::string& s) {
+		size_t end = s.size();
+		while (end > 0) {
+			unsigned char c = static_cast<unsigned char>(s[end - 1]);
+			if (is_ascii_trailing_punct(static_cast<char>(c))) {
+				--end;
+				continue;
+			}
+			if (end >= 3) {
+				unsigned char c1 = static_cast<unsigned char>(s[end - 3]);
+				unsigned char c2 = static_cast<unsigned char>(s[end - 2]);
+				unsigned char c3 = c;
+				if (is_utf8_punct_3b(c1, c2, c3)) {
+					end -= 3;
+					continue;
+				}
+			}
+			break;
+		}
+		return s.substr(0, end);
+	}
+
+	// Return the trailing punctuation bytes stripped by strip_trailing_punct.
+	static std::string get_trailing_punct(const std::string& s) {
+		return s.substr(strip_trailing_punct(s).size());
+	}
+
 	Optional<std::string> try_single_fix(const std::string& word,
 	                                    std::vector<std::string>* verbose_log) const {
 		if (word.length() < static_cast<size_t>(config.single_word_fix_min_len)) {
@@ -261,12 +303,21 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 	}
 	result.status.assign(tokens.size(), 0);
 
+	// Build core / trailing-punctuation parallel arrays.
+	std::vector<std::string> cores(tokens.size());
+	std::vector<std::string> tails(tokens.size());
+	for (size_t i = 0; i < tokens.size(); ++i) {
+		cores[i] = Impl::strip_trailing_punct(tokens[i]);
+		tails[i] = Impl::get_trailing_punct(tokens[i]);
+	}
+
 	if (verbose_log) {
 		verbose_log->push_back("[tokenize] " + std::to_string(tokens.size()) +
 		                       " token(s)");
 		for (size_t i = 0; i < tokens.size(); ++i) {
 			verbose_log->push_back("  token[" + std::to_string(i) + "] = \"" +
-			                       tokens[i] + "\"");
+			                       tokens[i] + "\" core=\"" + cores[i] +
+			                       "\" tail=\"" + tails[i] + "\"");
 		}
 	}
 
@@ -277,24 +328,26 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 			result.text = input;
 			return result;
 		}
-		// Single token — attempt single-word correction.
+		// Single token — attempt single-word correction (operate on core, reattach tail).
 		const std::string& word = tokens[0];
+		const std::string& core = cores[0];
+		const std::string& tail = tails[0];
 		bool is_chinese = Impl::has_chinese_utf8(word);
 		bool is_non_letter = Impl::is_pure_ascii_non_letter(word);
-		bool spelled = impl_->dict.spell(word);
+		bool spelled = impl_->dict.spell(core);
 		if (verbose_log) {
 			std::string reason;
 			if (is_chinese) reason = "CJK/inert";
 			else if (is_non_letter) reason = "pure ASCII non-letter/inert";
-			else if (spelled) reason = "dict OK";
-			else reason = "not in dict";
+			else if (spelled) reason = "core dict OK";
+			else reason = "core not in dict";
 			verbose_log->push_back("  single token \"" + word +
-			                       "\" fix_single=true: " + reason);
+			                       "\" core=\"" + core + "\" fix_single=true: " + reason);
 		}
 		if (!is_chinese && !is_non_letter && !spelled) {
-			auto fix = impl_->try_single_fix(word, verbose_log);
+			auto fix = impl_->try_single_fix(core, verbose_log);
 			if (fix.has_value()) {
-				result.text = fix.value();
+				result.text = fix.value() + tail;
 				result.status[0] = 2;
 				if (verbose_log)
 					verbose_log->push_back("  → FIX: \"" + word + "\" → \"" +
@@ -308,14 +361,14 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 		return result;
 	}
 
-	// Step 2 — Classify each token.
+	// Step 2 — Classify each token (using core).
 	enum TokenClass { INVALID, SHORT_VALID, LONG_VALID };
 	std::vector<TokenClass> classes(tokens.size());
 	for (size_t i = 0; i < tokens.size(); ++i) {
-		bool inert = Impl::has_chinese_utf8(tokens[i]) ||
-		             Impl::is_pure_ascii_non_letter(tokens[i]);
-		bool valid  = inert || impl_->dict.spell(tokens[i]);
-		bool short_ = !inert && tokens[i].length() <= 2;
+		bool inert = Impl::has_chinese_utf8(cores[i]) ||
+		             Impl::is_pure_ascii_non_letter(cores[i]);
+		bool valid  = inert || impl_->dict.spell(cores[i]);
+		bool short_ = !inert && cores[i].length() <= 2;
 		if (short_)  classes[i] = SHORT_VALID;
 		else if (!valid)       classes[i] = INVALID;
 		else              classes[i] = LONG_VALID;
@@ -326,16 +379,16 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 			else cls = "LONG_VALID";
 			std::string reason;
 			if (inert) reason = "inert (CJK/punctuation)";
-			else if (short_) reason = "short (len<=2, dict check skipped)";
-			else if (valid) reason = "dict OK";
-			else reason = "not in dict";
+			else if (short_) reason = "short core (len<=2, dict check skipped)";
+			else if (valid) reason = "core dict OK";
+			else reason = "core not in dict";
 			verbose_log->push_back("  class[" + std::to_string(i) +
 			                       "] = " + cls + " (\"" + tokens[i] +
-			                       "\") — " + reason);
+			                       "\" → \"" + cores[i] + "\") — " + reason);
 		}
 	}
 
-	// Step 3 — Precompute all adjacent merge candidates.
+	// Step 3 — Precompute all adjacent merge candidates (using core only).
 	struct MergeInfo {
 		bool valid = false;
 		std::string word;
@@ -350,20 +403,33 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 		TokenClass left = classes[i];
 		TokenClass right = classes[i + 1];
 		bool try_merge = false;
-                bool left_stop_word = Impl::is_stop_word(tokens[i]);
-                bool right_stop_word = Impl::is_stop_word(tokens[i + 1]);
-                bool two_stop_word = left_stop_word && right_stop_word;
+		bool left_stop_word = Impl::is_stop_word(cores[i]);
+		bool right_stop_word = Impl::is_stop_word(cores[i + 1]);
+		bool two_stop_word = left_stop_word && right_stop_word;
+
 		if (left == INVALID && right == INVALID)     try_merge = true;
 		else if (left == INVALID && right == SHORT_VALID) try_merge = true;
 		else if (left == SHORT_VALID && right == INVALID) try_merge = true;
 		else if (left == SHORT_VALID && right == SHORT_VALID &&
-		         (tokens[i].length() + tokens[i + 1].length() == 3 ||
-		          (tokens[i].length() == 2 && tokens[i + 1].length() == 2 &&
-		           impl_->is_known_acronym(Impl::to_upper(tokens[i] + tokens[i + 1])))) &&
+		         (cores[i].length() + cores[i + 1].length() == 3 ||
+		          (cores[i].length() == 2 && cores[i + 1].length() == 2 &&
+		           impl_->is_known_acronym(Impl::to_upper(cores[i] + cores[i + 1])))) &&
 		         !two_stop_word)
 			try_merge = true;
 
-		if (verbose_log) {
+		// NEW: block merge if left token carries trailing punctuation.
+		bool left_has_tail = !tails[i].empty();
+		if (try_merge && left_has_tail) {
+			try_merge = false;
+			if (verbose_log) {
+				verbose_log->push_back(
+				    "  merge[" + std::to_string(i) + "+" +
+				    std::to_string(i + 1) + "] (\"" + tokens[i] + "\", \"" +
+				    tokens[i + 1] + "\") try_merge=false — left has trailing punctuation");
+			}
+		}
+
+		if (verbose_log && !left_has_tail) {
 			std::string pair = "merge[" + std::to_string(i) + "+" +
 			                   std::to_string(i + 1) + "] ";
 			pair += "(\"" + tokens[i] + "\", \"" + tokens[i + 1] + "\") ";
@@ -386,14 +452,14 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 			bool spelled = false;
 			// Normal pairs: try lowercase first.
 			if (!is_short_short) {
-				std::string candidate = tokens[i] + tokens[i + 1];
+				std::string candidate = cores[i] + cores[i + 1];
 				if (impl_->dict.spell(candidate)) {
 					info.valid = true;
-					info.word = candidate;
+					info.word = candidate + tails[i + 1];          // reattach right tail
 					info.logprob = impl_->get_logprob(candidate);
 					spelled = true;
 					if (verbose_log) verbose_log->push_back(
-					    "    candidate \"" + candidate +
+					    "    candidate \"" + candidate + tails[i + 1] +
 					    "\" spell()=true → CANDIDATE (logprob=" +
 					    std::to_string(info.logprob) + ")");
 				} else if (verbose_log) {
@@ -404,7 +470,7 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 			}
 			if (!spelled) {
 				std::string upper_candidate =
-				    Impl::to_upper(tokens[i] + tokens[i + 1]);
+				    Impl::to_upper(cores[i] + cores[i + 1]);
 				bool dict_ok = impl_->dict.spell(upper_candidate);
 				bool acronym_ok = impl_->is_known_acronym(upper_candidate);
 				if (verbose_log) {
@@ -429,8 +495,8 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 					                      : impl_->get_logprob(upper_candidate);
 					if (!is_short_short || lp >= impl_->config.short_short_arpa_threshold) {
 						info.valid = true;
-						info.word = acronym_ok ? upper_candidate
-						                       : (tokens[i] + tokens[i + 1]);
+						info.word = acronym_ok ? upper_candidate + tails[i + 1]
+						                       : (cores[i] + cores[i + 1] + tails[i + 1]);
 						info.logprob = lp;
 						if (verbose_log) verbose_log->push_back(
 						    "    → CANDIDATE (logprob=" + std::to_string(lp) + ")");
@@ -486,7 +552,7 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 		} else if (c1_valid) {
 			if (verbose_log) verbose_log->push_back(
 			    "    → MERGE tokens[" + std::to_string(i) + "+" +
-			    std::to_string(i + 1) + "] into \"" + merge_info[i].word + "\"");
+std::to_string(i + 1) + "] into \"" + merge_info[i].word + "\"");
 			merged.push_back(merge_info[i].word);
 			orig_start.push_back(i);
 			result.status[i] = 1;
@@ -501,11 +567,19 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 		}
 	}
 
-	// Step 5 — Optional single-word correction pass.
+	// Step 5 — Optional single-word correction pass (skip already-merged tokens).
 	if (fix_single) {
 		if (verbose_log) verbose_log->push_back("[fix_single pass]");
 		for (size_t k = 0; k < merged.size(); ++k) {
+			// Skip tokens already consumed by a merge.
+			if (result.status[orig_start[k]] != 0) {
+				if (verbose_log) verbose_log->push_back(
+				    "  token[" + std::to_string(orig_start[k]) + "] merged/consumed → SKIP");
+				continue;
+			}
 			std::string& word = merged[k];
+			std::string core = Impl::strip_trailing_punct(word);
+			std::string tail = Impl::get_trailing_punct(word);
 			if (Impl::has_chinese_utf8(word)) {
 				if (verbose_log) verbose_log->push_back(
 				    "  word[\"" + word + "\"] CJK/inert → SKIP");
@@ -516,14 +590,14 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 				    "  word[\"" + word + "\"] pure ASCII non-letter → SKIP");
 				continue;
 			}
-			if (impl_->dict.spell(word)) {
+			if (impl_->dict.spell(core)) {
 				if (verbose_log) verbose_log->push_back(
-				    "  word[\"" + word + "\"] dict OK → SKIP");
+				    "  core[\"" + core + "\"] dict OK → SKIP");
 				continue;
 			}
-			auto fix = impl_->try_single_fix(word, verbose_log);
+			auto fix = impl_->try_single_fix(core, verbose_log);
 			if (fix.has_value()) {
-				word = fix.value();
+				word = fix.value() + tail;
 				result.status[orig_start[k]] = 2;
 				if (verbose_log) verbose_log->push_back(
 				    "  → FIX applied \"" + word + "\" (status=2)");

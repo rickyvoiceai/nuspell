@@ -29,3 +29,8 @@ be at|be at|0,0
 in to|in to|0,0
 o ne tw o three|one two three|1,-1,1,-1,0
 fighe|fighe|0
+a pi.|API.|1,-1
+a. pi|a. pi|0,0
+a pi。|API。|1,-1
+sing,|sing,|0
+fighe,|fighe,|0

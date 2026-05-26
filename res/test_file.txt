@@ -24,4 +24,10 @@ he made a pdf|he made a pdf
 be at|be at
 in to|in to
 o ne tw o three|one two three
-fighe|fight
+sing,|sing,
+share,|share,
+a pi.|API.
+a. pi|a. pi
+a pi。|API。
+fighe,|fight,
+he did a pi.|he did API.
