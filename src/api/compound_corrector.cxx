@@ -18,20 +18,19 @@ std::unique_ptr<T> make_unique_14(Args&&... args) {
 	return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
-namespace {
-const float UG_FLOOR = -99.0f;
-}
-
 struct CompoundCorrector::Impl {
 	nuspell::Dictionary dict;
 	std::unordered_map<std::string, float> unigrams;
 	std::unordered_set<std::string> acronyms;
+	NuspellConfig config;
 
 	Impl() = default;
 
 	Impl(const std::string& aff_path,
 	     const std::string& ug_path,
-	     const std::string& acronyms_path) {
+	     const std::string& acronyms_path,
+	     const NuspellConfig& cfg = NuspellConfig())
+		: config(cfg) {
 		dict.load_aff_dic(aff_path);
 		load_unigrams(ug_path);
 		load_acronyms(acronyms_path);
@@ -145,7 +144,7 @@ struct CompoundCorrector::Impl {
 		if (it != unigrams.end()) return it->second;
 		it = unigrams.find(to_lower(s));
 		if (it != unigrams.end()) return it->second;
-		return UG_FLOOR;
+		return config.arpa_unigram_floor;
 	}
 
 	static int hamming_distance_ci(const std::string& a, const std::string& b) {
@@ -161,9 +160,10 @@ struct CompoundCorrector::Impl {
 
 	Optional<std::string> try_single_fix(const std::string& word,
 	                                    std::vector<std::string>* verbose_log) const {
-		if (word.length() < 5) {
+		if (word.length() < static_cast<size_t>(config.single_word_fix_min_len)) {
 			if (verbose_log) verbose_log->push_back(
-			    "  fix word=\"" + word + "\": too short (<5) → SKIP");
+			    "  fix word=\"" + word + "\": too short (<" +
+			    std::to_string(config.single_word_fix_min_len) + ") → SKIP");
 			return Optional<std::string>();
 		}
 		std::vector<std::string> suggs;
@@ -182,18 +182,21 @@ struct CompoundCorrector::Impl {
 				continue;
 			}
 			int hd = hamming_distance_ci(word, candidate);
-			if (hd == 1) {
+			if (hd == config.hamming_distance_threshold) {
 				if (verbose_log) verbose_log->push_back(
-				    "    candidate \"" + candidate + "\" hamming=1 → ACCEPT");
+				    "    candidate \"" + candidate + "\" hamming=" +
+				    std::to_string(config.hamming_distance_threshold) + " → ACCEPT");
 				return Optional<std::string>(candidate);
 			} else {
 				if (verbose_log) verbose_log->push_back(
 				    "    candidate \"" + candidate + "\" hamming=" +
-				    std::to_string(hd) + " → REJECT (>1)");
+				    std::to_string(hd) + " → REJECT (!=" +
+				    std::to_string(config.hamming_distance_threshold) + ")");
 			}
 		}
 		if (verbose_log) verbose_log->push_back(
-		    "  no hamming-1 match → NO FIX");
+		    "  no hamming-" + std::to_string(config.hamming_distance_threshold) +
+		    " match → NO FIX");
 		return Optional<std::string>();
 	}
 };
@@ -201,10 +204,21 @@ struct CompoundCorrector::Impl {
 CompoundCorrector::CompoundCorrector(const std::string& aff_path,
                                      const std::string& ug_path,
                                      const std::string& acronyms_path)
-    : impl_(make_unique_14<Impl>(aff_path, ug_path, acronyms_path)) {}
+    : impl_(make_unique_14<Impl>(aff_path, ug_path, acronyms_path, NuspellConfig())) {}
+
+CompoundCorrector::CompoundCorrector(const std::string& aff_path,
+                                     const std::string& ug_path,
+                                     const std::string& acronyms_path,
+                                     const NuspellConfig& config)
+    : impl_(make_unique_14<Impl>(aff_path, ug_path, acronyms_path, config)) {}
 
 CompoundCorrector::CompoundCorrector(std::istream& bundle_stream)
+    : CompoundCorrector(bundle_stream, NuspellConfig()) {}
+
+CompoundCorrector::CompoundCorrector(std::istream& bundle_stream,
+                                     const NuspellConfig& config)
     : impl_(make_unique_14<Impl>()) {
+	impl_->config = config;
 	Bundle bundle = read_bundle(bundle_stream);
 	const BundleEntry* aff = bundle.find(BundleTag::AFF);
 	const BundleEntry* dic = bundle.find(BundleTag::DIC);
@@ -325,15 +339,20 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 	struct MergeInfo {
 		bool valid = false;
 		std::string word;
-		float logprob = UG_FLOOR;
+		float logprob = 0.0f;
+		MergeInfo() = default;
+		explicit MergeInfo(float floor) : logprob(floor) {}
 	};
 	std::vector<MergeInfo> merge_info;
 	merge_info.reserve(tokens.size() - 1);
 	for (size_t i = 0; i + 1 < tokens.size(); ++i) {
-		MergeInfo info;
+		MergeInfo info(impl_->config.arpa_unigram_floor);
 		TokenClass left = classes[i];
 		TokenClass right = classes[i + 1];
 		bool try_merge = false;
+                bool left_stop_word = Impl::is_stop_word(tokens[i]);
+                bool right_stop_word = Impl::is_stop_word(tokens[i + 1]);
+                bool two_stop_word = left_stop_word && right_stop_word;
 		if (left == INVALID && right == INVALID)     try_merge = true;
 		else if (left == INVALID && right == SHORT_VALID) try_merge = true;
 		else if (left == SHORT_VALID && right == INVALID) try_merge = true;
@@ -341,7 +360,7 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 		         (tokens[i].length() + tokens[i + 1].length() == 3 ||
 		          (tokens[i].length() == 2 && tokens[i + 1].length() == 2 &&
 		           impl_->is_known_acronym(Impl::to_upper(tokens[i] + tokens[i + 1])))) &&
-		         !(Impl::is_stop_word(tokens[i]) && Impl::is_stop_word(tokens[i + 1])))
+		         !two_stop_word)
 			try_merge = true;
 
 		if (verbose_log) {
@@ -394,16 +413,21 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 					    "\" dict=" + (dict_ok ? "true" : "false") +
 					    " acro=" + (acronym_ok ? "true" : "false"));
 					if (is_short_short) {
-						float lp = acronym_ok ? -5.0f : impl_->get_logprob(upper_candidate);
+						float lp = acronym_ok ? impl_->config.acronym_override_logprob
+						                      : impl_->get_logprob(upper_candidate);
 						verbose_log->push_back(
 						    "    SHORT+SHORT ARPA threshold check: lp=" +
-						    std::to_string(lp) + " >= -5.9? " +
-						    (lp >= -5.9f ? "PASS" : "FAIL"));
+						    std::to_string(lp) + " >= " +
+						    std::to_string(impl_->config.short_short_arpa_threshold) +
+						    "? " +
+						    (lp >= impl_->config.short_short_arpa_threshold
+						         ? "PASS" : "FAIL"));
 					}
 				}
 				if (dict_ok || acronym_ok) {
-					float lp = acronym_ok ? -5.0f : impl_->get_logprob(upper_candidate);
-					if (!is_short_short || lp >= -5.9f) {
+					float lp = acronym_ok ? impl_->config.acronym_override_logprob
+					                      : impl_->get_logprob(upper_candidate);
+					if (!is_short_short || lp >= impl_->config.short_short_arpa_threshold) {
 						info.valid = true;
 						info.word = acronym_ok ? upper_candidate
 						                       : (tokens[i] + tokens[i + 1]);

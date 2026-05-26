@@ -23,6 +23,11 @@ static void print_usage(const char* prog) {
 	          << "  --test-status          Run status-code self-test (res/test_status.txt)\n"
 	          << "  --fix-single           Also apply single-word spelling correction\n"
 	          << "  --verbose              Show detailed merge/fix decision log to stderr\n"
+	          << "  --min-len N            Min length for single-word fix (default: 5)\n"
+	          << "  --hamming N            Hamming distance threshold (default: 1)\n"
+	          << "  --short-threshold F    ARPA threshold for SHORT+SHORT merges (default: -3.0)\n"
+	          << "  --acronym-score F      Boosted logprob for known acronyms (default: -3.0)\n"
+	          << "  --arpa-floor F         Default logprob for missing ARPA words (default: -10.0)\n"
 	          << "  -h, --help             Print this help and exit\n"
 	          << "\n"
 	          << "With no input file and no -t, reads from stdin.\n"
@@ -78,16 +83,77 @@ static bool flag_present(int argc, char* argv[], const std::vector<std::string>&
 	return false;
 }
 
+static bool is_flag_with_value(const std::string& arg) {
+	return arg == "-d" || arg == "--dictionary" ||
+	       arg == "-b" || arg == "--bundle" ||
+	       arg == "--min-len" ||
+	       arg == "--hamming" ||
+	       arg == "--short-threshold" ||
+	       arg == "--acronym-score" ||
+	       arg == "--arpa-floor";
+}
+
+static bool is_known_flag(const std::string& arg) {
+	return arg == "-d" || arg == "--dictionary" || arg == "-b" || arg == "--bundle" ||
+	       arg == "-t" || arg == "--self-test" || arg == "--test-status" ||
+	       arg == "-h" || arg == "--help" || arg == "--fix-single" || arg == "--verbose" ||
+	       arg == "--min-len" || arg == "--hamming" ||
+	       arg == "--short-threshold" || arg == "--acronym-score" || arg == "--arpa-floor";
+}
+
+static int resolve_int_flag(int argc, char* argv[], const char* name, int default_val) {
+	for (int i = 1; i < argc; ++i) {
+		std::string arg = argv[i];
+		if (arg == name) {
+			if (i + 1 >= argc) {
+				std::cerr << "Error: " << arg << " requires an integer argument.\n";
+				std::exit(1);
+			}
+			return std::stoi(argv[i + 1]);
+		}
+		std::string prefix = std::string(name) + "=";
+		if (arg.compare(0, prefix.size(), prefix) == 0 && arg.size() > prefix.size()) {
+			return std::stoi(arg.substr(prefix.size()));
+		}
+	}
+	return default_val;
+}
+
+static float resolve_float_flag(int argc, char* argv[], const char* name, float default_val) {
+	for (int i = 1; i < argc; ++i) {
+		std::string arg = argv[i];
+		if (arg == name) {
+			if (i + 1 >= argc) {
+				std::cerr << "Error: " << arg << " requires a float argument.\n";
+				std::exit(1);
+			}
+			return std::stof(argv[i + 1]);
+		}
+		std::string prefix = std::string(name) + "=";
+		if (arg.compare(0, prefix.size(), prefix) == 0 && arg.size() > prefix.size()) {
+			return std::stof(arg.substr(prefix.size()));
+		}
+	}
+	return default_val;
+}
+
+static bool arg_is_param(const std::string& arg) {
+	if (arg.compare(0, 13, "--dictionary=") == 0) return false;
+	if (arg.compare(0, 9, "--bundle=") == 0) return false;
+	if (arg.compare(0, 11, "--min-len=") == 0) return false;
+	if (arg.compare(0, 11, "--hamming=") == 0) return false;
+	if (arg.compare(0, 17, "--short-threshold=") == 0) return false;
+	if (arg.compare(0, 15, "--acronym-score=") == 0) return false;
+	if (arg.compare(0, 13, "--arpa-floor=") == 0) return false;
+	return true;
+}
+
 static std::string resolve_input(int argc, char* argv[], int consumed) {
 	for (int i = consumed; i < argc; ++i) {
 		std::string arg = argv[i];
-		if (arg == "-d" || arg == "-- dictionary" || arg == "-b" || arg == "--bundle" ||
-		    arg == "-t" || arg == "--self-test" || arg == "--test-status" ||
-		    arg == "-h" || arg == "--help" || arg == "--fix-single" || arg == "--verbose")
-			continue;
-		if (i > 0 && (std::string(argv[i - 1]) == "-d" || std::string(argv[i - 1]) == "--dictionary" ||
-		                   std::string(argv[i - 1]) == "-b" || std::string(argv[i - 1]) == "--bundle"))
-			continue;
+		if (is_known_flag(arg)) continue;
+		if (i > 0 && is_flag_with_value(argv[i - 1])) continue;
+		if (!arg_is_param(arg)) continue;
 		return arg;
 	}
 	return "";
@@ -219,6 +285,15 @@ int main(int argc, char* argv[]) {
 	bool test_status = flag_present(argc, argv, {"--test-status"});
 	bool fix_single  = flag_present(argc, argv, {"--fix-single"});
 	bool verbose     = flag_present(argc, argv, {"--verbose"});
+
+	// Build NuspellConfig from CLI overrides.
+	NuspellConfig config;
+	config.single_word_fix_min_len    = resolve_int_flag(argc, argv, "--min-len", 5);
+	config.hamming_distance_threshold = resolve_int_flag(argc, argv, "--hamming", 1);
+	config.short_short_arpa_threshold = resolve_float_flag(argc, argv, "--short-threshold", -3.0f);
+	config.acronym_override_logprob   = resolve_float_flag(argc, argv, "--acronym-score", -3.0f);
+	config.arpa_unigram_floor         = resolve_float_flag(argc, argv, "--arpa-floor", -10.0f);
+
 	int consumed = 1;
 	std::string bundle_path = resolve_bundle(argc, argv, consumed);
 	std::string input_path = resolve_input(argc, argv, consumed);
@@ -234,7 +309,7 @@ int main(int argc, char* argv[]) {
 			return 1;
 		}
 		std::cout << "Loading bundle: " << bundle_path << "\n";
-		corrector_holder.reset(new CompoundCorrector(bundle_in));
+		corrector_holder.reset(new CompoundCorrector(bundle_in, config));
 		corrector = corrector_holder.get();
 	} else {
 		consumed = 1;
@@ -245,7 +320,7 @@ int main(int argc, char* argv[]) {
 			return 1;
 		}
 		std::cout << "Loading dictionary: " << aff_path << "\n";
-		corrector_holder.reset(new CompoundCorrector(aff_path));
+		corrector_holder.reset(new CompoundCorrector(aff_path, "res/ug", "res/acronyms.txt", config));
 		corrector = corrector_holder.get();
 	}
 
