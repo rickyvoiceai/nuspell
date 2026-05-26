@@ -1,4 +1,5 @@
 # Medical acronyms
+AED
 PTSD
 ADHD
 OCD

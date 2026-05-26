@@ -59,6 +59,14 @@ public:
 	const T* operator->() const { return ptr(); }
 };
 
+struct NuspellConfig {
+	int   single_word_fix_min_len    = 5;
+	int   hamming_distance_threshold = 1;
+	float short_short_arpa_threshold = -3.0f;
+	float acronym_override_logprob   = -3.0f;
+	float arpa_unigram_floor         = -10.0f;
+};
+
 struct CorrectionResult {
 	std::string text;
 	// Per original token status:
@@ -77,8 +85,18 @@ public:
 	                             const std::string& ug_path = "res/ug",
 	                             const std::string& acronyms_path = "res/acronyms.txt");
 
+	// Config-enabled path-based constructor.
+	explicit CompoundCorrector(const std::string& aff_path,
+	                             const std::string& ug_path,
+	                             const std::string& acronyms_path,
+	                             const NuspellConfig& config);
+
 	// Bundle constructor (reads a single binary blob produced by pack_resources).
 	explicit CompoundCorrector(std::istream& bundle_stream);
+
+	// Config-enabled bundle constructor.
+	explicit CompoundCorrector(std::istream& bundle_stream,
+	                             const NuspellConfig& config);
 
 	~CompoundCorrector();
 
