@@ -16,6 +16,7 @@ cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_API=ON \
     -DBUILD_TESTING=ON \
+    -DBUILD_ADVANCED_TESTS=OFF \
     -DBUILD_TOOLS=ON
 
 # --------------------------------------------------------------

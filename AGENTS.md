@@ -45,10 +45,24 @@ or, equivalently:
 | `tests/` | Catch2-based tests (run via `ctest`) |  
 | `res/` | API resources: dictionary, ARPA unigrams, acronyms, test fixtures, bundle |  
 
-## `src/api/` is C++14-Compatible
+## `src/nuspell/` and `src/api/` are C++14-Compatible
 
-No `std::filesystem`, `std::optional`, `std::string_view`, or `std::make_unique`.  
-Underlying `src/nuspell/` headers still use `std::string_view`, so final link still needs `-std=c++17`. Keep new code in `src/api/` library-feature-free.
+No `std::filesystem`, `std::optional`, or `std::string_view` in our code —
+replaced with custom polyfills (`filesystem.hxx`, `string_view.hxx`).  
+The final link may still need `-std=c++14` depending on compiler defaults.
+Keep new code library-feature-free.
+
+## C++14 Build Notes
+
+If your toolchain defaults to C++11 or older, add explicitly:
+
+```bash
+cmake -B build -DBUILD_API=ON -DBUILD_ADVANCED_TESTS=OFF
+```
+
+The `BUILD_ADVANCED_TESTS` flag controls the upstream Catch2-based unit
+and integration tests that use C++17 features (CTAD, `is_same_v`, UDL literals).
+It defaults to `ON`, so C++14-only environments should disable it.
 
 ## Resource Bundle
 
