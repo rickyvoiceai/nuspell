@@ -10,8 +10,8 @@
 
 static void print_usage(const char* prog) {
 	std::cerr << "Usage:\n"
-	          << "  " << prog << " [-d dict.aff] [--fix-single] [input.txt]\n"
-	          << "  " << prog << " [-b bundle] [--fix-single] [input.txt]\n"
+	          << "  " << prog << " [-d dict.aff] [--fix-single] [--verbose] [input.txt]\n"
+	          << "  " << prog << " [-b bundle] [--fix-single] [--verbose] [input.txt]\n"
 	          << "  " << prog << " -t [-d dict.aff|--b bundle] [--fix-single]\n"
 	          << "  " << prog << " --test-status [-d dict.aff|--b bundle]\n"
 	          << "  " << prog << " -h\n"
@@ -22,6 +22,7 @@ static void print_usage(const char* prog) {
 	          << "  -t, --self-test        Run built-in self-test (res/test_file.txt)\n"
 	          << "  --test-status          Run status-code self-test (res/test_status.txt)\n"
 	          << "  --fix-single           Also apply single-word spelling correction\n"
+	          << "  --verbose              Show detailed merge/fix decision log to stderr\n"
 	          << "  -h, --help             Print this help and exit\n"
 	          << "\n"
 	          << "With no input file and no -t, reads from stdin.\n"
@@ -80,9 +81,9 @@ static bool flag_present(int argc, char* argv[], const std::vector<std::string>&
 static std::string resolve_input(int argc, char* argv[], int consumed) {
 	for (int i = consumed; i < argc; ++i) {
 		std::string arg = argv[i];
-		if (arg == "-d" || arg == "--dictionary" || arg == "-b" || arg == "--bundle" ||
+		if (arg == "-d" || arg == "-- dictionary" || arg == "-b" || arg == "--bundle" ||
 		    arg == "-t" || arg == "--self-test" || arg == "--test-status" ||
-		    arg == "-h" || arg == "--help" || arg == "--fix-single")
+		    arg == "-h" || arg == "--help" || arg == "--fix-single" || arg == "--verbose")
 			continue;
 		if (i > 0 && (std::string(argv[i - 1]) == "-d" || std::string(argv[i - 1]) == "--dictionary" ||
 		                   std::string(argv[i - 1]) == "-b" || std::string(argv[i - 1]) == "--bundle"))
@@ -179,6 +180,23 @@ static int run_status_test(const CompoundCorrector& corrector, const std::string
 	return failed > 0 ? 1 : 0;
 }
 
+static int run_process_verbose(const CompoundCorrector& corrector,
+                              std::istream& in, bool fix_single) {
+	std::string line;
+	bool first = true;
+	while (std::getline(in, line)) {
+		if (!first) std::cout << "\n";
+		first = false;
+		std::vector<std::string> debug_log;
+		auto result = corrector.CorrectWithStatus(line, fix_single, &debug_log);
+		std::cout << "original: " << line << "\ncorrected: " << result.text << "\n";
+		for (const auto& entry : debug_log) {
+			std::cerr << "  " << entry << "\n";
+		}
+	}
+	return 0;
+}
+
 static int run_process(const CompoundCorrector& corrector, std::istream& in, bool fix_single) {
 	std::string line;
 	bool first = true;
@@ -200,6 +218,7 @@ int main(int argc, char* argv[]) {
 	bool self_test   = flag_present(argc, argv, {"-t", "--self-test"});
 	bool test_status = flag_present(argc, argv, {"--test-status"});
 	bool fix_single  = flag_present(argc, argv, {"--fix-single"});
+	bool verbose     = flag_present(argc, argv, {"--verbose"});
 	int consumed = 1;
 	std::string bundle_path = resolve_bundle(argc, argv, consumed);
 	std::string input_path = resolve_input(argc, argv, consumed);
@@ -243,8 +262,10 @@ int main(int argc, char* argv[]) {
 			std::cerr << "Error: Can not open input file: " << input_path << "\n";
 			return 1;
 		}
+		if (verbose) return run_process_verbose(*corrector, in, fix_single);
 		return run_process(*corrector, in, fix_single);
 	}
 
+	if (verbose) return run_process_verbose(*corrector, std::cin, fix_single);
 	return run_process(*corrector, std::cin, fix_single);
 }

@@ -159,17 +159,41 @@ struct CompoundCorrector::Impl {
 		return diff;
 	}
 
-	Optional<std::string> try_single_fix(const std::string& word) const {
-		if (word.length() < 5)
+	Optional<std::string> try_single_fix(const std::string& word,
+	                                    std::vector<std::string>* verbose_log) const {
+		if (word.length() < 5) {
+			if (verbose_log) verbose_log->push_back(
+			    "  fix word=\"" + word + "\": too short (<5) → SKIP");
 			return Optional<std::string>();
+		}
 		std::vector<std::string> suggs;
 		dict.suggest(word, suggs);
-		for (const auto& candidate : suggs) {
-			if (candidate.length() != word.length())
-				continue;
-			if (hamming_distance_ci(word, candidate) == 1)
-				return Optional<std::string>(candidate);
+		if (verbose_log) {
+			verbose_log->push_back(
+			    "  fix word=\"" + word + "\": suggest() returned " +
+			    std::to_string(suggs.size()) + " candidate(s)");
 		}
+		for (const auto& candidate : suggs) {
+			if (candidate.length() != word.length()) {
+				if (verbose_log) verbose_log->push_back(
+				    "    candidate \"" + candidate + "\" len=" +
+				    std::to_string(candidate.length()) + " != input len=" +
+				    std::to_string(word.length()) + " → REJECT (len mismatch)");
+				continue;
+			}
+			int hd = hamming_distance_ci(word, candidate);
+			if (hd == 1) {
+				if (verbose_log) verbose_log->push_back(
+				    "    candidate \"" + candidate + "\" hamming=1 → ACCEPT");
+				return Optional<std::string>(candidate);
+			} else {
+				if (verbose_log) verbose_log->push_back(
+				    "    candidate \"" + candidate + "\" hamming=" +
+				    std::to_string(hd) + " → REJECT (>1)");
+			}
+		}
+		if (verbose_log) verbose_log->push_back(
+		    "  no hamming-1 match → NO FIX");
 		return Optional<std::string>();
 	}
 };
@@ -209,7 +233,10 @@ std::string CompoundCorrector::Correct(const std::string& input,
 	return CorrectWithStatus(input, fix_single).text;
 }
 
-CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, bool fix_single) const {
+CorrectionResult CompoundCorrector::CorrectWithStatus(
+    const std::string& input, bool fix_single,
+    std::vector<std::string>* verbose_log) const {
+
 	CorrectionResult result;
 	std::vector<std::string> tokens;
 	// Step 1 — Tokenize.
@@ -220,22 +247,50 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 	}
 	result.status.assign(tokens.size(), 0);
 
+	if (verbose_log) {
+		verbose_log->push_back("[tokenize] " + std::to_string(tokens.size()) +
+		                       " token(s)");
+		for (size_t i = 0; i < tokens.size(); ++i) {
+			verbose_log->push_back("  token[" + std::to_string(i) + "] = \"" +
+			                       tokens[i] + "\"");
+		}
+	}
+
 	if (tokens.size() < 2) {
 		if (!fix_single || tokens.empty()) {
+			if (verbose_log)
+				verbose_log->push_back("  single token, fix_single=false → PASS-THROUGH");
 			result.text = input;
 			return result;
 		}
 		// Single token — attempt single-word correction.
 		const std::string& word = tokens[0];
-		if (!Impl::has_chinese_utf8(word) && !Impl::is_pure_ascii_non_letter(word) && !impl_->dict.spell(word)) {
-			auto fix = impl_->try_single_fix(word);
+		bool is_chinese = Impl::has_chinese_utf8(word);
+		bool is_non_letter = Impl::is_pure_ascii_non_letter(word);
+		bool spelled = impl_->dict.spell(word);
+		if (verbose_log) {
+			std::string reason;
+			if (is_chinese) reason = "CJK/inert";
+			else if (is_non_letter) reason = "pure ASCII non-letter/inert";
+			else if (spelled) reason = "dict OK";
+			else reason = "not in dict";
+			verbose_log->push_back("  single token \"" + word +
+			                       "\" fix_single=true: " + reason);
+		}
+		if (!is_chinese && !is_non_letter && !spelled) {
+			auto fix = impl_->try_single_fix(word, verbose_log);
 			if (fix.has_value()) {
 				result.text = fix.value();
 				result.status[0] = 2;
+				if (verbose_log)
+					verbose_log->push_back("  → FIX: \"" + word + "\" → \"" +
+					                     result.text + "\" (status=2)");
 				return result;
 			}
 		}
 		result.text = input;
+		if (verbose_log)
+			verbose_log->push_back("  → NO FIX, PASS-THROUGH");
 		return result;
 	}
 
@@ -250,6 +305,20 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 		if (short_)  classes[i] = SHORT_VALID;
 		else if (!valid)       classes[i] = INVALID;
 		else              classes[i] = LONG_VALID;
+		if (verbose_log) {
+			std::string cls;
+			if (classes[i] == INVALID) cls = "INVALID";
+			else if (classes[i] == SHORT_VALID) cls = "SHORT_VALID";
+			else cls = "LONG_VALID";
+			std::string reason;
+			if (inert) reason = "inert (CJK/punctuation)";
+			else if (short_) reason = "short (len<=2, dict check skipped)";
+			else if (valid) reason = "dict OK";
+			else reason = "not in dict";
+			verbose_log->push_back("  class[" + std::to_string(i) +
+			                       "] = " + cls + " (\"" + tokens[i] +
+			                       "\") — " + reason);
+		}
 	}
 
 	// Step 3 — Precompute all adjacent merge candidates.
@@ -275,6 +344,24 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 		         !(Impl::is_stop_word(tokens[i]) && Impl::is_stop_word(tokens[i + 1])))
 			try_merge = true;
 
+		if (verbose_log) {
+			std::string pair = "merge[" + std::to_string(i) + "+" +
+			                   std::to_string(i + 1) + "] ";
+			pair += "(\"" + tokens[i] + "\", \"" + tokens[i + 1] + "\") ";
+			if (!try_merge) {
+				pair += "try_merge=false — ";
+				if (left == LONG_VALID)
+					pair += "left is LONG_VALID";
+				else if (right == LONG_VALID)
+					pair += "right is LONG_VALID";
+				else
+					pair += "stop-word guard blocked";
+				verbose_log->push_back("  " + pair + " → SKIP");
+			} else {
+				verbose_log->push_back("  " + pair + "try_merge=true");
+			}
+		}
+
 		if (try_merge) {
 			bool is_short_short = (left == SHORT_VALID && right == SHORT_VALID);
 			bool spelled = false;
@@ -286,6 +373,14 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 					info.word = candidate;
 					info.logprob = impl_->get_logprob(candidate);
 					spelled = true;
+					if (verbose_log) verbose_log->push_back(
+					    "    candidate \"" + candidate +
+					    "\" spell()=true → CANDIDATE (logprob=" +
+					    std::to_string(info.logprob) + ")");
+				} else if (verbose_log) {
+					verbose_log->push_back(
+					    "    candidate \"" + candidate +
+					    "\" spell()=false → REJECT");
 				}
 			}
 			if (!spelled) {
@@ -293,6 +388,19 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 				    Impl::to_upper(tokens[i] + tokens[i + 1]);
 				bool dict_ok = impl_->dict.spell(upper_candidate);
 				bool acronym_ok = impl_->is_known_acronym(upper_candidate);
+				if (verbose_log) {
+					verbose_log->push_back(
+					    "    candidate \"" + upper_candidate +
+					    "\" dict=" + (dict_ok ? "true" : "false") +
+					    " acro=" + (acronym_ok ? "true" : "false"));
+					if (is_short_short) {
+						float lp = acronym_ok ? -5.0f : impl_->get_logprob(upper_candidate);
+						verbose_log->push_back(
+						    "    SHORT+SHORT ARPA threshold check: lp=" +
+						    std::to_string(lp) + " >= -5.9? " +
+						    (lp >= -5.9f ? "PASS" : "FAIL"));
+					}
+				}
 				if (dict_ok || acronym_ok) {
 					float lp = acronym_ok ? -5.0f : impl_->get_logprob(upper_candidate);
 					if (!is_short_short || lp >= -5.9f) {
@@ -300,7 +408,15 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 						info.word = acronym_ok ? upper_candidate
 						                       : (tokens[i] + tokens[i + 1]);
 						info.logprob = lp;
+						if (verbose_log) verbose_log->push_back(
+						    "    → CANDIDATE (logprob=" + std::to_string(lp) + ")");
+					} else if (verbose_log) {
+						verbose_log->push_back(
+						    "    → REJECT (SHORT+SHORT threshold not met)");
 					}
+				} else if (verbose_log) {
+					verbose_log->push_back(
+					    "    → REJECT (neither dict nor acronym matches)");
 				}
 			}
 		}
@@ -309,15 +425,30 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 
 	// Step 4 — Greedy 3-token lookahead scan.
 	std::vector<std::string> merged;
-	std::vector<size_t> orig_start;  // maps each merged token back to first original index
+	std::vector<size_t> orig_start;
 	merged.reserve(tokens.size());
 	orig_start.reserve(tokens.size());
 	for (size_t i = 0; i < tokens.size();) {
 		bool c1_valid = (i + 1 < tokens.size()) && merge_info[i].valid;
 		bool c2_valid = (i + 2 < tokens.size()) && merge_info[i + 1].valid;
+		if (verbose_log) {
+			verbose_log->push_back(
+			    "  lookahead at token[" + std::to_string(i) +
+			    "] c1=" + (c1_valid ? "true" : "false") +
+			    " c2=" + (c2_valid ? "true" : "false"));
+		}
 
 		if (c1_valid && c2_valid) {
-			if (merge_info[i].logprob >= merge_info[i + 1].logprob) {
+			bool left_wins = merge_info[i].logprob >= merge_info[i + 1].logprob;
+			if (verbose_log) {
+				verbose_log->push_back(
+				    "    compare: lp[" + std::to_string(i) + "]=" +
+				    std::to_string(merge_info[i].logprob) +
+				    " vs lp[" + std::to_string(i + 1) + "]=" +
+				    std::to_string(merge_info[i + 1].logprob) + " → " +
+				    (left_wins ? "merge left" : "skip left, advance"));
+			}
+			if (left_wins) {
 				merged.push_back(merge_info[i].word);
 				orig_start.push_back(i);
 				result.status[i] = 1;
@@ -329,12 +460,17 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 				++i;
 			}
 		} else if (c1_valid) {
+			if (verbose_log) verbose_log->push_back(
+			    "    → MERGE tokens[" + std::to_string(i) + "+" +
+			    std::to_string(i + 1) + "] into \"" + merge_info[i].word + "\"");
 			merged.push_back(merge_info[i].word);
 			orig_start.push_back(i);
 			result.status[i] = 1;
 			result.status[i + 1] = -1;
 			i += 2;
 		} else {
+			if (verbose_log) verbose_log->push_back(
+			    "    → KEEP token[" + std::to_string(i) + "] \"" + tokens[i] + "\" (unchanged)");
 			merged.push_back(tokens[i]);
 			orig_start.push_back(i);
 			++i;
@@ -343,15 +479,33 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 
 	// Step 5 — Optional single-word correction pass.
 	if (fix_single) {
+		if (verbose_log) verbose_log->push_back("[fix_single pass]");
 		for (size_t k = 0; k < merged.size(); ++k) {
 			std::string& word = merged[k];
-			if (Impl::has_chinese_utf8(word)) continue;
-			if (Impl::is_pure_ascii_non_letter(word)) continue;
-			if (impl_->dict.spell(word)) continue;
-			auto fix = impl_->try_single_fix(word);
+			if (Impl::has_chinese_utf8(word)) {
+				if (verbose_log) verbose_log->push_back(
+				    "  word[\"" + word + "\"] CJK/inert → SKIP");
+				continue;
+			}
+			if (Impl::is_pure_ascii_non_letter(word)) {
+				if (verbose_log) verbose_log->push_back(
+				    "  word[\"" + word + "\"] pure ASCII non-letter → SKIP");
+				continue;
+			}
+			if (impl_->dict.spell(word)) {
+				if (verbose_log) verbose_log->push_back(
+				    "  word[\"" + word + "\"] dict OK → SKIP");
+				continue;
+			}
+			auto fix = impl_->try_single_fix(word, verbose_log);
 			if (fix.has_value()) {
 				word = fix.value();
 				result.status[orig_start[k]] = 2;
+				if (verbose_log) verbose_log->push_back(
+				    "  → FIX applied \"" + word + "\" (status=2)");
+			} else {
+				if (verbose_log) verbose_log->push_back(
+				    "  → NO FIX for \"" + word + "\" (unchanged)");
 			}
 		}
 	}
@@ -361,6 +515,21 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(const std::string& input, 
 	for (size_t i = 0; i < merged.size(); ++i) {
 		if (i > 0) result.text.push_back(' ');
 		result.text += merged[i];
+	}
+
+	if (verbose_log) {
+		verbose_log->push_back("[result] \"" + input + "\" → \"" +
+		                       result.text + "\"");
+		for (size_t i = 0; i < result.status.size(); ++i) {
+			std::string label;
+			if (result.status[i] == 1) label = "merged-with-next";
+			else if (result.status[i] == -1) label = "merged-by-prev";
+			else if (result.status[i] == 2) label = "substituted";
+			else label = "unchanged";
+			verbose_log->push_back(
+			    "  status[" + std::to_string(i) + "]=" +
+			    std::to_string(result.status[i]) + " (" + label + ")");
+		}
 	}
 	return result;
 }

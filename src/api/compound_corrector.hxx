@@ -89,8 +89,11 @@ public:
 	std::string Correct(const std::string& input, bool fix_single = false) const;
 
 	// Same as Correct() but also returns per-token status codes.
+	// When verbose_log is non-null, detailed debug strings are appended
+	// explaining each keep / merge / fix decision.
 	CorrectionResult CorrectWithStatus(const std::string& input,
-	                                    bool fix_single = false) const;
+	                                    bool fix_single = false,
+	                                    std::vector<std::string>* verbose_log = nullptr) const;
 
 private:
 	// Internal spell-check backend (loaded once at construction).
