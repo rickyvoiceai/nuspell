@@ -133,7 +133,8 @@ auto decode_flags(string_view s, Flag_Type t, const Encoding& enc,
 	case Ft::NUMBER:
 		for (auto p = begin_ptr(s);;) {
 			unsigned long val;
-			auto ok = parse_uint(p, end_ptr(s), val);
+			const char* end2;
+			auto ok = parse_uint_ptr(p, end_ptr(s), val, &end2);
 			if (!ok)
 				return Err::INVALID_NUMERIC_FLAG;
 			if (val > 65535)
@@ -141,14 +142,9 @@ auto decode_flags(string_view s, Flag_Type t, const Encoding& enc,
 			auto flag = static_cast<uint16_t>(val);
 			out.push_back(flag);
 
-			{
-				const char* comma = p;
-				while (comma < end_ptr(s) && *comma >= '0' && *comma <= '9')
-					++comma;
-				if (comma == end_ptr(s) || *comma != ',')
-					break;
-				p = comma + 1;
-			}
+			if (end2 == end_ptr(s) || *end2 != ',')
+				break;
+			p = end2 + 1;
 		}
 		break;
 	case Ft::UTF8: {
