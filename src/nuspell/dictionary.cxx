@@ -60,17 +60,17 @@ auto Dictionary::load_aff_dic(std::istream& aff, std::istream& dic) -> void
 		throw Dictionary_Loading_Error(std::move(err_msg).str());
 }
 
-static auto open_aff_dic(const filesystem::path& aff_path)
+static auto open_aff_dic(const path& aff_path)
     -> pair<ifstream, ifstream>
 {
-	auto aff_file = ifstream(aff_path);
+	auto aff_file = ifstream(aff_path.string());
 	if (aff_file.fail()) {
 		auto err = "Aff file " + aff_path.string() + " not found.";
 		throw Dictionary_Loading_Error(err);
 	}
 	auto dic_path = aff_path;
 	dic_path.replace_extension(".dic");
-	auto dic_file = ifstream(dic_path);
+	auto dic_file = ifstream(dic_path.string());
 	if (dic_file.fail()) {
 		auto err = "Dic file " + dic_path.string() + " not found.";
 		throw Dictionary_Loading_Error(err);
@@ -85,16 +85,20 @@ static auto open_aff_dic(const filesystem::path& aff_path)
  * @param aff_path path to .aff file. The path of .dic is inffered from this.
  * @throws Dictionary_Loading_Error on error
  */
-auto Dictionary::load_aff_dic(const std::filesystem::path& aff_path) -> void
+auto Dictionary::load_aff_dic(const path& aff_path) -> void
 {
-	auto [aff, dic] = open_aff_dic(aff_path);
+	auto open_result = open_aff_dic(aff_path);
+	auto& aff = open_result.first;
+	auto& dic = open_result.second;
 	load_aff_dic(aff, dic);
 }
 
-auto Dictionary::load_aff_dic_internal(const std::filesystem::path& aff_path,
+auto Dictionary::load_aff_dic_internal(const path& aff_path,
                                        std::ostream& err_msg) -> void
 {
-	auto [aff, dic] = open_aff_dic(aff_path);
+	auto open_result = open_aff_dic(aff_path);
+	auto& aff = open_result.first;
+	auto& dic = open_result.second;
 	if (!parse_aff_dic(aff, dic, err_msg))
 		throw Dictionary_Loading_Error("Parsing error.");
 }
@@ -143,7 +147,7 @@ auto Dictionary::load_from_path(const std::string& file_path_without_extension)
  * @param word any word
  * @return true if correct, false otherwise
  */
-auto Dictionary::spell(std::string_view word) const -> bool
+auto Dictionary::spell(string_view word) const -> bool
 {
 	auto ok_enc = validate_utf8(word);
 	if (unlikely(word.size() > 360))
@@ -159,7 +163,7 @@ auto Dictionary::spell(std::string_view word) const -> bool
  * @param[in] word incorrect word
  * @param[out] out this object will be populated with the suggestions
  */
-auto Dictionary::suggest(std::string_view word,
+auto Dictionary::suggest(string_view word,
                          std::vector<std::string>& out) const -> void
 {
 	out.clear();

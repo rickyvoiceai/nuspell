@@ -20,7 +20,7 @@
 #include "defines.hxx"
 
 #include <string>
-#include <string_view>
+#include "string_view.hxx"
 #include <unicode/utf16.h>
 #include <unicode/utf8.h>
 
@@ -29,22 +29,21 @@ NUSPELL_BEGIN_INLINE_NAMESPACE
 
 // UTF-8, work on malformed
 
-inline constexpr auto u8_max_cp_length = U8_MAX_LENGTH;
+constexpr auto u8_max_cp_length = U8_MAX_LENGTH;
 
 auto inline u8_is_cp_error(int32_t cp) -> bool { return cp < 0; }
 
 template <class Range>
 auto u8_advance_cp(const Range& str, size_t& i, int32_t& cp) -> void
 {
-	using std::size, std::data;
 #if U_ICU_VERSION_MAJOR_NUM <= 60
-	auto s_ptr = data(str);
+	auto s_ptr = str.data();
 	int32_t idx = i;
-	int32_t len = size(str);
+	int32_t len = str.size();
 	U8_NEXT(s_ptr, idx, len, cp);
 	i = idx;
 #else
-	auto len = size(str);
+	auto len = str.size();
 	U8_NEXT(str, i, len, cp);
 #endif
 }
@@ -52,16 +51,14 @@ auto u8_advance_cp(const Range& str, size_t& i, int32_t& cp) -> void
 template <class Range>
 auto u8_advance_index(const Range& str, size_t& i) -> void
 {
-	using std::size;
-	auto len = size(str);
+	auto len = str.size();
 	U8_FWD_1(str, i, len);
 }
 
 template <class Range>
 auto u8_reverse_cp(const Range& str, size_t& i, int32_t& cp) -> void
 {
-	using std::size, std::data;
-	auto ptr = data(str);
+	auto ptr = str.data();
 	int32_t idx = i;
 	U8_PREV(ptr, 0, idx, cp);
 	i = idx;
@@ -70,8 +67,7 @@ auto u8_reverse_cp(const Range& str, size_t& i, int32_t& cp) -> void
 template <class Range>
 auto u8_reverse_index(const Range& str, size_t& i) -> void
 {
-	using std::size, std::data;
-	auto ptr = data(str);
+	auto ptr = str.data();
 	int32_t idx = i;
 	U8_BACK_1(ptr, 0, idx);
 	i = idx;
@@ -79,17 +75,16 @@ auto u8_reverse_index(const Range& str, size_t& i) -> void
 
 template <class Range>
 auto u8_write_cp_and_advance(Range& buf, size_t& i, int32_t cp, bool& error)
-    -> void
+     -> void
 {
-	using std::size, std::data;
 #if U_ICU_VERSION_MAJOR_NUM <= 60
-	auto ptr = data(buf);
+	auto ptr = buf.data();
 	int32_t idx = i;
-	int32_t len = size(buf);
+	int32_t len = buf.size();
 	U8_APPEND(buf, idx, len, cp, error);
 	i = idx;
 #else
-	auto len = size(buf);
+	auto len = buf.size();
 	U8_APPEND(buf, i, len, cp, error);
 #endif
 }
@@ -128,23 +123,21 @@ auto valid_u8_write_cp_and_advance(Range& buf, size_t& i, char32_t cp) -> void
 
 // UTF-16, work on malformed
 
-inline constexpr auto u16_max_cp_length = U16_MAX_LENGTH;
+constexpr auto u16_max_cp_length = U16_MAX_LENGTH;
 
 auto inline u16_is_cp_error(int32_t cp) -> bool { return U_IS_SURROGATE(cp); }
 
 template <class Range>
 auto u16_advance_cp(const Range& str, size_t& i, int32_t& cp) -> void
 {
-	using std::size;
-	auto len = size(str);
+	auto len = str.size();
 	U16_NEXT(str, i, len, cp);
 }
 
 template <class Range>
 auto u16_advance_index(const Range& str, size_t& i) -> void
 {
-	using std::size;
-	auto len = size(str);
+	auto len = str.size();
 	U16_FWD_1(str, i, len);
 }
 
@@ -162,10 +155,9 @@ auto u16_reverse_index(const Range& str, size_t& i) -> void
 
 template <class Range>
 auto u16_write_cp_and_advance(Range& buf, size_t& i, int32_t cp, bool& error)
-    -> void
+     -> void
 {
-	using std::size;
-	auto len = size(buf);
+	auto len = buf.size();
 	U16_APPEND(buf, i, len, cp, error);
 }
 
@@ -206,6 +198,8 @@ auto valid_u16_write_cp_and_advance(Range& buf, size_t& i, char32_t cp) -> void
 struct U8_CP_Pos {
 	size_t begin_i = 0;
 	size_t end_i = begin_i;
+	U8_CP_Pos() = default;
+	U8_CP_Pos(size_t b, size_t e) : begin_i(b), end_i(e) {}
 };
 
 class U8_Encoded_CP {
@@ -213,7 +207,7 @@ class U8_Encoded_CP {
 	int sz;
 
       public:
-	explicit U8_Encoded_CP(std::string_view str, U8_CP_Pos pos)
+	U8_Encoded_CP(string_view str, U8_CP_Pos pos)
 	    : sz(pos.end_i - pos.begin_i)
 	{
 		auto i = sz;
@@ -231,9 +225,13 @@ class U8_Encoded_CP {
 	}
 	auto size() const noexcept -> size_t { return sz; }
 	auto data() const noexcept -> const char* { return d; }
-	operator std::string_view() const noexcept
+	operator string_view() const noexcept
 	{
-		return std::string_view(data(), size());
+		return string_view(data(), size());
+	}
+	operator std::string() const
+	{
+		return std::string(data(), size());
 	}
 	auto copy_to(std::string& str, size_t j) const
 	{
@@ -249,9 +247,9 @@ class U8_Encoded_CP {
 auto inline u8_swap_adjacent_cp(std::string& str, size_t i1, size_t i2,
                                 size_t i3) -> size_t
 {
-	auto cp1 = U8_Encoded_CP(str, {i1, i2});
-	auto cp2 = U8_Encoded_CP(str, {i2, i3});
-	auto new_i2 = i1 + std::size(cp2);
+	auto cp1 = U8_Encoded_CP(str, U8_CP_Pos{i1, i2});
+	auto cp2 = U8_Encoded_CP(str, U8_CP_Pos{i2, i3});
+	auto new_i2 = i1 + cp2.size();
 	cp1.copy_to(str, new_i2);
 	cp2.copy_to(str, i1);
 	return new_i2;
@@ -260,16 +258,15 @@ auto inline u8_swap_adjacent_cp(std::string& str, size_t i1, size_t i2,
 auto inline u8_swap_cp(std::string& str, U8_CP_Pos pos1, U8_CP_Pos pos2)
     -> std::pair<size_t, size_t>
 {
-	using std::size;
 	auto cp1 = U8_Encoded_CP(str, pos1);
 	auto cp2 = U8_Encoded_CP(str, pos2);
-	auto new_p1_end_i = pos1.begin_i + size(cp2);
-	auto new_p2_begin_i = pos2.end_i - size(cp1);
+	auto new_p1_end_i = pos1.begin_i + cp2.size();
+	auto new_p2_begin_i = pos2.end_i - cp1.size();
 	std::char_traits<char>::move(&str[new_p1_end_i], &str[pos1.end_i],
 	                             pos2.begin_i - pos1.end_i);
 	cp2.copy_to(str, pos1.begin_i);
 	cp1.copy_to(str, new_p2_begin_i);
-	return {new_p1_end_i, new_p2_begin_i};
+	return std::make_pair(new_p1_end_i, new_p2_begin_i);
 }
 
 // below go func without out-parametars
@@ -292,7 +289,7 @@ struct Write_CP_Idx_and_Error {
 };
 
 template <class Range>
-[[nodiscard]] auto u8_next_cp(const Range& str, size_t i) -> Idx_And_Next_CP
+NUSPELL_NODISCARD auto u8_next_cp(const Range& str, size_t i) -> Idx_And_Next_CP
 {
 	int32_t cp;
 	u8_advance_cp(str, i, cp);
@@ -300,14 +297,14 @@ template <class Range>
 }
 
 template <class Range>
-[[nodiscard]] auto u8_next_index(const Range& str, size_t i) -> size_t
+NUSPELL_NODISCARD auto u8_next_index(const Range& str, size_t i) -> size_t
 {
 	u8_advance_index(str, i);
 	return i;
 }
 
 template <class Range>
-[[nodiscard]] auto u8_prev_cp(const Range& str, size_t i) -> Idx_And_Prev_CP
+NUSPELL_NODISCARD auto u8_prev_cp(const Range& str, size_t i) -> Idx_And_Prev_CP
 {
 	int32_t cp;
 	u8_reverse_cp(str, i, cp);
@@ -315,14 +312,14 @@ template <class Range>
 }
 
 template <class Range>
-[[nodiscard]] auto u8_prev_index(const Range& str, size_t i) -> size_t
+NUSPELL_NODISCARD auto u8_prev_index(const Range& str, size_t i) -> size_t
 {
 	u8_reverse_index(str, i);
 	return i;
 }
 
 template <class Range>
-[[nodiscard]] auto u8_write_cp(Range& buf, size_t i, int32_t cp)
+NUSPELL_NODISCARD auto u8_write_cp(Range& buf, size_t i, int32_t cp)
     -> Write_CP_Idx_and_Error
 {
 	bool err;
@@ -343,7 +340,7 @@ struct Idx_And_Prev_CP_Valid {
 };
 
 template <class Range>
-[[nodiscard]] auto valid_u8_next_cp(const Range& str, size_t i)
+NUSPELL_NODISCARD auto valid_u8_next_cp(const Range& str, size_t i)
     -> Idx_And_Next_CP_Valid
 {
 	char32_t cp;
@@ -352,14 +349,14 @@ template <class Range>
 }
 
 template <class Range>
-[[nodiscard]] auto valid_u8_next_index(const Range& str, size_t i) -> size_t
+NUSPELL_NODISCARD auto valid_u8_next_index(const Range& str, size_t i) -> size_t
 {
 	valid_u8_advance_index(str, i);
 	return i;
 }
 
 template <class Range>
-[[nodiscard]] auto valid_u8_prev_cp(const Range& str, size_t i)
+NUSPELL_NODISCARD auto valid_u8_prev_cp(const Range& str, size_t i)
     -> Idx_And_Prev_CP_Valid
 {
 	char32_t cp;
@@ -368,14 +365,14 @@ template <class Range>
 }
 
 template <class Range>
-[[nodiscard]] auto valid_u8_prev_index(const Range& str, size_t i) -> size_t
+NUSPELL_NODISCARD auto valid_u8_prev_index(const Range& str, size_t i) -> size_t
 {
 	valid_u8_reverse_index(str, i);
 	return i;
 }
 
 template <class Range>
-[[nodiscard]] auto valid_u8_write_cp(Range& buf, size_t i, int32_t cp) -> size_t
+NUSPELL_NODISCARD auto valid_u8_write_cp(Range& buf, size_t i, int32_t cp) -> size_t
 {
 	valid_u8_write_cp_and_advance(buf, i, cp);
 	return i;

@@ -31,7 +31,7 @@ struct NUSPELL_EXPORT Suggester : public Checker {
 		HAS_HIGH_QUALITY_SUGS = true
 	};
 
-	auto suggest_priv(std::string_view input_word, List_Strings& out) const
+	auto suggest_priv(string_view input_word, List_Strings& out) const
 	    -> void;
 
 	auto suggest_low(std::string& word, List_Strings& out) const
@@ -48,7 +48,7 @@ struct NUSPELL_EXPORT Suggester : public Checker {
 	auto try_rep_suggestion(std::string& word, List_Strings& out) const
 	    -> void;
 
-	auto max_attempts_for_long_alogs(std::string_view word) const -> size_t;
+	auto max_attempts_for_long_alogs(string_view word) const -> size_t;
 
 	auto map_suggest(std::string& word, List_Strings& out) const -> void;
 
@@ -86,7 +86,7 @@ struct NUSPELL_EXPORT Suggester : public Checker {
 	    -> void;
 
 	auto expand_root_word_for_ngram(Word_List::const_reference root,
-	                                std::string_view wrong,
+	                                string_view wrong,
 	                                List_Strings& expanded_list,
 	                                std::vector<bool>& cross_affix) const
 	    -> void;

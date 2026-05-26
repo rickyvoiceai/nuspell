@@ -20,7 +20,6 @@
 #include "utils.hxx"
 
 #include <algorithm>
-#include <filesystem>
 #include <set>
 
 #if __has_include(<unistd.h>)
@@ -39,18 +38,16 @@ using namespace std;
 namespace nuspell {
 NUSPELL_BEGIN_INLINE_NAMESPACE
 
-using fs_path = std::filesystem::path;
-using std::filesystem::directory_entry;
-using std::filesystem::directory_iterator;
-using std::filesystem::filesystem_error;
+using fs_path = path;
 
 template <class CharT>
 static auto& split_to_paths(basic_string_view<CharT> s, CharT sep,
-                            vector<fs_path>& out)
+                            vector<path>& out)
 {
+	using std::basic_string;
 	for (size_t i1 = 0;;) {
 		auto i2 = s.find(sep, i1);
-		out.emplace_back(s.substr(i1, i2 - i1));
+		out.emplace_back(basic_string<CharT>(s.substr(i1, i2 - i1)));
 		if (i2 == s.npos)
 			break;
 		i1 = i2 + 1;
@@ -73,7 +70,7 @@ auto append_default_dir_paths(vector<fs_path>& paths) -> void
 	auto dicpath = getenv("DICPATH");
 #endif
 	if (dicpath && *dicpath)
-		split_to_paths(basic_string_view(dicpath), PATHSEP, paths);
+		split_to_paths(string_view(dicpath), PATHSEP, paths);
 
 #ifdef _POSIX_VERSION
 	auto xdg_data_home = getenv("XDG_DATA_HOME");
@@ -86,14 +83,14 @@ auto append_default_dir_paths(vector<fs_path>& paths) -> void
 	if (xdg_data_dirs && *xdg_data_dirs) {
 		auto data_dirs = string_view(xdg_data_dirs);
 
-		auto i = size(paths);
+		auto i = paths.size();
 		split_to_paths(data_dirs, PATHSEP, paths);
-		for (; i != size(paths); ++i)
+		for (; i != paths.size(); ++i)
 			paths[i] /= "hunspell";
 
-		i = size(paths);
+		i = paths.size();
 		split_to_paths(data_dirs, PATHSEP, paths);
-		for (; i != size(paths); ++i)
+		for (; i != paths.size(); ++i)
 			paths[i] /= "myspell";
 	}
 	else {
@@ -123,28 +120,28 @@ static auto append_lo_global(const fs_path& p, vector<fs_path>& paths) -> void
 			continue;
 		if (!begins_with(de.path().filename().string(), "dict-"))
 			continue;
-		paths.push_back(de);
+		paths.push_back(de.path());
 	}
 }
 
 static auto append_lo_user(const directory_entry& de1,
                            vector<fs_path>& paths) -> void
 {
-	for (auto& de2 : directory_iterator(de1)) {
+	for (auto& de2 : directory_iterator(de1.path())) {
 		try {
 			if (!de2.is_directory())
 				continue;
 			if (de2.path().extension() != ".oxt")
 				continue;
-			for (auto& de3 : directory_iterator(de2)) {
+			for (auto& de3 : directory_iterator(de2.path())) {
 				if (de3.is_directory() &&
 				    begins_with(de3.path().filename().string(),
 				                "dict")) {
-					paths.push_back(de3);
+					paths.push_back(de3.path());
 				}
 				else if (de3.is_regular_file() &&
 				         de3.path().extension() == ".aff") {
-					paths.push_back(de2);
+					paths.push_back(de2.path());
 					break;
 				}
 			}
@@ -166,23 +163,23 @@ static auto append_lo_user(const directory_entry& de1,
  */
 auto append_libreoffice_dir_paths(vector<fs_path>& paths) -> void
 {
-	using namespace filesystem;
+
 	auto p1 = path();
 	// add LibreOffice global paths
 	try {
 #if _WIN32
 		auto lo_dir = wstring(MAX_PATH - 1, '*');
 		// size in bytes including the zero terminator
-		DWORD lo_dir_sz = (size(lo_dir) + 1) * sizeof(wchar_t);
+		DWORD lo_dir_sz = (lo_dir.size() + 1) * sizeof(wchar_t);
 		auto subkey = L"SOFTWARE\\LibreOffice\\UNO\\InstallPath";
 		auto regerr = RegGetValueW(HKEY_LOCAL_MACHINE, subkey, nullptr,
-		                           RRF_RT_REG_SZ, nullptr, data(lo_dir),
+		                           RRF_RT_REG_SZ, nullptr, lo_dir.data(),
 		                           &lo_dir_sz);
 		lo_dir.resize(lo_dir_sz / sizeof(wchar_t) - 1);
 		if (regerr == ERROR_MORE_DATA) {
 			regerr = RegGetValueW(HKEY_LOCAL_MACHINE, subkey,
 			                      nullptr, RRF_RT_REG_SZ, nullptr,
-			                      data(lo_dir), &lo_dir_sz);
+			                      lo_dir.data(), &lo_dir_sz);
 		}
 		if (regerr == ERROR_SUCCESS) {
 			p1 = lo_dir;
@@ -264,7 +261,6 @@ auto append_libreoffice_dir_paths(vector<fs_path>& paths) -> void
 auto search_dirs_for_one_dict(const vector<fs_path>& dir_paths,
                               const fs_path& dict_name_stem) -> fs_path
 {
-	using std::filesystem::is_regular_file;
 	auto fp = fs_path();
 	for (auto& dir : dir_paths) {
 		fp = dir;
@@ -283,7 +279,7 @@ auto search_dirs_for_one_dict(const vector<fs_path>& dir_paths,
 static auto search_dir_for_dicts(const fs_path& dir_path,
                                  vector<fs_path>& dict_list) -> void
 try {
-	using namespace filesystem;
+
 	auto dics = set<path>();
 	for (auto& entry : directory_iterator(dir_path)) {
 		if (!entry.is_regular_file())
@@ -291,10 +287,14 @@ try {
 		auto& fp = entry.path();
 		auto ext = fp.extension();
 		if (ext == ".dic" || ext == ".aff") {
-			auto [it, inserted] = dics.insert(fp.stem());
-			if (!inserted) // already existed
-				dict_list.emplace_back(fp).replace_extension(
+			auto ins_r = dics.insert(fp.stem());
+			auto it = ins_r.first;
+			auto inserted = ins_r.second;
+			if (!inserted) { // already existed
+				dict_list.emplace_back(fp);
+				dict_list.back().replace_extension(
 				    ".aff");
+			}
 		}
 	}
 }
@@ -341,7 +341,7 @@ auto append_default_dir_paths(std::vector<std::string>& paths) -> void
 {
 	auto out = vector<fs_path>();
 	append_default_dir_paths(out);
-	transform(begin(out), end(out), back_inserter(paths),
+	transform(out.begin(), out.end(), back_inserter(paths),
 	          [](const fs_path& p) { return p.string(); });
 }
 
@@ -349,7 +349,7 @@ auto append_libreoffice_dir_paths(std::vector<std::string>& paths) -> void
 {
 	auto out = vector<fs_path>();
 	append_libreoffice_dir_paths(out);
-	transform(begin(out), end(out), back_inserter(paths),
+	transform(out.begin(), out.end(), back_inserter(paths),
 	          [](const fs_path& p) { return p.string(); });
 }
 
@@ -357,9 +357,9 @@ static auto
 new_to_old_dict_list(vector<fs_path>& new_aff_paths,
                      vector<pair<string, string>>& dict_list) -> void
 {
-	transform(begin(new_aff_paths), end(new_aff_paths),
+	transform(new_aff_paths.begin(), new_aff_paths.end(),
 	          back_inserter(dict_list), [](const fs_path& p) {
-		          return pair{p.stem().string(),
+		  return std::pair<std::string, std::string>{p.stem().string(),
 		                      fs_path(p).replace_extension().string()};
 	          });
 }
@@ -397,7 +397,7 @@ auto find_dictionary(
     const std::string& dict_name)
     -> std::vector<std::pair<std::string, std::string>>::const_iterator
 {
-	return find_if(begin(dict_list), end(dict_list),
+	return find_if(dict_list.begin(), dict_list.end(),
 	               [&](auto& e) { return e.first == dict_name; });
 }
 
@@ -430,7 +430,7 @@ Dict_Finder_For_CLI_Tool_2::Dict_Finder_For_CLI_Tool_2()
 auto Dict_Finder_For_CLI_Tool_2::get_dictionary_path(const fs_path& dict) const
     -> fs_path
 {
-	if (dict.has_stem() && distance(begin(dict), end(dict)) == 1)
+	if (dict.has_stem() && dict.string().find('/') == std::string::npos && dict.string().find('\\') == std::string::npos)
 		return search_dirs_for_one_dict(dir_paths, dict);
 	return dict;
 }

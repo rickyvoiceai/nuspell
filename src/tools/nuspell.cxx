@@ -51,7 +51,8 @@
 
 using namespace std;
 using nuspell::Dictionary, nuspell::Dictionary_Loading_Error,
-    nuspell::Dict_Finder_For_CLI_Tool_2;
+    nuspell::Dict_Finder_For_CLI_Tool_2, nuspell::path,
+    nuspell::v5::string_view;
 namespace {
 enum Mode { NORMAL, HELP, VERSION, LIST_DICTS };
 auto print_help(const char* program_name) -> void
@@ -115,7 +116,7 @@ auto print_version() -> void { cout << ver_str; }
 
 auto list_dictionaries(const Dict_Finder_For_CLI_Tool_2& f) -> void
 {
-	if (empty(f.get_dir_paths())) {
+	if (f.get_dir_paths().empty()) {
 		cout << "No search paths available" << '\n';
 	}
 	else {
@@ -124,9 +125,9 @@ auto list_dictionaries(const Dict_Finder_For_CLI_Tool_2& f) -> void
 			cout << p.string() << '\n';
 		}
 	}
-	auto dicts = vector<filesystem::path>();
+	auto dicts = vector<path>();
 	nuspell::search_dirs_for_dicts(f.get_dir_paths(), dicts);
-	if (empty(dicts)) {
+	if (dicts.empty()) {
 		cout << "No dictionaries available\n";
 	}
 	else {
@@ -144,12 +145,12 @@ auto from_utf8(string_view source, string& dest, UConverter* ucnv,
 {
 	dest.resize(dest.capacity());
 	auto len =
-	    ucnv_fromAlgorithmic(ucnv, UCNV_UTF8, dest.data(), dest.size(),
+	    ucnv_fromAlgorithmic(ucnv, UCNV_UTF8, &dest[0], dest.size(),
 	                         source.data(), source.size(), &uerr);
 	dest.resize(len);
 	if (uerr == U_BUFFER_OVERFLOW_ERROR) {
 		uerr = U_ZERO_ERROR;
-		ucnv_fromAlgorithmic(ucnv, UCNV_UTF8, dest.data(), dest.size(),
+		ucnv_fromAlgorithmic(ucnv, UCNV_UTF8, &dest[0], dest.size(),
 		                     source.data(), source.size(), &uerr);
 	}
 }

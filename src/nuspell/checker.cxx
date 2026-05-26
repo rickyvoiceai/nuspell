@@ -292,7 +292,7 @@ auto Checker::check_simple_word(std::string& s,
                                 Hidden_Homonym skip_hidden_homonym) const
     -> const Flag_Set*
 {
-	for (auto& we : Subrange(words.equal_range(s))) {
+	for (auto& we : make_subrange(words.equal_range(s))) {
 		auto& word_flags = we.second;
 		if (word_flags.contains(need_affix_flag))
 			continue;
@@ -410,7 +410,7 @@ auto Checker::strip_prefix_only(std::string& word,
 		To_Root_Unroot_RAII<Prefix> xxx(word, e);
 		if (!e.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(word_flags, e))
 				continue;
@@ -425,7 +425,7 @@ auto Checker::strip_prefix_only(std::string& word,
 			if (!is_valid_inside_compound<m>(word_flags) &&
 			    !is_valid_inside_compound<m>(e.cont_flags))
 				continue;
-			return {word_entry, e};
+			return Affixing_Result<Prefix>(word_entry, e);
 		}
 	}
 	return {};
@@ -455,7 +455,7 @@ auto Checker::strip_suffix_only(std::string& word,
 		To_Root_Unroot_RAII<Suffix> xxx(word, e);
 		if (!e.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(word_flags, e))
 				continue;
@@ -470,7 +470,7 @@ auto Checker::strip_suffix_only(std::string& word,
 			if (!is_valid_inside_compound<m>(word_flags) &&
 			    !is_valid_inside_compound<m>(e.cont_flags))
 				continue;
-			return {word_entry, e};
+			return Affixing_Result<Suffix>(word_entry, e);
 		}
 	}
 	return {};
@@ -526,7 +526,7 @@ auto Checker::strip_pfx_then_sfx_2(const Prefix& pe, std::string& word,
 		To_Root_Unroot_RAII<Suffix> xxx(word, se);
 		if (!se.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(se, pe) &&
 			    !cross_valid_inner_outer(word_flags, pe))
@@ -545,7 +545,7 @@ auto Checker::strip_pfx_then_sfx_2(const Prefix& pe, std::string& word,
 			    !is_valid_inside_compound<m>(se.cont_flags) &&
 			    !is_valid_inside_compound<m>(pe.cont_flags))
 				continue;
-			return {word_entry, se, pe};
+			return Affixing_Result<Suffix, Prefix>(word_entry, se, pe);
 		}
 	}
 
@@ -602,7 +602,7 @@ auto Checker::strip_sfx_then_pfx_2(const Suffix& se, std::string& word,
 		To_Root_Unroot_RAII<Prefix> xxx(word, pe);
 		if (!pe.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(pe, se) &&
 			    !cross_valid_inner_outer(word_flags, se))
@@ -621,7 +621,7 @@ auto Checker::strip_sfx_then_pfx_2(const Suffix& se, std::string& word,
 			    !is_valid_inside_compound<m>(se.cont_flags) &&
 			    !is_valid_inside_compound<m>(pe.cont_flags))
 				continue;
-			return {word_entry, pe, se};
+			return Affixing_Result<Prefix, Suffix>(word_entry, pe, se);
 		}
 	}
 	return {};
@@ -672,7 +672,7 @@ auto Checker::strip_pfx_then_sfx_comm_2(
 		To_Root_Unroot_RAII<Suffix> xxx(word, se);
 		if (!se.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 
 			auto valid_cross_pe_outer =
@@ -702,7 +702,7 @@ auto Checker::strip_pfx_then_sfx_comm_2(
 			    !is_valid_inside_compound<m>(se.cont_flags) &&
 			    !is_valid_inside_compound<m>(pe.cont_flags))
 				continue;
-			return {word_entry, se, pe};
+			return Affixing_Result<Suffix, Prefix>(word_entry, se, pe);
 		}
 	}
 
@@ -760,7 +760,7 @@ auto Checker::strip_sfx_then_sfx_2(const Suffix& se1, std::string& word,
 		To_Root_Unroot_RAII<Suffix> xxx(word, se2);
 		if (!se2.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(word_flags, se2))
 				continue;
@@ -772,7 +772,7 @@ auto Checker::strip_sfx_then_sfx_2(const Suffix& se1, std::string& word,
 			    word_flags.contains(HIDDEN_HOMONYM_FLAG))
 				continue;
 			// needflag check here if needed
-			return {word_entry, se2, se1};
+			return Affixing_Result<Suffix, Suffix>(word_entry, se2, se1);
 		}
 	}
 	return {};
@@ -827,7 +827,7 @@ auto Checker::strip_pfx_then_pfx_2(const Prefix& pe1, std::string& word,
 		To_Root_Unroot_RAII<Prefix> xxx(word, pe2);
 		if (!pe2.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(word_flags, pe2))
 				continue;
@@ -839,7 +839,7 @@ auto Checker::strip_pfx_then_pfx_2(const Prefix& pe1, std::string& word,
 			    word_flags.contains(HIDDEN_HOMONYM_FLAG))
 				continue;
 			// needflag check here if needed
-			return {word_entry, pe2, pe1};
+			return Affixing_Result<Prefix, Prefix>(word_entry, pe2, pe1);
 		}
 	}
 	return {};
@@ -909,7 +909,7 @@ auto Checker::strip_pfx_2_sfx_3(const Prefix& pe1, const Suffix& se1,
 		To_Root_Unroot_RAII<Suffix> xxx(word, se2);
 		if (!se2.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(se1, pe1) &&
 			    !cross_valid_inner_outer(word_flags, pe1))
@@ -924,7 +924,7 @@ auto Checker::strip_pfx_2_sfx_3(const Prefix& pe1, const Suffix& se1,
 			    word_flags.contains(HIDDEN_HOMONYM_FLAG))
 				continue;
 			// needflag check here if needed
-			return {word_entry};
+			return Affixing_Result<void,void>(word_entry);
 		}
 	}
 
@@ -1002,7 +1002,7 @@ auto Checker::strip_s_p_s_3(const Suffix& se1, const Prefix& pe1,
 		To_Root_Unroot_RAII<Suffix> xxx(word, se2);
 		if (!se2.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(se2, pe1) &&
 			    !cross_valid_inner_outer(word_flags, pe1))
@@ -1017,7 +1017,7 @@ auto Checker::strip_s_p_s_3(const Suffix& se1, const Prefix& pe1,
 			    word_flags.contains(HIDDEN_HOMONYM_FLAG))
 				continue;
 			// needflag check here if needed
-			return {word_entry};
+			return Affixing_Result<void,void>(word_entry);
 		}
 	}
 
@@ -1091,7 +1091,7 @@ auto Checker::strip_2_sfx_pfx_3(const Suffix& se1, const Suffix& se2,
 		To_Root_Unroot_RAII<Prefix> xxx(word, pe1);
 		if (!pe1.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(pe1, se2) &&
 			    !cross_valid_inner_outer(word_flags, se2))
@@ -1106,7 +1106,7 @@ auto Checker::strip_2_sfx_pfx_3(const Suffix& se1, const Suffix& se2,
 			    word_flags.contains(HIDDEN_HOMONYM_FLAG))
 				continue;
 			// needflag check here if needed
-			return {word_entry};
+			return Affixing_Result<void,void>(word_entry);
 		}
 	}
 
@@ -1177,7 +1177,7 @@ auto Checker::strip_sfx_2_pfx_3(const Suffix& se1, const Prefix& pe1,
 		To_Root_Unroot_RAII<Prefix> xxx(word, pe2);
 		if (!pe2.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(pe1, se1) &&
 			    !cross_valid_inner_outer(word_flags, se1))
@@ -1191,7 +1191,7 @@ auto Checker::strip_sfx_2_pfx_3(const Suffix& se1, const Prefix& pe1,
 			if (skip_hidden_homonym &&
 			    word_flags.contains(HIDDEN_HOMONYM_FLAG))
 				continue;
-			return {word_entry};
+			return Affixing_Result<void,void>(word_entry);
 		}
 	}
 
@@ -1269,7 +1269,7 @@ auto Checker::strip_p_s_p_3(const Prefix& pe1, const Suffix& se1,
 		To_Root_Unroot_RAII<Prefix> xxx(word, pe2);
 		if (!pe2.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(pe2, se1) &&
 			    !cross_valid_inner_outer(word_flags, se1))
@@ -1283,7 +1283,7 @@ auto Checker::strip_p_s_p_3(const Prefix& pe1, const Suffix& se1,
 			if (skip_hidden_homonym &&
 			    word_flags.contains(HIDDEN_HOMONYM_FLAG))
 				continue;
-			return {word_entry};
+			return Affixing_Result<void,void>(word_entry);
 		}
 	}
 
@@ -1357,7 +1357,7 @@ auto Checker::strip_2_pfx_sfx_3(const Prefix& pe1, const Prefix& pe2,
 		To_Root_Unroot_RAII<Suffix> xxx(word, se1);
 		if (!se1.check_condition(word))
 			continue;
-		for (auto& word_entry : Subrange(dic.equal_range(word))) {
+		for (auto& word_entry : make_subrange(dic.equal_range(word))) {
 			auto& word_flags = word_entry.second;
 			if (!cross_valid_inner_outer(se1, pe2) &&
 			    !cross_valid_inner_outer(word_flags, pe2))
@@ -1371,7 +1371,7 @@ auto Checker::strip_2_pfx_sfx_3(const Prefix& pe1, const Prefix& pe2,
 			if (skip_hidden_homonym &&
 			    word_flags.contains(HIDDEN_HOMONYM_FLAG))
 				continue;
-			return {word_entry};
+			return Affixing_Result<void,void>(word_entry);
 		}
 	}
 
@@ -1444,11 +1444,11 @@ auto Checker::check_compound(std::string& word, size_t start_pos,
 
 	auto i = start_pos;
 	for (size_t num_cp = 0; num_cp != min_num_cp; ++num_cp) {
-		if (i == size(word))
+		if (i == word.size())
 			return {};
 		valid_u8_advance_index(word, i);
 	}
-	auto last_i = size(word);
+	auto last_i = word.size();
 	for (size_t num_cp = 0; num_cp != min_num_cp; ++num_cp) {
 		if (last_i < i)
 			return {};
@@ -1475,7 +1475,7 @@ auto are_three_code_points_equal(string_view word, size_t i) -> bool
 	auto cp = valid_u8_next_cp(word, i);
 	auto prev_cp = valid_u8_prev_cp(word, i);
 	if (prev_cp.cp == cp.cp) {
-		if (cp.end_i != size(word)) {
+		if (cp.end_i != word.size()) {
 			auto next_cp = valid_u8_next_cp(word, cp.end_i);
 			if (cp.cp == next_cp.cp)
 				return true;
@@ -1589,8 +1589,8 @@ try_simplified_triple:
 	if (prev_cp.cp != prev2_cp.cp)
 		return {};
 	auto const enc_cp = U8_Encoded_CP(prev_cp.cp);
-	word.insert(i, enc_cp);
-	AT_SCOPE_EXIT(word.erase(i, size(enc_cp)));
+	word.insert(i, enc_cp.data(), enc_cp.size());
+	AT_SCOPE_EXIT(word.erase(i, enc_cp.size()));
 	part.assign(word, i, word.npos);
 	part2_entry = check_word_in_compound<AT_COMPOUND_END>(part);
 	if (!part2_entry)
@@ -1607,7 +1607,7 @@ try_simplified_triple:
 
 		// The added char above should not be checked for rep
 		// similarity, instead check the original word.
-		part.erase(i - start_pos, size(enc_cp));
+		part.erase(i - start_pos, enc_cp.size());
 
 		if (is_rep_similar(part))
 			goto try_simplified_triple_recursive;
@@ -1633,7 +1633,7 @@ try_simplified_triple_recursive:
 	//	return {};
 	if (compound_check_rep) {
 		part.assign(word, start_pos);
-		part.erase(i - start_pos, size(enc_cp)); // for the added CP
+		part.erase(i - start_pos, enc_cp.size()); // for the added CP
 		if (is_rep_similar(part))
 			return {};
 		auto& p2word = part2_entry->first;
@@ -1641,7 +1641,7 @@ try_simplified_triple_recursive:
 			part.assign(word, start_pos,
 			            i - start_pos + p2word.size());
 			part.erase(i - start_pos,
-			           size(enc_cp)); // for the added CP
+			           enc_cp.size()); // for the added CP
 			if (is_rep_similar(part))
 				return {};
 		}
@@ -1751,8 +1751,8 @@ auto Checker::check_compound_with_pattern_replacements(
 		if (prev_cp.cp != prev2_cp.cp)
 			continue;
 		auto const enc_cp = U8_Encoded_CP(prev_cp.cp);
-		word.insert(i, enc_cp);
-		AT_SCOPE_EXIT(word.erase(i, size(enc_cp)));
+		word.insert(i, enc_cp.data(), enc_cp.size());
+		AT_SCOPE_EXIT(word.erase(i, enc_cp.size()));
 		part.assign(word, i, word.npos);
 		part2_entry = check_word_in_compound<AT_COMPOUND_END>(part);
 		if (!part2_entry)
@@ -1767,7 +1767,7 @@ auto Checker::check_compound_with_pattern_replacements(
 		if (compound_check_rep) {
 			part.assign(word, start_pos);
 			part.erase(i - start_pos,
-			           size(enc_cp)); // for the added char
+			           enc_cp.size()); // for the added char
 			part.replace(i - start_pos - p.begin_end_chars.idx(),
 			             p.begin_end_chars.str().size(),
 			             p.replacement);
@@ -1796,7 +1796,7 @@ auto Checker::check_compound_with_pattern_replacements(
 		if (compound_check_rep) {
 			part.assign(word, start_pos);
 			part.erase(i - start_pos,
-			           size(enc_cp)); // for the added char
+			           enc_cp.size()); // for the added char
 			part.replace(i - start_pos - p.begin_end_chars.idx(),
 			             p.begin_end_chars.str().size(),
 			             p.replacement);
@@ -1807,7 +1807,7 @@ auto Checker::check_compound_with_pattern_replacements(
 				part.assign(word, start_pos,
 				            i - start_pos + p2word.size());
 				part.erase(i - start_pos,
-				           size(enc_cp)); // for the added char
+				           enc_cp.size()); // for the added char
 				if (is_rep_similar(part))
 					continue;
 			}
@@ -1836,7 +1836,7 @@ auto Checker::check_word_in_compound(std::string& word) const
 		cpd_flag = compound_last_flag;
 
 	auto range = words.equal_range(word);
-	for (auto& we : Subrange(range)) {
+	for (auto& we : make_subrange(range)) {
 		auto& word_flags = we.second;
 		if (word_flags.contains(need_affix_flag))
 			continue;
@@ -1924,7 +1924,7 @@ auto Checker::calc_syllable_modifier(Word_List::const_reference we,
 	return num_syllable_mod;
 }
 
-auto Checker::count_syllables(std::string_view word) const -> size_t
+auto Checker::count_syllables(string_view word) const -> size_t
 {
 	return count_appereances_of(word, compound_syllable_vowels);
 }
@@ -1940,11 +1940,11 @@ auto Checker::check_compound_with_rules(
 
 	auto i = start_pos;
 	for (size_t num_cp = 0; num_cp != min_num_cp; ++num_cp) {
-		if (i == size(word))
+		if (i == word.size())
 			return {};
 		valid_u8_advance_index(word, i);
 	}
-	auto last_i = size(word);
+	auto last_i = word.size();
 	for (size_t num_cp = 0; num_cp != min_num_cp; ++num_cp) {
 		if (last_i < i)
 			return {};
@@ -1954,7 +1954,7 @@ auto Checker::check_compound_with_rules(
 		part.assign(word, start_pos, i - start_pos);
 		auto part1_entry = Word_List::const_pointer();
 		auto range = words.equal_range(part);
-		for (auto& we : Subrange(range)) {
+		for (auto& we : make_subrange(range)) {
 			auto& word_flags = we.second;
 			if (word_flags.contains(need_affix_flag))
 				continue;
@@ -1971,7 +1971,7 @@ auto Checker::check_compound_with_rules(
 		part.assign(word, i, word.npos);
 		auto part2_entry = Word_List::const_pointer();
 		range = words.equal_range(part);
-		for (auto& we : Subrange(range)) {
+		for (auto& we : make_subrange(range)) {
 			auto& word_flags = we.second;
 			if (word_flags.contains(need_affix_flag))
 				continue;

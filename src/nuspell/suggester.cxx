@@ -40,7 +40,7 @@ auto& operator|=(Suggester::High_Quality_Sugs& lhs,
 auto Suggester::suggest_priv(string_view input_word, List_Strings& out) const
     -> void
 {
-	if (empty(input_word))
+	if (input_word.empty())
 		return;
 	auto word = string(input_word);
 	input_substr_replacer.replace(word);
@@ -231,7 +231,7 @@ auto Suggester::suggest_low(std::string& word, List_Strings& out) const
 	    // which then disables the expensive ngram sugs and makes the
 	    // benchmarks happy. In Hunspell, its map_suggest() adds the word as
 	    // suggestion if it's already correct and achieves the same.
-	    (!empty(similarities) &&
+	    (!similarities.empty() &&
 	     check_word(word, FORBID_BAD_FORCEUCASE, SKIP_HIDDEN_HOMONYM));
 	adjacent_swap_suggest(word, out);
 	distant_swap_suggest(word, out);
@@ -385,18 +385,18 @@ auto Checker::is_rep_similar(std::string& word) const -> bool
 
 auto Suggester::max_attempts_for_long_alogs(string_view word) const -> size_t
 {
-	unsigned long long p = size(prefixes) / 20;
-	unsigned long long s = size(suffixes) / 20;
+	unsigned long long p = prefixes.size() / 20;
+	unsigned long long s = suffixes.size() / 20;
 	auto cost = 1 + p + s + p * s;
 	if (!complex_prefixes)
 		cost += s * s + 2 * p * s * s;
 	else
 		cost += p * p + 2 * s * p * p;
-	cost = clamp(cost, 250'000ull, 25'000'000'000ull);
+	cost = std::max<unsigned long long>(250'000ull, std::min<unsigned long long>(cost, 25'000'000'000ull));
 	auto ret = 25'000'000'000 / cost;
 	if (compound_flag || compound_begin_flag || compound_last_flag ||
 	    compound_middle_flag)
-		ret /= size(word);
+		ret /= word.size();
 	return ret;
 }
 
@@ -409,14 +409,14 @@ auto Suggester::map_suggest(std::string& word, List_Strings& out) const -> void
 auto Suggester::map_suggest(std::string& word, List_Strings& out, size_t i,
                             size_t& remaining_attempts) const -> void
 {
-	for (size_t next_i = i; i != size(word); i = next_i) {
+	for (size_t next_i = i; i != word.size(); i = next_i) {
 		valid_u8_advance_index(word, next_i);
 		auto word_cp = U8_Encoded_CP(word, {i, next_i});
 		for (auto& e : similarities) {
 			auto j = e.chars.find(word_cp);
 			if (j == word.npos)
 				goto try_find_strings;
-			for (size_t k = 0, next_k = 0; k != size(e.chars);
+			for (size_t k = 0, next_k = 0; k != e.chars.size();
 			     k = next_k) {
 				valid_u8_advance_index(e.chars, next_k);
 				if (k == j)
@@ -426,39 +426,39 @@ auto Suggester::map_suggest(std::string& word, List_Strings& out, size_t i,
 				--remaining_attempts;
 				auto rep_cp =
 				    string_view(&e.chars[k], next_k - k);
-				word.replace(i, size(word_cp), rep_cp);
+				word.replace(i, word_cp.size(), rep_cp);
 				add_sug_if_correct(word, out);
-				map_suggest(word, out, i + size(rep_cp),
+				map_suggest(word, out, i + rep_cp.size(),
 				            remaining_attempts);
-				word.replace(i, size(rep_cp), word_cp);
+				word.replace(i, rep_cp.size(), word_cp);
 			}
 			for (auto& r : e.strings) {
 				if (remaining_attempts == 0)
 					return;
 				--remaining_attempts;
-				word.replace(i, size(word_cp), r);
+				word.replace(i, word_cp.size(), r);
 				add_sug_if_correct(word, out);
-				map_suggest(word, out, i + size(r),
+				map_suggest(word, out, i + r.size(),
 				            remaining_attempts);
-				word.replace(i, size(r), word_cp);
+				word.replace(i, r.size(), word_cp);
 			}
 		try_find_strings:
 			for (auto& f : e.strings) {
-				if (word.compare(i, size(f), f) != 0)
+				if (word.compare(i, f.size(), f) != 0)
 					continue;
 				for (size_t k = 0, next_k = 0;
-				     k != size(e.chars); k = next_k) {
+				     k != e.chars.size(); k = next_k) {
 					if (remaining_attempts == 0)
 						return;
 					--remaining_attempts;
 					valid_u8_advance_index(e.chars, next_k);
 					auto rep_cp = string_view(&e.chars[k],
 					                          next_k - k);
-					word.replace(i, size(f), rep_cp);
+					word.replace(i, f.size(), rep_cp);
 					add_sug_if_correct(word, out);
-					map_suggest(word, out, i + size(rep_cp),
+					map_suggest(word, out, i + rep_cp.size(),
 					            remaining_attempts);
-					word.replace(i, size(rep_cp), f);
+					word.replace(i, rep_cp.size(), f);
 				}
 				for (auto& r : e.strings) {
 					if (f == r)
@@ -466,11 +466,11 @@ auto Suggester::map_suggest(std::string& word, List_Strings& out, size_t i,
 					if (remaining_attempts == 0)
 						return;
 					--remaining_attempts;
-					word.replace(i, size(f), r);
+					word.replace(i, f.size(), r);
 					add_sug_if_correct(word, out);
-					map_suggest(word, out, i + size(r),
+					map_suggest(word, out, i + r.size(),
 					            remaining_attempts);
-					word.replace(i, size(r), f);
+					word.replace(i, r.size(), f);
 				}
 			}
 		}
@@ -485,7 +485,7 @@ auto Suggester::adjacent_swap_suggest(std::string& word,
 
 	auto i1 = size_t(0);
 	auto i2 = valid_u8_next_index(word, i1);
-	for (size_t i3 = i2; i3 != size(word); i1 = i2, i2 = i3) {
+	for (size_t i3 = i2; i3 != word.size(); i1 = i2, i2 = i3) {
 		valid_u8_advance_index(word, i3);
 		i2 = u8_swap_adjacent_cp(word, i1, i2, i3);
 		add_sug_if_correct(word, out);
@@ -493,16 +493,16 @@ auto Suggester::adjacent_swap_suggest(std::string& word,
 	}
 	i1 = 0;
 	i2 = valid_u8_next_index(word, i1);
-	if (i2 == size(word))
+	if (i2 == word.size())
 		return;
 	auto i3 = valid_u8_next_index(word, i2);
-	if (i3 == size(word))
+	if (i3 == word.size())
 		return;
 	auto i4 = valid_u8_next_index(word, i3);
-	if (i4 == size(word))
+	if (i4 == word.size())
 		return;
 	auto i5 = valid_u8_next_index(word, i4);
-	if (i5 == size(word)) {
+	if (i5 == word.size()) {
 		// word has 4 CPs
 		i2 = u8_swap_adjacent_cp(word, i1, i2, i3);
 		i4 = u8_swap_adjacent_cp(word, i3, i4, i5);
@@ -512,7 +512,7 @@ auto Suggester::adjacent_swap_suggest(std::string& word,
 		return;
 	}
 	auto i6 = valid_u8_next_index(word, i5);
-	if (i6 == size(word)) {
+	if (i6 == word.size()) {
 		// word has 5 CPs
 		i2 = u8_swap_adjacent_cp(word, i1, i2, i3);
 		i5 = u8_swap_adjacent_cp(word, i4, i5, i6);
@@ -528,20 +528,21 @@ auto Suggester::adjacent_swap_suggest(std::string& word,
 auto Suggester::distant_swap_suggest(std::string& word, List_Strings& out) const
     -> void
 {
-	if (empty(word))
+	if (word.empty())
 		return;
 	auto remaining_attempts = max_attempts_for_long_alogs(word);
 	auto i1 = size_t(0);
 	auto i2 = valid_u8_next_index(word, i1);
-	for (auto i3 = i2; i3 != size(word); i1 = i2, i2 = i3) {
+	for (auto i3 = i2; i3 != word.size(); i1 = i2, i2 = i3) {
 		valid_u8_advance_index(word, i3);
-		for (size_t j = i3, j2 = i3; j != size(word); j = j2) {
+		for (size_t j = i3, j2 = i3; j != word.size(); j = j2) {
 			valid_u8_advance_index(word, j2);
 			if (remaining_attempts == 0)
 				return;
 			--remaining_attempts;
-			auto [new_i2, new_j] =
-			    u8_swap_cp(word, {i1, i2}, {j, j2});
+		auto r = u8_swap_cp(word, {i1, i2}, {j, j2});
+		auto new_i2 = r.first;
+		auto new_j = r.second;
 			add_sug_if_correct(word, out);
 			u8_swap_cp(word, {i1, new_i2}, {new_j, j2});
 		}
@@ -552,34 +553,34 @@ auto Suggester::keyboard_suggest(std::string& word, List_Strings& out) const
     -> void
 {
 	auto& kb = keyboard_closeness;
-	for (size_t j = 0, next_j = 0; j != size(word); j = next_j) {
+	for (size_t j = 0, next_j = 0; j != word.size(); j = next_j) {
 		char32_t c;
 		valid_u8_advance_cp(word, next_j, c);
 		auto enc_cp = U8_Encoded_CP(word, {j, next_j});
 		auto upp_c = char32_t(u_toupper(c));
 		if (upp_c != c) {
 			auto enc_upp_c = U8_Encoded_CP(upp_c);
-			word.replace(j, size(enc_cp), enc_upp_c);
+			word.replace(j, enc_cp.size(), enc_upp_c);
 			add_sug_if_correct(word, out);
-			word.replace(j, size(enc_upp_c), enc_cp);
+			word.replace(j, enc_upp_c.size(), enc_cp);
 		}
 		for (auto i = kb.find(enc_cp); i != kb.npos;
-		     i = kb.find(enc_cp, i + size(enc_cp))) {
+		     i = kb.find(enc_cp, i + enc_cp.size())) {
 			if (i != 0 && kb[i - 1] != '|') {
 				auto prev_i = valid_u8_prev_index(kb, i);
 				auto kb_c = U8_Encoded_CP(kb, {prev_i, i});
-				word.replace(j, size(enc_cp), kb_c);
+				word.replace(j, enc_cp.size(), kb_c);
 				add_sug_if_correct(word, out);
-				word.replace(j, size(kb_c), enc_cp);
+				word.replace(j, kb_c.size(), enc_cp);
 			}
-			auto next_i = i + size(enc_cp);
-			if (next_i != size(kb) && kb[next_i] != '|') {
+			auto next_i = i + enc_cp.size();
+			if (next_i != kb.size() && kb[next_i] != '|') {
 				auto next2_i = valid_u8_next_index(kb, next_i);
 				auto kb_c =
 				    U8_Encoded_CP(kb, {next_i, next2_i});
-				word.replace(j, size(enc_cp), kb_c);
+				word.replace(j, enc_cp.size(), kb_c);
 				add_sug_if_correct(word, out);
-				word.replace(j, size(kb_c), enc_cp);
+				word.replace(j, kb_c.size(), enc_cp);
 			}
 		}
 	}
@@ -588,10 +589,10 @@ auto Suggester::keyboard_suggest(std::string& word, List_Strings& out) const
 auto Suggester::extra_char_suggest(std::string& word, List_Strings& out) const
     -> void
 {
-	for (size_t i = 0, next_i = 0; i != size(word); i = next_i) {
+	for (size_t i = 0, next_i = 0; i != word.size(); i = next_i) {
 		valid_u8_advance_index(word, next_i);
 		auto cp = U8_Encoded_CP(word, {i, next_i});
-		word.erase(i, size(cp));
+		word.erase(i, cp.size());
 		add_sug_if_correct(word, out);
 		word.insert(i, cp);
 	}
@@ -601,7 +602,7 @@ auto Suggester::forgotten_char_suggest(std::string& word,
                                        List_Strings& out) const -> void
 {
 	auto remaining_attempts = max_attempts_for_long_alogs(word);
-	for (size_t t = 0, next_t = 0; t != size(try_chars); t = next_t) {
+	for (size_t t = 0, next_t = 0; t != try_chars.size(); t = next_t) {
 		valid_u8_advance_index(try_chars, next_t);
 		auto cp = string_view(&try_chars[t], next_t - t);
 		for (size_t i = 0;; valid_u8_advance_index(word, i)) {
@@ -610,8 +611,8 @@ auto Suggester::forgotten_char_suggest(std::string& word,
 			--remaining_attempts;
 			word.insert(i, cp);
 			add_sug_if_correct(word, out);
-			word.erase(i, size(cp));
-			if (i == size(word))
+			word.erase(i, cp.size());
+			if (i == word.size())
 				break;
 		}
 	}
@@ -620,15 +621,15 @@ auto Suggester::forgotten_char_suggest(std::string& word,
 auto Suggester::move_char_suggest(std::string& word, List_Strings& out) const
     -> void
 {
-	if (empty(word))
+	if (word.empty())
 		return;
 	auto remaining_attempts = max_attempts_for_long_alogs(word);
 	auto i1 = size_t(0);
 	auto i2 = valid_u8_next_index(word, i1);
-	for (auto i3 = i2; i3 != size(word); i1 = i2, i2 = i3) {
+	for (auto i3 = i2; i3 != word.size(); i1 = i2, i2 = i3) {
 		valid_u8_advance_index(word, i3);
 		auto new_i2 = u8_swap_adjacent_cp(word, i1, i2, i3);
-		for (auto j1 = new_i2, j2 = i3, j3 = i3; j3 != size(word);
+		for (auto j1 = new_i2, j2 = i3, j3 = i3; j3 != word.size();
 		     j1 = j2, j2 = j3) {
 			valid_u8_advance_index(word, j3);
 			if (remaining_attempts == 0) {
@@ -645,7 +646,7 @@ auto Suggester::move_char_suggest(std::string& word, List_Strings& out) const
 		rotate(begin(word) + i1, end(word) - (i2 - i1), end(word));
 	}
 
-	auto i3 = size(word);
+	auto i3 = word.size();
 	i2 = valid_u8_prev_index(word, i3);
 	for (i1 = i2; i1 != 0; i3 = i2, i2 = i1) {
 		valid_u8_reverse_index(word, i1);
@@ -672,11 +673,11 @@ auto Suggester::bad_char_suggest(std::string& word, List_Strings& out) const
     -> void
 {
 	auto remaining_attempts = max_attempts_for_long_alogs(word);
-	for (size_t t = 0, next_t = 0; t != size(try_chars); t = next_t) {
+	for (size_t t = 0, next_t = 0; t != try_chars.size(); t = next_t) {
 		char32_t t_cp;
 		valid_u8_advance_cp(try_chars, next_t, t_cp);
 		auto t_enc_cp = string_view(&try_chars[t], next_t - t);
-		for (size_t i = 0, next_i = 0; i != size(word); i = next_i) {
+		for (size_t i = 0, next_i = 0; i != word.size(); i = next_i) {
 			char32_t w_cp;
 			valid_u8_advance_cp(word, next_i, w_cp);
 			auto w_enc_cp = U8_Encoded_CP(word, {i, next_i});
@@ -685,9 +686,9 @@ auto Suggester::bad_char_suggest(std::string& word, List_Strings& out) const
 			if (remaining_attempts == 0)
 				return;
 			--remaining_attempts;
-			word.replace(i, size(w_enc_cp), t_enc_cp);
+			word.replace(i, w_enc_cp.size(), t_enc_cp);
 			add_sug_if_correct(word, out);
-			word.replace(i, size(t_enc_cp), w_enc_cp);
+			word.replace(i, t_enc_cp.size(), w_enc_cp);
 		}
 	}
 }
@@ -699,13 +700,13 @@ auto Suggester::doubled_two_chars_suggest(std::string& word,
 	size_t i[5];
 	size_t j = 0;
 	size_t num_cp = 0;
-	for (; j != size(word) && num_cp != 4; ++num_cp) {
+	for (; j != word.size() && num_cp != 4; ++num_cp) {
 		i[num_cp] = j;
 		valid_u8_advance_cp(word, j, cp[num_cp]);
 	}
 	if (num_cp != 4) // Not really needed. Makes static analysis happy.
 		return;
-	while (j != size(word)) {
+	while (j != word.size()) {
 		i[4] = j;
 		valid_u8_advance_cp(word, j, cp[4]);
 		if (cp[0] == cp[2] && cp[1] == cp[3] && cp[0] == cp[4]) {
@@ -721,7 +722,7 @@ auto Suggester::doubled_two_chars_suggest(std::string& word,
 auto Suggester::two_words_suggest(const std::string& word,
                                   List_Strings& out) const -> void
 {
-	if (empty(word))
+	if (word.empty())
 		return;
 
 	auto w1_num_cp = size_t(0);
@@ -729,7 +730,7 @@ auto Suggester::two_words_suggest(const std::string& word,
 	auto word2 = string();
 	for (size_t i = 0, next_i = 0;; i = next_i, ++w1_num_cp) {
 		valid_u8_advance_index(word, next_i);
-		if (next_i == size(word))
+		if (next_i == word.size())
 			break;
 		word1.append(word, i, next_i - i);
 		// TODO: maybe switch to check_word()
@@ -745,8 +746,8 @@ auto Suggester::two_words_suggest(const std::string& word,
 		if (find(begin(out), end(out), word1) == end(out))
 			out.push_back(word1);
 		auto w2_more_than_1_cp =
-		    valid_u8_next_index(word2, 0) != size(word2);
-		if (w1_num_cp > 1 && w2_more_than_1_cp && !empty(try_chars) &&
+		    valid_u8_next_index(word2, 0) != word2.size();
+		if (w1_num_cp > 1 && w2_more_than_1_cp && !try_chars.empty() &&
 		    (try_chars.find('a') != try_chars.npos ||
 		     try_chars.find('-') != try_chars.npos)) {
 			word1[next_i] = '-';
@@ -918,7 +919,8 @@ auto Suggester::ngram_suggest(const std::string& word_u8,
 	auto dict_word = u32string();
 	for (size_t bucket = 0; bucket != words.bucket_count(); ++bucket) {
 		for (auto& word_entry : words.bucket_data(bucket)) {
-			auto& [dict_word_u8, flags] = word_entry;
+			auto& dict_word_u8 = word_entry.first;
+			auto& flags = word_entry.second;
 			if (flags.contains(forbiddenword_flag) ||
 			    flags.contains(HIDDEN_HOMONYM_FLAG) ||
 			    flags.contains(nosuggest_flag) ||
@@ -989,7 +991,9 @@ auto Suggester::ngram_suggest(const std::string& word_u8,
 	sort_heap(begin(guess_words), end(guess_words)); // is this needed?
 
 	auto lcs_state = vector<size_t>();
-	for (auto& [guess_word, score] : guess_words) {
+	for (auto& guess_word_entry : guess_words) {
+		auto& guess_word = guess_word_entry.word;
+		auto& score = guess_word_entry.score;
 		auto& lower_guess_word = wide_buf;
 		to_lower(guess_word, icu_locale, lower_guess_word);
 		auto lcs = longest_common_subsequence_length(
@@ -1056,12 +1060,13 @@ auto Suggester::ngram_suggest(const std::string& word_u8,
 }
 
 auto Suggester::expand_root_word_for_ngram(
-    Word_List::const_reference root_entry, std::string_view wrong,
+    Word_List::const_reference root_entry, string_view wrong,
     List_Strings& expanded_list, std::vector<bool>& cross_affix) const -> void
 {
 	expanded_list.clear();
 	cross_affix.clear();
-	auto& [root, flags] = root_entry;
+	auto& root = root_entry.first;
+	auto& flags = root_entry.second;
 	if (!flags.contains(need_affix_flag)) {
 		expanded_list.push_back(root);
 		cross_affix.push_back(false);

@@ -26,7 +26,7 @@
 
 #include "suggester.hxx"
 
-#include <filesystem>
+#include "filesystem.hxx"
 
 namespace nuspell {
 NUSPELL_BEGIN_INLINE_NAMESPACE
@@ -43,30 +43,31 @@ class Dictionary_Loading_Error : public std::runtime_error {
  * @brief The only important public class
  */
 class NUSPELL_EXPORT Dictionary : private Suggester {
-	[[deprecated]] Dictionary(std::istream& aff, std::istream& dic);
-
       public:
 	Dictionary();
 	auto load_aff_dic(std::istream& aff, std::istream& dic) -> void;
-	auto load_aff_dic(const std::filesystem::path& aff_path) -> void;
+	auto load_aff_dic(const path& aff_path) -> void;
 
 	/**
 	 * @internal
 	 * @brief Do not use, only for Nuspell's CLI tool
 	 */
-	auto load_aff_dic_internal(const std::filesystem::path& aff_path,
+	auto load_aff_dic_internal(const path& aff_path,
 	                           std::ostream& err_msg) -> void;
 
-	[[deprecated]] auto static load_from_aff_dic(std::istream& aff,
+	NUSPELL_DEPRECATED Dictionary(std::istream& aff, std::istream& dic);
+
+	NUSPELL_DEPRECATED auto static load_from_aff_dic(std::istream& aff,
 	                                             std::istream& dic)
 	    -> Dictionary;
-	[[deprecated]] auto static load_from_path(
+	NUSPELL_DEPRECATED auto static load_from_path(
 	    const std::string& file_path_without_extension) -> Dictionary;
-	auto spell(std::string_view word) const -> bool;
-	auto suggest(std::string_view word, std::vector<std::string>& out) const
+	auto spell(string_view word) const -> bool;
+	auto suggest(string_view word, std::vector<std::string>& out) const
 	    -> void;
 };
 
 NUSPELL_END_INLINE_NAMESPACE
 } // namespace nuspell
+namespace nuspell { using namespace v5; }
 #endif // NUSPELL_DICTIONARY_HXX

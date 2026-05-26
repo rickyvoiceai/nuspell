@@ -19,7 +19,18 @@
 #ifndef NUSPELL_DEFINES_HXX
 #define NUSPELL_DEFINES_HXX
 
-#define NUSPELL_BEGIN_INLINE_NAMESPACE inline namespace v5 {
+#define NUSPELL_BEGIN_INLINE_NAMESPACE namespace v5 {
 #define NUSPELL_END_INLINE_NAMESPACE }
+
+#undef NUSPELL_NODISCARD
+#undef NUSPELL_DEPRECATED
+
+#if __cplusplus >= 201703L
+#define NUSPELL_NODISCARD [[nodiscard]]
+#define NUSPELL_DEPRECATED [[deprecated]]
+#else
+#define NUSPELL_NODISCARD __attribute__((warn_unused_result))
+#define NUSPELL_DEPRECATED __attribute__((deprecated))
+#endif
 
 #endif // NUSPELL_DEFINES_HXX

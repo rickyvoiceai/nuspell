@@ -50,60 +50,60 @@ NUSPELL_BEGIN_INLINE_NAMESPACE
  * @param out vector where separated strings are appended.
  * @return @p out.
  */
-auto split_on_any_of(std::string_view, const char*,
+auto split_on_any_of(string_view, const char*,
                      std::vector<std::string>& out) -> std::vector<std::string>&
 {
 	return out;
 }
 
-auto utf32_to_utf8(std::u32string_view in, std::string& out) -> void
+auto utf32_to_utf8(u32string_view in, std::string& out) -> void
 {
 	out.clear();
-	for (size_t i = 0; i != size(in); ++i) {
+	for (size_t i = 0; i != in.size(); ++i) {
 		auto cp = in[i];
 		auto enc_cp = U8_Encoded_CP(cp);
 		out += enc_cp;
 	}
 }
-auto utf32_to_utf8(std::u32string_view in) -> std::string
+auto utf32_to_utf8(u32string_view in) -> std::string
 {
 	auto out = string();
 	utf32_to_utf8(in, out);
 	return out;
 }
 
-auto valid_utf8_to_32(std::string_view in, std::u32string& out) -> void
+auto valid_utf8_to_32(string_view in, std::u32string& out) -> void
 {
 	out.clear();
-	for (size_t i = 0; i != size(in);) {
+	for (size_t i = 0; i != in.size();) {
 		char32_t cp;
 		valid_u8_advance_cp(in, i, cp);
 		out.push_back(cp);
 	}
 }
-auto valid_utf8_to_32(std::string_view in) -> std::u32string
+auto valid_utf8_to_32(string_view in) -> std::u32string
 {
 	auto out = u32string();
 	valid_utf8_to_32(in, out);
 	return out;
 }
 
-auto utf8_to_16(std::string_view in) -> std::u16string
+auto utf8_to_16(string_view in) -> std::u16string
 {
 	auto out = u16string();
 	utf8_to_16(in, out);
 	return out;
 }
 
-bool utf8_to_16(std::string_view in, std::u16string& out)
+bool utf8_to_16(string_view in, std::u16string& out)
 {
 	int32_t len;
 	auto err = U_ZERO_ERROR;
-	u_strFromUTF8(data(out), size(out), &len, data(in), size(in), &err);
+	u_strFromUTF8(&out[0], out.size(), &len, in.data(), in.size(), &err);
 	out.resize(len);
 	if (err == U_BUFFER_OVERFLOW_ERROR) {
 		err = U_ZERO_ERROR;
-		u_strFromUTF8(data(out), size(out), &len, data(in), size(in),
+		u_strFromUTF8(&out[0], out.size(), &len, in.data(), in.size(),
 		              &err);
 	}
 	if (U_SUCCESS(err))
@@ -115,7 +115,7 @@ bool utf8_to_16(std::string_view in, std::u16string& out)
 bool validate_utf8(string_view s)
 {
 	auto err = U_ZERO_ERROR;
-	u_strFromUTF8(nullptr, 0, nullptr, data(s), size(s), &err);
+	u_strFromUTF8(nullptr, 0, nullptr, s.data(), s.size(), &err);
 	if (err == U_INVALID_CHAR_FOUND)
 		return false;
 	return err == U_BUFFER_OVERFLOW_ERROR || U_SUCCESS(err);
@@ -126,7 +126,7 @@ auto static is_ascii(char c) -> bool
 	return static_cast<unsigned char>(c) <= 127;
 }
 
-auto is_all_ascii(std::string_view s) -> bool
+auto is_all_ascii(string_view s) -> bool
 {
 	return all_of(begin(s), end(s), is_ascii);
 }
@@ -136,13 +136,13 @@ auto static widen_latin1(char c) -> char16_t
 	return static_cast<unsigned char>(c);
 }
 
-auto latin1_to_ucs2(std::string_view s) -> std::u16string
+auto latin1_to_ucs2(string_view s) -> std::u16string
 {
 	u16string ret;
 	latin1_to_ucs2(s, ret);
 	return ret;
 }
-auto latin1_to_ucs2(std::string_view s, std::u16string& out) -> void
+auto latin1_to_ucs2(string_view s, std::u16string& out) -> void
 {
 	out.resize(s.size());
 	transform(begin(s), end(s), begin(out), widen_latin1);
@@ -152,7 +152,7 @@ auto static is_surrogate_pair(char16_t c) -> bool
 {
 	return 0xD800 <= c && c <= 0xDFFF;
 }
-auto is_all_bmp(std::u16string_view s) -> bool
+auto is_all_bmp(u16string_view s) -> bool
 {
 	return none_of(begin(s), end(s), is_surrogate_pair);
 }
@@ -167,7 +167,7 @@ auto static utf32_to_icu(u32string_view in) -> icu::UnicodeString
 {
 	static_assert(sizeof(UChar32) == sizeof(char32_t));
 	return icu::UnicodeString::fromUTF32(
-	    reinterpret_cast<const UChar32*>(in.data()), in.size());
+	    reinterpret_cast<const UChar32*>(static_cast<const void*>(in.data())), in.size());
 }
 auto static icu_to_utf32(const icu::UnicodeString& in, std::u32string& out)
     -> bool
@@ -175,7 +175,7 @@ auto static icu_to_utf32(const icu::UnicodeString& in, std::u32string& out)
 	out.resize(in.length());
 	auto err = U_ZERO_ERROR;
 	auto len =
-	    in.toUTF32(reinterpret_cast<UChar32*>(out.data()), out.size(), err);
+	    in.toUTF32(reinterpret_cast<UChar32*>(static_cast<void*>(&out[0])), out.size(), err);
 	if (U_SUCCESS(err)) {
 		out.erase(len);
 		return true;
@@ -184,19 +184,19 @@ auto static icu_to_utf32(const icu::UnicodeString& in, std::u32string& out)
 	return false;
 }
 
-auto to_upper(std::string_view in, const icu::Locale& loc) -> std::string
+auto to_upper(string_view in, const icu::Locale& loc) -> std::string
 {
 	auto out = std::string();
 	to_upper(in, loc, out);
 	return out;
 }
-auto to_title(std::string_view in, const icu::Locale& loc) -> std::string
+auto to_title(string_view in, const icu::Locale& loc) -> std::string
 {
 	auto out = std::string();
 	to_title(in, loc, out);
 	return out;
 }
-auto to_lower(std::string_view in, const icu::Locale& loc) -> std::string
+auto to_lower(string_view in, const icu::Locale& loc) -> std::string
 {
 	auto out = std::string();
 	to_lower(in, loc, out);
@@ -205,7 +205,7 @@ auto to_lower(std::string_view in, const icu::Locale& loc) -> std::string
 
 auto to_upper(string_view in, const icu::Locale& loc, string& out) -> void
 {
-	auto sp = icu::StringPiece(data(in), size(in));
+	auto sp = icu::StringPiece(in.data(), in.size());
 	auto us = icu::UnicodeString::fromUTF8(sp);
 	us.toUpper(loc);
 	out.clear();
@@ -213,7 +213,7 @@ auto to_upper(string_view in, const icu::Locale& loc, string& out) -> void
 }
 auto to_title(string_view in, const icu::Locale& loc, string& out) -> void
 {
-	auto sp = icu::StringPiece(data(in), size(in));
+	auto sp = icu::StringPiece(in.data(), in.size());
 	auto us = icu::UnicodeString::fromUTF8(sp);
 	us.toTitle(nullptr, loc, U_TITLECASE_WHOLE_STRING);
 	out.clear();
@@ -227,7 +227,7 @@ auto to_lower(u32string_view in, const icu::Locale& loc, u32string& out) -> void
 }
 auto to_lower(string_view in, const icu::Locale& loc, string& out) -> void
 {
-	auto sp = icu::StringPiece(data(in), size(in));
+	auto sp = icu::StringPiece(in.data(), in.size());
 	auto us = icu::UnicodeString::fromUTF8(sp);
 	us.toLower(loc);
 	out.clear();
@@ -266,7 +266,7 @@ auto classify_casing(string_view s) -> Casing
 {
 	size_t upper = 0;
 	size_t lower = 0;
-	for (size_t i = 0; i != size(s);) {
+	for (size_t i = 0; i != s.size();) {
 		char32_t c;
 		valid_u8_advance_cp(s, i, c);
 		if (u_isupper(c))
@@ -339,12 +339,12 @@ auto Encoding_Converter::to_utf8(string_view in, string& out) -> bool
 		}
 	}
 	auto err = U_ZERO_ERROR;
-	auto len = ucnv_toAlgorithmic(UCNV_UTF8, cnv, out.data(), out.size(),
+	auto len = ucnv_toAlgorithmic(UCNV_UTF8, cnv, &out[0], out.size(),
 	                              in.data(), in.size(), &err);
 	out.resize(len);
 	if (err == U_BUFFER_OVERFLOW_ERROR) {
 		err = U_ZERO_ERROR;
-		ucnv_toAlgorithmic(UCNV_UTF8, cnv, out.data(), out.size(),
+		ucnv_toAlgorithmic(UCNV_UTF8, cnv, &out[0], out.size(),
 		                   in.data(), in.size(), &err);
 	}
 	return U_SUCCESS(err);
@@ -361,7 +361,7 @@ auto erase_chars(string& s, string_view erase_chars) -> void
 {
 	if (erase_chars.empty())
 		return;
-	for (size_t i = 0, next_i = 0; i != size(s); i = next_i) {
+	for (size_t i = 0, next_i = 0; i != s.size(); i = next_i) {
 		valid_u8_advance_index(s, next_i);
 		auto enc_cp = string_view(&s[i], next_i - i);
 		if (erase_chars.find(enc_cp) != erase_chars.npos) {
@@ -407,7 +407,7 @@ auto is_number(string_view s) -> bool
 auto count_appereances_of(string_view haystack, string_view needles) -> size_t
 {
 	auto ret = size_t(0);
-	for (size_t i = 0, next_i = 0; i != size(haystack); i = next_i) {
+	for (size_t i = 0, next_i = 0; i != haystack.size(); i = next_i) {
 		valid_u8_advance_index(haystack, next_i);
 		auto enc_cp = string_view(&haystack[i], next_i - i);
 		ret += needles.find(enc_cp) != needles.npos;

@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
 		}
 		auto sz = file_size(p);
 		entry.data.resize(sz);
-		in.read(entry.data.data(), sz);
+		in.read(&entry.data[0], sz);
 		bundle.entries.push_back(std::move(entry));
 		std::printf("Packed %s (%zu bytes)\n", m.filename, sz);
 	}

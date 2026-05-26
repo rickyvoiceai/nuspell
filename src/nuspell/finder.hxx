@@ -27,7 +27,7 @@
 #include "defines.hxx"
 #include "nuspell_export.h"
 
-#include <filesystem>
+#include "filesystem.hxx"
 #include <string>
 #include <utility>
 #include <vector>
@@ -44,18 +44,18 @@ namespace nuspell {
 NUSPELL_BEGIN_INLINE_NAMESPACE
 
 NUSPELL_EXPORT auto
-append_default_dir_paths(std::vector<std::filesystem::path>& paths) -> void;
+append_default_dir_paths(std::vector<path>& paths) -> void;
 NUSPELL_EXPORT auto
-append_libreoffice_dir_paths(std::vector<std::filesystem::path>& paths) -> void;
+append_libreoffice_dir_paths(std::vector<path>& paths) -> void;
 NUSPELL_EXPORT auto
-search_dirs_for_one_dict(const std::vector<std::filesystem::path>& dir_paths,
-                         const std::filesystem::path& dict_name_stem)
-    -> std::filesystem::path;
+search_dirs_for_one_dict(const std::vector<path>& dir_paths,
+                          const path& dict_name_stem)
+    -> path;
 NUSPELL_EXPORT auto
-search_dirs_for_dicts(const std::vector<std::filesystem::path>& dir_paths,
-                      std::vector<std::filesystem::path>& dict_list) -> void;
+search_dirs_for_dicts(const std::vector<path>& dir_paths,
+                       std::vector<path>& dict_list) -> void;
 NUSPELL_EXPORT auto search_default_dirs_for_dicts()
-    -> std::vector<std::filesystem::path>;
+    -> std::vector<path>;
 
 NUSPELL_DEPRECATED_EXPORT
 auto append_default_dir_paths(std::vector<std::string>& paths) -> void;
@@ -103,16 +103,17 @@ class NUSPELL_DEPRECATED_EXPORT Dict_Finder_For_CLI_Tool {
  * There are no promises of the API.
  */
 class NUSPELL_EXPORT Dict_Finder_For_CLI_Tool_2 {
-	std::vector<std::filesystem::path> dir_paths;
+	std::vector<path> dir_paths;
 
       public:
 	Dict_Finder_For_CLI_Tool_2();
 	auto& get_dir_paths() const { return dir_paths; }
-	auto get_dictionary_path(const std::filesystem::path& dict) const
-	    -> std::filesystem::path;
+	auto get_dictionary_path(const path& dict) const
+	    -> path;
 };
 
 NUSPELL_END_INLINE_NAMESPACE
 } // namespace nuspell
+namespace nuspell { using namespace v5; }
 NUSPELL_MSVC_PRAGMA_WARNING(pop)
 #endif // NUSPELL_FINDER_HXX

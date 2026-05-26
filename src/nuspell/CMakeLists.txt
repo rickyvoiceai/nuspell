@@ -1,13 +1,15 @@
 add_library(nuspell
                  defines.hxx
-aff_data.cxx     aff_data.hxx
-checker.cxx      checker.hxx
-suggester.cxx    suggester.hxx
-dictionary.cxx   dictionary.hxx
-finder.cxx       finder.hxx
+ aff_data.cxx     aff_data.hxx
+ checker.cxx      checker.hxx
+ suggester.cxx    suggester.hxx
+ dictionary.cxx   dictionary.hxx
+ finder.cxx       finder.hxx
                  unicode.hxx
-utils.cxx        utils.hxx
-                 structures.hxx)
+ utils.cxx        utils.hxx
+                 structures.hxx
+ filesystem.cxx   filesystem.hxx
+                 string_view.hxx)
 
 add_library(Nuspell::nuspell ALIAS nuspell)
 
@@ -15,7 +17,8 @@ include(GenerateExportHeader)
 generate_export_header(nuspell)
 
 set(nuspell_headers aff_data.hxx checker.hxx suggester.hxx dictionary.hxx
-	finder.hxx structures.hxx unicode.hxx defines.hxx
+	finder.hxx structures.hxx unicode.hxx defines.hxx filesystem.hxx
+	string_view.hxx
 	${CMAKE_CURRENT_BINARY_DIR}/nuspell_export.h)
 set_target_properties(nuspell PROPERTIES
 	PUBLIC_HEADER "${nuspell_headers}"
@@ -23,7 +26,7 @@ set_target_properties(nuspell PROPERTIES
 	SOVERSION ${PROJECT_VERSION_MAJOR}
 	CXX_VISIBILITY_PRESET hidden)
 
-target_compile_features(nuspell PUBLIC cxx_std_17)
+target_compile_features(nuspell PUBLIC cxx_std_14)
 
 target_include_directories(nuspell
 	PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>

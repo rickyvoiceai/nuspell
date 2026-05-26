@@ -46,8 +46,9 @@ struct Affixing_Result : Affixing_Result_Base {
 
 	Affixing_Result() = default;
 	Affixing_Result(Word_List::const_reference r, const T1& a, const T2& b)
-	    : Affixing_Result_Base{&r}, a{&a}, b{&b}
+	    : Affixing_Result_Base(), a(&a), b(&b)
 	{
+		root_word = &r;
 	}
 };
 template <class T1>
@@ -56,16 +57,18 @@ struct Affixing_Result<T1, void> : Affixing_Result_Base {
 
 	Affixing_Result() = default;
 	Affixing_Result(Word_List::const_reference r, const T1& a)
-	    : Affixing_Result_Base{&r}, a{&a}
+	    : Affixing_Result_Base(), a(&a)
 	{
+		root_word = &r;
 	}
 };
 
 template <>
 struct Affixing_Result<void, void> : Affixing_Result_Base {
 	Affixing_Result() = default;
-	Affixing_Result(Word_List::const_reference r) : Affixing_Result_Base{&r}
+	Affixing_Result(Word_List::const_reference r) : Affixing_Result_Base()
 	{
+		root_word = &r;
 	}
 };
 
@@ -282,7 +285,7 @@ struct Checker : public Aff_Data {
 	auto calc_syllable_modifier(Word_List::const_reference we,
 	                            const Suffix& sfx) const -> signed char;
 
-	auto count_syllables(std::string_view word) const -> size_t;
+	auto count_syllables(string_view word) const -> size_t;
 
 	auto check_compound_with_rules(std::string& word,
 	                               std::vector<const Flag_Set*>& words_data,

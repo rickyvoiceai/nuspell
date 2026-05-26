@@ -23,7 +23,7 @@
 #include "nuspell_export.h"
 
 #include <string>
-#include <string_view>
+#include "string_view.hxx"
 #include <vector>
 
 #include <unicode/locid.h>
@@ -41,49 +41,49 @@ struct UConverter; // unicode/ucnv.h
 namespace nuspell {
 NUSPELL_BEGIN_INLINE_NAMESPACE
 
-NUSPELL_DEPRECATED_EXPORT auto split_on_any_of(std::string_view s,
-                                               const char* sep,
-                                               std::vector<std::string>& out)
+NUSPELL_DEPRECATED_EXPORT auto split_on_any_of(string_view s,
+                                                const char* sep,
+                                                std::vector<std::string>& out)
     -> std::vector<std::string>&;
 
-NUSPELL_EXPORT auto utf32_to_utf8(std::u32string_view in, std::string& out)
+NUSPELL_EXPORT auto utf32_to_utf8(u32string_view in, std::string& out)
     -> void;
-NUSPELL_EXPORT auto utf32_to_utf8(std::u32string_view in) -> std::string;
+NUSPELL_EXPORT auto utf32_to_utf8(u32string_view in) -> std::string;
 
-auto valid_utf8_to_32(std::string_view in, std::u32string& out) -> void;
-auto valid_utf8_to_32(std::string_view in) -> std::u32string;
+auto valid_utf8_to_32(string_view in, std::u32string& out) -> void;
+auto valid_utf8_to_32(string_view in) -> std::u32string;
 
-auto utf8_to_16(std::string_view in) -> std::u16string;
-auto utf8_to_16(std::string_view in, std::u16string& out) -> bool;
+auto utf8_to_16(string_view in) -> std::u16string;
+auto utf8_to_16(string_view in, std::u16string& out) -> bool;
 
-auto validate_utf8(std::string_view s) -> bool;
+auto validate_utf8(string_view s) -> bool;
 
-NUSPELL_EXPORT auto is_all_ascii(std::string_view s) -> bool;
+NUSPELL_EXPORT auto is_all_ascii(string_view s) -> bool;
 
-NUSPELL_EXPORT auto latin1_to_ucs2(std::string_view s) -> std::u16string;
-auto latin1_to_ucs2(std::string_view s, std::u16string& out) -> void;
+NUSPELL_EXPORT auto latin1_to_ucs2(string_view s) -> std::u16string;
+auto latin1_to_ucs2(string_view s, std::u16string& out) -> void;
 
-NUSPELL_EXPORT auto is_all_bmp(std::u16string_view s) -> bool;
+NUSPELL_EXPORT auto is_all_bmp(u16string_view s) -> bool;
 
 auto to_upper_ascii(std::string& s) -> void;
 
-[[nodiscard]] NUSPELL_EXPORT auto to_upper(std::string_view in,
-                                           const icu::Locale& loc)
+NUSPELL_NODISCARD NUSPELL_EXPORT auto to_upper(string_view in,
+                                            const icu::Locale& loc)
     -> std::string;
-[[nodiscard]] NUSPELL_EXPORT auto to_title(std::string_view in,
-                                           const icu::Locale& loc)
+NUSPELL_NODISCARD NUSPELL_EXPORT auto to_title(string_view in,
+                                            const icu::Locale& loc)
     -> std::string;
-[[nodiscard]] NUSPELL_EXPORT auto to_lower(std::string_view in,
-                                           const icu::Locale& loc)
+NUSPELL_NODISCARD NUSPELL_EXPORT auto to_lower(string_view in,
+                                            const icu::Locale& loc)
     -> std::string;
 
-auto to_upper(std::string_view in, const icu::Locale& loc, std::string& out)
+auto to_upper(string_view in, const icu::Locale& loc, std::string& out)
     -> void;
-auto to_title(std::string_view in, const icu::Locale& loc, std::string& out)
+auto to_title(string_view in, const icu::Locale& loc, std::string& out)
     -> void;
-auto to_lower(std::u32string_view in, const icu::Locale& loc,
+auto to_lower(u32string_view in, const icu::Locale& loc,
               std::u32string& out) -> void;
-auto to_lower(std::string_view in, const icu::Locale& loc, std::string& out)
+auto to_lower(string_view in, const icu::Locale& loc, std::string& out)
     -> void;
 auto to_lower_char_at(std::string& s, size_t i, const icu::Locale& loc) -> void;
 auto to_title_char_at(std::string& s, size_t i, const icu::Locale& loc) -> void;
@@ -103,9 +103,9 @@ enum class Casing : char {
 	PASCAL /**< @internal  PascalCase i.e. mixed case with first capital */
 };
 
-NUSPELL_EXPORT auto classify_casing(std::string_view s) -> Casing;
+NUSPELL_EXPORT auto classify_casing(string_view s) -> Casing;
 
-auto has_uppercase_at_compound_word_boundary(std::string_view word, size_t i)
+auto has_uppercase_at_compound_word_boundary(string_view word, size_t i)
     -> bool;
 
 class Encoding_Converter {
@@ -133,23 +133,23 @@ class Encoding_Converter {
 		std::swap(cnv, other.cnv);
 		return *this;
 	}
-	auto to_utf8(std::string_view in, std::string& out) -> bool;
+	auto to_utf8(string_view in, std::string& out) -> bool;
 	auto valid() -> bool { return cnv != nullptr; }
 };
 
 auto replace_ascii_char(std::string& s, char from, char to) -> void;
-auto erase_chars(std::string& s, std::string_view erase_chars) -> void;
-NUSPELL_EXPORT auto is_number(std::string_view s) -> bool;
-auto count_appereances_of(std::string_view haystack, std::string_view needles)
+auto erase_chars(std::string& s, string_view erase_chars) -> void;
+NUSPELL_EXPORT auto is_number(string_view s) -> bool;
+auto count_appereances_of(string_view haystack, string_view needles)
     -> size_t;
 
-auto inline begins_with(std::string_view haystack, std::string_view needle)
+auto inline begins_with(string_view haystack, string_view needle)
     -> bool
 {
 	return haystack.compare(0, needle.size(), needle) == 0;
 }
 
-auto inline ends_with(std::string_view haystack, std::string_view needle)
+auto inline ends_with(string_view haystack, string_view needle)
     -> bool
 {
 	return haystack.size() >= needle.size() &&
@@ -158,14 +158,22 @@ auto inline ends_with(std::string_view haystack, std::string_view needle)
 }
 
 template <class T>
-auto begin_ptr(T& x)
+auto begin_ptr(T& x) -> decltype(x.data())
 {
 	return x.data();
 }
 template <class T>
-auto end_ptr(T& x)
+auto end_ptr(T& x) -> decltype(x.data() + x.size())
 {
 	return x.data() + x.size();
+}
+inline auto begin_ptr(std::string& x) -> char*
+{
+	return &x[0];
+}
+inline auto end_ptr(std::string& x) -> char*
+{
+	return &x[0] + x.size();
 }
 NUSPELL_END_INLINE_NAMESPACE
 } // namespace nuspell

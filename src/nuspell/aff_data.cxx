@@ -20,10 +20,29 @@
 #include "utils.hxx"
 
 #include <cassert>
-#include <charconv>
+#include <cerrno>
+#include <cstdlib>
 #include <locale>
 #include <sstream>
 #include <unordered_map>
+
+namespace {
+auto parse_uint(const char* first, const char* last, unsigned long& out) -> bool
+{
+	char* end;
+	errno = 0;
+	out = strtoul(first, &end, 10);
+	return end == last && errno == 0;
+}
+auto parse_uint_ptr(const char* first, const char* last, unsigned long& out, const char** end_ptr) -> bool
+{
+	char* end;
+	errno = 0;
+	out = strtoul(first, &end, 10);
+	*end_ptr = end;
+	return end > first && errno == 0;
+}
+}
 
 using namespace std;
 
@@ -113,18 +132,23 @@ auto decode_flags(string_view s, Flag_Type t, const Encoding& enc,
 	}
 	case Ft::NUMBER:
 		for (auto p = begin_ptr(s);;) {
-			uint16_t flag;
-			auto fc = from_chars(p, end_ptr(s), flag);
-			if (fc.ec == errc::invalid_argument)
+			unsigned long val;
+			auto ok = parse_uint(p, end_ptr(s), val);
+			if (!ok)
 				return Err::INVALID_NUMERIC_FLAG;
-			if (fc.ec == errc::result_out_of_range)
+			if (val > 65535)
 				return Err::FLAG_ABOVE_65535;
+			auto flag = static_cast<uint16_t>(val);
 			out.push_back(flag);
 
-			if (fc.ptr == end_ptr(s) || *fc.ptr != ',')
-				break;
-
-			p = fc.ptr + 1;
+			{
+				const char* comma = p;
+				while (comma < end_ptr(s) && *comma >= '0' && *comma <= '9')
+					++comma;
+				if (comma == end_ptr(s) || *comma != ',')
+					break;
+				p = comma + 1;
+			}
 		}
 		break;
 	case Ft::UTF8: {
@@ -157,9 +181,9 @@ auto decode_flags_possible_alias(string_view s, Flag_Type t,
 
 	out.clear();
 	size_t i;
-	auto fc = from_chars(begin_ptr(s), end_ptr(s), i);
-	if (fc.ec == errc::invalid_argument ||
-	    fc.ec == errc::result_out_of_range)
+	auto ok = parse_uint(begin_ptr(s), end_ptr(s), i);
+	if (!ok ||
+	    i == 0 || i > flag_aliases.size())
 		return Parsing_Error_Code::INVALID_NUMERIC_ALIAS;
 
 	if (0 < i && i <= flag_aliases.size()) {
@@ -270,13 +294,15 @@ auto decode_compound_rule(string_view s, Flag_Type t, const Encoding& enc,
 			if (*p != '(')
 				return Err::COMPOUND_RULE_INVALID_FORMAT;
 			++p;
-			uint16_t flag;
-			auto fc = from_chars(p, end_ptr(s), flag);
-			if (fc.ec == errc::invalid_argument)
+			unsigned long val;
+			const char* end2;
+			auto ok2 = parse_uint_ptr(p, end_ptr(s), val, &end2);
+			if (!ok2)
 				return Err::INVALID_NUMERIC_FLAG;
-			if (fc.ec == errc::result_out_of_range)
+			if (val > 65535)
 				return Err::FLAG_ABOVE_65535;
-			p = fc.ptr;
+			auto flag = static_cast<uint16_t>(val);
+			p = end2;
 			if (p == end_ptr(s) || *p != ')')
 				return Err::COMPOUND_RULE_INVALID_FORMAT;
 			out.push_back(flag);
@@ -298,7 +324,7 @@ auto strip_utf8_bom(std::istream& in) -> void
 	if (!in.good())
 		return;
 	auto bom = string(3, '\0');
-	in.read(bom.data(), 3);
+	in.read(&bom[0], 3);
 	if (in && bom == "\xEF\xBB\xBF")
 		return;
 	if (in.bad())
@@ -597,7 +623,8 @@ auto parse_vector_of_T(istream& in, Aff_Line_Parser& p, const string& command,
 	}
 	else if (dat->second != 0) {
 		dat->second--;
-		auto& elem = vec.emplace_back();
+		vec.emplace_back();
+		auto& elem = vec.back();
 		p.parse(in, modifier_wrapper(elem));
 	}
 	else {
@@ -639,7 +666,8 @@ auto parse_affix(istream& in, Aff_Line_Parser& p, string& command,
 	}
 	else if (dat->second.second) {
 		dat->second.second--;
-		auto& elem = vec.emplace_back();
+		vec.emplace_back();
+		auto& elem = vec.back();
 		elem.flag = f;
 		elem.cross_product = dat->second.first;
 		p.parse(in, elem.stripping);
@@ -923,11 +951,11 @@ auto Aff_Data::parse_dic(istream& in, ostream& err_msg) -> bool
 		word.clear();
 		flags_str.clear();
 		flags.clear();
-		if (!empty(line) && line.back() == '\r')
+		if (!line.empty() && line.back() == '\r')
 			line.pop_back();
 
 		auto end_word_pos = line.npos;
-		for (size_t i = 0; i != size(line); ++i) {
+		for (size_t i = 0; i != line.size(); ++i) {
 			switch (line[i]) {
 			case '/':
 				if (i == 0)
@@ -947,8 +975,8 @@ auto Aff_Data::parse_dic(istream& in, ostream& err_msg) -> bool
 				auto p = ctype.scan_not(
 				    ctype.space, &line[i + 1], end_ptr(line));
 				size_t k = p - begin_ptr(line);
-				if (k == size(line) ||
-				    (size(line) - k >= 3 &&
+				if (k == line.size() ||
+		(line.size() - k >= 3 &&
 				     line[k + 2] == ':' &&
 				     ctype.is(ctype.lower, line[k]) &&
 				     ctype.is(ctype.lower, line[k + 1])))
@@ -996,7 +1024,7 @@ auto Aff_Data::parse_dic(istream& in, ostream& err_msg) -> bool
 				        << endl;
 			}
 		}
-		if (empty(word))
+		if (word.empty())
 			continue;
 		auto ok = enc_conv.to_utf8(word, u8word);
 		if (!ok)
@@ -1008,7 +1036,7 @@ auto Aff_Data::parse_dic(istream& in, ostream& err_msg) -> bool
 		case Casing::ALL_CAPITAL:
 			if (flags.empty())
 				break;
-			[[fallthrough]];
+			/* fallthrough */
 		case Casing::PASCAL:
 		case Casing::CAMEL: {
 			// This if is needed for the test allcaps2.dic.
@@ -1029,5 +1057,10 @@ auto Aff_Data::parse_dic(istream& in, ostream& err_msg) -> bool
 	}
 	return in.eof() && success; // success if we reached eof
 }
+
+// C++14 requires out-of-class definitions for static constexpr members
+constexpr char16_t Aff_Data::HIDDEN_HOMONYM_FLAG;
+constexpr size_t Aff_Data::MAX_SUGGESTIONS;
+
 NUSPELL_END_INLINE_NAMESPACE
 } // namespace nuspell

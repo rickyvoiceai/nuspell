@@ -38,12 +38,12 @@ Bundle read_bundle(std::istream& in) {
 
 		std::uint32_t name_len = read_u32_le(in);
 		entry.name.resize(name_len);
-		in.read(entry.name.data(), name_len);
+		in.read(&entry.name[0], name_len);
 		if (!in) throw std::runtime_error("Failed reading bundle entry name");
 
 		std::uint32_t data_len = read_u32_le(in);
 		entry.data.resize(data_len);
-		in.read(entry.data.data(), data_len);
+		in.read(&entry.data[0], data_len);
 		if (!in) throw std::runtime_error("Failed reading bundle entry data");
 
 		bundle.entries.push_back(std::move(entry));

@@ -27,9 +27,9 @@ Main features of Nuspell spelling checker:
 
 Build-only dependencies:
 
-  - C++ 17 compiler with support for `std::filesystem`, e.g. GCC >= v9
+  - C++ 14 compiler (GCC >= v5, Clang >= v3.4)
   - CMake >= v3.18
-  - Catch2 >= v3.1.1 (optional, needed only when building the tests is enabled)
+  - Catch2 >= v3.1.1 (optional, needed only for advanced unit tests)
   - Getopt (Needed only on Windows + MSVC and only when the CLI tool or
     the tests are built. It is available in Vcpkg. Other platforms provide
     it out of the box.)
@@ -66,6 +66,18 @@ sudo ldconfig       # needed only sometimes and only on Linux
 
 For faster build process run `cmake --build . -j`, or use Ninja instead
 of Make.
+
+### C++14 compatibility
+
+Nuspell builds with C++14. If you need the advanced unit tests (which use
+C++17 features such as CTAD and `is_same_v`), enable them explicitly:
+
+```bash
+cmake .. -DBUILD_API=ON -DBUILD_ADVANCED_TESTS=ON
+```
+
+Otherwise, the default C++14 build skips these tests and runs a lighter
+smoke test (`api_smoke_test`) instead.
 
 If you are making a Linux distribution package (deb, rpm) you need
 some additional configurations on the CMake invocation. For example:
@@ -212,7 +224,7 @@ using namespace std;
 
 int main()
 {
-	auto dirs = vector<filesystem::path>();
+	auto dirs = vector<nuspell::path>();
 	nuspell::append_default_dir_paths(dirs);
 	auto dict_path = nuspell::search_dirs_for_one_dict(dirs, "en_US");
 	if (empty(dict_path))
@@ -428,7 +440,7 @@ g++ example.cxx -std=c++17 -lnuspell -licuuc -licudata \
     -L build/src/api -lcompound_corrector
 ```
 
-**Note:** The `CompoundCorrector` source itself is C++14-compatible (no `std::filesystem`, `std::optional`, or `std::string_view`), but the underlying Nuspell library requires C++17 because its public headers use `std::string_view`. Therefore, the final link step still needs `-std=c++17`.
+**Note:** The entire project now builds with C++14. Custom polyfills replace C++17-only features (`std::string_view`, `std::filesystem`, structured bindings, CTAD, `std::clamp`, `std::from_chars`), while preserving ABI compatibility. Use `-std=c++14` when linking your own code. C++17 advanced unit tests can be enabled with `-DBUILD_ADVANCED_TESTS=ON`.
 
 Bundled resources are handled by `src/api/bundle.hxx` and generated at build time by the `pack_resources` tool.
 

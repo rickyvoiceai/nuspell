@@ -29,7 +29,6 @@
 #include <stack>
 #include <stdexcept>
 #include <string>
-#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -54,11 +53,12 @@ class Subrange {
 	auto begin() const -> It { return a; }
 	auto end() const -> It { return b; }
 };
-// CTAD
-template <class Range>
-Subrange(const Range& r) -> Subrange<typename Range::const_iterator>;
-template <class Range>
-Subrange(Range& r) -> Subrange<typename Range::iterator>;
+
+template <class It>
+auto make_subrange(std::pair<It, It> p) -> Subrange<It>
+{
+	return Subrange<It>(p);
+}
 
 /**
  * @internal
@@ -315,7 +315,7 @@ using Flag_Set = String_Set<char16_t>;
 class Substr_Replacer {
       public:
 	using Str = std::string;
-	using Str_View = std::string_view;
+	using Str_View = string_view;
 	using Pair_Str = std::pair<Str, Str>;
 	using Table_Pairs = std::vector<Pair_Str>;
 
@@ -609,18 +609,23 @@ class Hash_Multimap {
 	auto insert(value_type&& value)
 	{
 		auto& key = value.first;
-		auto [bucket, it] = prepare_for_insert(key);
+		auto r = prepare_for_insert(key);
+		auto& bucket = r.first;
+		auto& it = r.second;
 		return bucket.insert_after(it, move(value));
 	}
 	template <class... Args>
 	auto emplace(Args&&... a)
 	{
 		auto node = bucket_type();
-		auto& val = node.emplace_front(std::forward<Args>(a)...);
+		node.emplace_front(std::forward<Args>(a)...);
+		auto& val = node.front();
 		auto& key = val.first;
-		auto [bucket, it] = prepare_for_insert(key);
+		auto r = prepare_for_insert(key);
+		auto& bucket = r.first;
+		auto& it = r.second;
 		bucket.splice_after(it, node, node.before_begin());
-		return next(it);
+		return std::next(it);
 	}
 
 	auto equal_range(const key_type& key) const
@@ -641,7 +646,7 @@ class Hash_Multimap {
 	}
 
 	auto bucket_count() const -> size_type { return data.size(); }
-	auto bucket_data(size_type i) const { return Subrange(data[i]); }
+	auto bucket_data(size_type i) const -> Subrange<local_const_iterator> { return Subrange<local_const_iterator>(data[i]); }
 };
 
 struct Condition_Exception : public std::runtime_error {
@@ -654,7 +659,7 @@ struct Condition_Exception : public std::runtime_error {
  */
 class Condition {
 	using Str = std::string;
-	using Str_View = std::string_view;
+	using Str_View = string_view;
 
 	Str cond;
 	size_t num_cp = 0;
@@ -701,7 +706,7 @@ class Condition {
 	auto match_suffix(Str_View s) const
 	{
 		auto cp_cnt = size_t(0);
-		auto i = size(s);
+		auto i = s.size();
 		for (; cp_cnt != num_cp && i != 0; ++cp_cnt) {
 			valid_u8_reverse_index(s, i);
 		}
@@ -712,15 +717,15 @@ class Condition {
 };
 auto inline Condition::construct() -> void
 {
-	for (size_t i = 0; i != size(cond);) {
+	for (size_t i = 0; i != cond.size();) {
 		size_t j = cond.find_first_of("[].", i);
 		if (j == cond.npos)
-			j = size(cond);
+			j = cond.size();
 		while (i != j) {
 			valid_u8_advance_index(cond, i);
 			++num_cp;
 		}
-		if (i == size(cond))
+		if (i == cond.size())
 			break;
 		if (cond[i] == '.') {
 			++num_cp;
@@ -734,7 +739,7 @@ auto inline Condition::construct() -> void
 		}
 		else if (cond[i] == '[') {
 			++i;
-			if (i == size(cond)) {
+			if (i == cond.size()) {
 				auto what = "opening bracket has no matching "
 				            "closing bracket";
 				throw Condition_Exception(what);
@@ -759,12 +764,12 @@ auto inline Condition::construct() -> void
 
 auto inline Condition::match_prefix(Str_View s) const -> bool
 {
-	if (size(s) < num_cp)
+	if (s.size() < num_cp)
 		return false;
 
 	auto s_i = size_t(0);
 	auto cond_i = size_t(0);
-	for (; s_i != size(s) && cond_i != size(cond); ++cond_i) {
+	for (; s_i != s.size() && cond_i != cond.size(); ++cond_i) {
 		auto s_cu = s[s_i];
 		auto cond_cu = cond[cond_i];
 		switch (cond_cu) {
@@ -797,7 +802,7 @@ auto inline Condition::match_prefix(Str_View s) const -> bool
 			break;
 		}
 	}
-	return cond_i == size(cond);
+	return cond_i == cond.size();
 }
 
 struct Prefix {
@@ -891,6 +896,15 @@ class Prefix_Multiset {
 	struct Ebo_Key_Transf : public Key_Transform {};
 	struct Ebo : public Ebo_Key_Extr, Ebo_Key_Transf {
 		Vector_Type table;
+		Ebo() = default;
+		Ebo(Key_Extr ke, Key_Transform kt, Vector_Type t)
+		    : Ebo_Key_Extr(),
+		      Ebo_Key_Transf(),
+		      table(std::move(t))
+		{
+			static_cast<Key_Extr&>(static_cast<Ebo_Key_Extr&>(*this)) = std::move(ke);
+			static_cast<Key_Transform&>(static_cast<Ebo_Key_Transf&>(*this)) = std::move(kt);
+		}
 	} ebo;
 	std::basic_string<Char_Type> first_letter;
 	std::vector<size_t> prefix_idx_with_first_letter;
@@ -952,24 +966,24 @@ class Prefix_Multiset {
       public:
 	Prefix_Multiset() = default;
 	explicit Prefix_Multiset(Key_Extr ke, Key_Transform kt = {})
-	    : ebo{{ke}, {kt}, {}}
+	    : ebo(std::move(ke), std::move(kt), {})
 	{
 	}
 	explicit Prefix_Multiset(const Vector_Type& v, Key_Extr ke = {},
 	                         Key_Transform kt = {})
-	    : ebo{{ke}, {kt}, v}
+	    : ebo(ke, kt, v)
 	{
 		sort();
 	}
 	explicit Prefix_Multiset(Vector_Type&& v, Key_Extr ke = {},
 	                         Key_Transform kt = {})
-	    : ebo{{ke}, {kt}, std::move(v)}
+	    : ebo(ke, kt, std::move(v))
 	{
 		sort();
 	}
 	Prefix_Multiset(std::initializer_list<T> list, Key_Extr ke = {},
 	                Key_Transform kt = {})
-	    : ebo{{ke}, {kt}, list}
+	    : ebo(ke, kt, Vector_Type(list))
 	{
 		sort();
 	}
@@ -1334,7 +1348,7 @@ class Suffix_Table {
  */
 class String_Pair {
 	using Str = std::string;
-	using Str_View = std::string_view;
+	using Str_View = string_view;
 	size_t i = 0;
 	Str s;
 
@@ -1794,7 +1808,7 @@ auto inline Phonetic_Table::replace(Str& word) const -> bool
 	for (size_t i = 0; i != word.size(); ++i) {
 		auto rules =
 		    equal_range(begin(table), end(table), word[i], Cmp());
-		for (auto& r : Subrange(rules)) {
+		for (auto& r : make_subrange(rules)) {
 			auto rule = &r;
 			auto m1 = match(word, i, r.first, treat_next_as_begin);
 			if (!m1)
@@ -1803,7 +1817,7 @@ auto inline Phonetic_Table::replace(Str& word) const -> bool
 				auto j = i + m1.count_matched - 1;
 				auto rules2 = equal_range(
 				    begin(table), end(table), word[j], Cmp());
-				for (auto& r2 : Subrange(rules2)) {
+				for (auto& r2 : make_subrange(rules2)) {
 					auto m2 =
 					    match(word, j, r2.first, false);
 					if (m2 && m2.priority >= m1.priority) {
