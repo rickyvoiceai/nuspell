@@ -1,0 +1,27 @@
+ap i|API
+api|api
+ce o|CEO
+I am|I am
+hello how are you|hello how are you
+123|123
+testing 123|testing 123
+tachy cardia|tachycardia
+ok|ok
+tachyardia|tachyardia
+ap i 中文|API 中文
+中文 字|中文 字
+ap i !!!|API !!!
+ce o .|CEO .
+ok 123|ok 123
+test 123 she is a ce o and i am an ap i a pi|test 123 she is a CEO and i am an API API
+ap i 中文 ce o|API 中文 CEO
+a pi|API
+i am a CEO|i am a CEO
+an API|an API
+she gets pts d|she gets PTSD
+he has ad hd|he has ADHD
+he made a pdf|he made a pdf
+be at|be at
+in to|in to
+o ne tw o three|one two three
+fighe|fight

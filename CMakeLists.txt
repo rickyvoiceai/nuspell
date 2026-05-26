@@ -27,6 +27,10 @@ endif()
 if (BUILD_TOOLS)
 	add_subdirectory(src/tools)
 endif()
+option(BUILD_API "Build the compound corrector API" ON)
+if (BUILD_API)
+	add_subdirectory(src/api)
+endif()
 if (subproject)
 	# if added as subproject just build Nuspell
 	# no need to test, build docs or install

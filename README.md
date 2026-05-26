@@ -11,6 +11,8 @@ Main features of Nuspell spelling checker:
   - Backward compatibility with Hunspell dictionary file format.
   - Up to 3.5 times faster than Hunspell.
   - Full Unicode support backed by ICU.
+  - **Compound Corrector API** (`src/api/`) for fixing split acronyms
+    and compound terms in ASR transcripts (e.g. `ap i` → `API`).
   - Twofold affix stripping (for agglutinative languages, like Azeri,
     Basque, Estonian, Finnish, Hungarian, Turkish, etc.).
   - Supports complex compounds (for example, Hungarian, German and Dutch).
@@ -56,21 +58,27 @@ Then run the following commands inside the Nuspell directory:
 ```bash
 mkdir build
 cd build
-cmake ..
-make
-sudo make install
+cmake .. -DBUILD_API=ON
+cmake --build .
+sudo cmake --install .
 sudo ldconfig       # needed only sometimes and only on Linux
 ```
 
-
-For faster build process run `make -j`, or use Ninja instead
+For faster build process run `cmake --build . -j`, or use Ninja instead
 of Make.
 
-If you are making a Linux distribution package (dep, rpm) you need
+If you are making a Linux distribution package (deb, rpm) you need
 some additional configurations on the CMake invocation. For example:
 
 ```bash
 cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+```
+
+To also include the Compound Corrector API and its demo tool, add `-DBUILD_API=ON`.
+A convenience script is also provided:
+
+```bash
+./install.sh    # builds with -DBUILD_API=ON, then runs self-tests
 ```
 
 ## Building on OSX and macOS
@@ -254,6 +262,186 @@ find_package(Nuspell)
 add_executable(myprogram main.cpp)
 target_link_libraries(myprogram Nuspell::nuspell)
 ```
+
+## Using the Compound Corrector API
+
+Nuspell also provides a higher-level **Compound Corrector** API (`src/api/`) that wraps `nuspell::Dictionary` with logic for correcting split acronyms and compound terms (e.g. `ap i` &rarr; `API`, `tachy cardia` &rarr; `tachycardia`).
+
+### Features
+
+- **Sentence-level input** — designed for short-to-medium ASR transcripts (≈10–40 tokens).
+- **Chinese/CJK safety** — treats CJK characters as inert; never merges them.
+- **Numbers / punctuation safety** — pure-digit, punctuation, and symbol tokens are inert.
+- **3-token lookahead** — resolves ambiguous merges (e.g. `a ce o`) by comparing ARPA unigram log-probabilities.
+- **ARPA unigram support** — loads a standard ARPA-format 1-gram file for frequency-aware disambiguation.
+- **Acronym override file** — loads `res/acronyms.txt` so common medical / technical acronyms (e.g. `PTSD`, `ADHD`, `DNA`) merge even when not in the Hunspell dictionary.
+- **Stop-word guarding** — prevents merging of common English function-word pairs (`i am`, `in to`, `be at`, etc.).
+
+### Build
+
+```bash
+cmake .. -DBUILD_API=ON
+```
+
+Or simply run the provided convenience script:
+
+```bash
+./install.sh    # builds, packs res.bundle, copies it to res/,
+                # then runs test_compound sanity tests (default path + fix_single,
+                # and bundle mode + fix_single)
+```
+
+### Constructor
+
+#### Path-based constructor (loose files)
+
+```cpp
+#include <compound_corrector.hxx>
+
+// All three resource paths are optional and default to loose files in res/.
+CompoundCorrector corrector(
+    "res/en_US.aff",        // Hunspell dictionary
+    "res/ug",               // ARPA 1-gram file (frequency tie-breaking)
+    "res/acronyms.txt"       // curated uppercase acronyms (dictionary override)
+);
+```
+
+#### Bundle constructor (single binary file)
+
+You can also load everything from a single packed resource bundle produced by `pack_resources`:
+
+```cpp
+#include <compound_corrector.hxx>
+
+std::ifstream bundle_in("res.bundle", std::ios::binary);
+CompoundCorrector corrector(bundle_in);  // loads aff, dic, ug, acronyms from the bundle
+```
+
+This is useful for deployment — everything is shipped as a single file, no relative path issues.
+
+CMake generates the bundle automatically at build time: `build/res.bundle`.
+
+
+### Example usage
+
+```cpp
+#include <compound_corrector.hxx>
+#include <iostream>
+
+int main() {
+    CompoundCorrector corrector("res/en_US.aff");
+
+    std::cout << corrector.Correct("ap i")          << "\n"; // API
+    std::cout << corrector.Correct("tachy cardia")   << "\n"; // tachycardia
+    std::cout << corrector.Correct("she gets pts d")<< "\n"; // she gets PTSD
+    std::cout << corrector.Correct("i am")         << "\n"; // i am (preserved)
+
+    // Optional: also fix single-word misspellings
+    std::cout << corrector.Correct("seperate", true)    << "\n"; // separate
+
+    // Per-token status tracking (useful for ASR alignment)
+    auto result = corrector.CorrectWithStatus("ap i", false);
+    std::cout << result.text << "\n";     // "API"
+    // result.status == {1, -1}
+    //  1 = first token initiated a merge with the next
+    // -1 = second token was consumed by the previous merge
+    return 0;
+}
+```
+
+### Standalone test / demo tool (`test_compound`)
+
+Built automatically when `-DBUILD_API=ON`. It is a line-processing CLI that demonstrates the API.
+
+```bash
+# self-test (27 built-in cases)
+./build/src/api/test_compound --self-test
+
+# process file or stdin
+echo "she is a ce o" | ./build/src/api/test_compound
+cat input.txt | ./build/src/api/test_compound
+./build/src/api/test_compound input.txt
+
+# custom dictionary / ARPA / acronyms
+./build/src/api/test_compound -d /path/to/it_IT.aff input.txt
+
+# also enable single-word spelling correction
+./build/src/api/test_compound --fix-single input.txt
+
+# use a bundled resource file instead of loose res/ files
+./build/src/api/test_compound -b build/res.bundle --self-test
+```
+
+Output format (per line):
+```
+original: she is a ce o
+corrected: she is a CEO
+```
+
+### Single-word spelling correction
+
+By default `Correct()` only fixes **split acronyms and compounds** (`ap i` → `API`, `tachy cardia` → `tachycardia`). If you pass `fix_single = true`:
+
+```cpp
+std::string out = corrector.Correct("seperate", true); // "separate"
+```
+
+The single-word pass:
+
+- Runs **after** the merge pass (i.e. it can also correct leftover tokens after compounds are merged).
+- Only fires when a token is **still not valid** after merging.
+- Applies only to words that are **≥ 5 letters** long.
+- Scans **all suggestions** from `suggest()` and picks the **first** one that satisfies both constraints below.
+- Accepts the suggestion only when it has the **same length** and a **case-insensitive Hamming distance of exactly 1**.
+
+This keeps the correction conservative — it will fix mistakes like `seperate` (top suggestion `separate`, distance 1) but will **not** change `recieve` → `receive` (Levenshtein distance 2), `conect` → `connect` (distance 1 but different length), `tachyardia` → `tachycardia` (different length), or `ceo` → `CEO` (only 3 letters).
+
+The CLI tool supports this via `--fix-single`:
+
+```bash
+echo "she is calender on the seperate table" | test_compound --fix-single
+# corrected: she is calendar on the separate table
+```
+
+### Resource directory (`res/`)
+
+All files are self-contained and committed to the repo for reproducible builds:
+
+| File | Size | Description |
+|---|---|---|
+| `res/en_US.aff` / `res/en_US.dic` | ~550 KB | Hunspell dictionary pair |
+| `res/ug` | ~5.2 MB | ARPA 1-gram log-probabilities (~280k unigrams) |
+| `res/acronyms.txt` | ~2 KB | Curated uppercase acronyms (medical, business, technology) |
+| `res/test_file.txt` | ~1 KB | Pipe-delimited test cases (`input|expected`) |
+| `res/res.bundle` | ~5.7 MB | Auto-generated packed resource bundle (all of the above in one file) |
+
+### Manual compilation against the API
+
+If you are compiling a standalone program that uses `CompoundCorrector`:
+
+```bash
+g++ example.cxx -std=c++17 -I src \
+    build/src/api/libcompound_corrector.a \
+    -lnuspell -licuuc -licudata
+# or, if installed:
+g++ example.cxx -std=c++17 -lnuspell -licuuc -licudata \
+    -L build/src/api -lcompound_corrector
+```
+
+**Note:** The `CompoundCorrector` source itself is C++14-compatible (no `std::filesystem`, `std::optional`, or `std::string_view`), but the underlying Nuspell library requires C++17 because its public headers use `std::string_view`. Therefore, the final link step still needs `-std=c++17`.
+
+Bundled resources are handled by `src/api/bundle.hxx` and generated at build time by the `pack_resources` tool.
+
+### CLI quick reference (`test_compound`)
+
+| Flag | Description |
+|---|---|
+| `-d, --dictionary PATH` | Path to Hunspell `.aff` file (default: `res/en_US.aff`) |
+| `-b, --bundle PATH`   | Use a packed resource bundle instead of loose files |
+| `-t, --self-test`     | Run built-in test cases (`res/test_file.txt`) |
+| `--test-status`       | Run status-code regression tests (`res/test_status.txt`) |
+| `--fix-single`        | Enable single-word correction after merge pass |
+| `-h, --help`          | Print usage and exit |
 
 # Dictionaries
 

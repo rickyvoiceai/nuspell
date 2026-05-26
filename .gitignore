@@ -1,5 +1,8 @@
 /build/
 
+# Generated bundle (built by install.sh or CMake)
+/res/res.bundle
+
 # QtCreator
 /.qtcreator/
 

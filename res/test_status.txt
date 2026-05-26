@@ -1,0 +1,31 @@
+# Status regression tests for CorrectWithStatus()  (fix_single = false)
+# Format: input|expected_text|expected_status_csv
+# Status codes: 0=unchanged, 1=merged-with-next, -1=merged-by-prev, 2=substituted
+
+ap i|API|1,-1
+api|api|0
+ce o|CEO|1,-1
+I am|I am|0,0
+hello how are you|hello how are you|0,0,0,0
+123|123|0
+testing 123|testing 123|0,0
+tachy cardia|tachycardia|1,-1
+ok|ok|0
+tachyardia|tachyardia|0
+ap i 中文|API 中文|1,-1,0
+中文 字|中文 字|0,0
+ap i !!!|API !!!|1,-1,0
+ce o .|CEO .|1,-1,0
+ok 123|ok 123|0,0
+test 123 she is a ce o and i am an ap i a pi|test 123 she is a CEO and i am an API API|0,0,0,0,0,1,-1,0,0,0,0,1,-1,1,-1
+ap i 中文 ce o|API 中文 CEO|1,-1,0,1,-1
+a pi|API|1,-1
+i am a CEO|i am a CEO|0,0,0,0
+an API|an API|0,0
+she gets pts d|she gets PTSD|0,0,1,-1
+he has ad hd|he has ADHD|0,0,1,-1
+he made a pdf|he made a pdf|0,0,0,0
+be at|be at|0,0
+in to|in to|0,0
+o ne tw o three|one two three|1,-1,1,-1,0
+fighe|fighe|0
