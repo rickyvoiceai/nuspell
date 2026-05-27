@@ -16,6 +16,7 @@ cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_API=ON \
     -DBUILD_TESTING=ON \
+    -DBUILD_DOCS=OFF \
     -DBUILD_ADVANCED_TESTS=OFF \
     -DBUILD_TOOLS=OFF
 
@@ -44,8 +45,7 @@ echo "---"
 
 cd "${SCRIPT_DIR}"
 
-echo "[nuspell --help]"
-"${BUILD_DIR}/src/tools/nuspell" --help || true
+echo "[nuspell CLI not available — BUILD_TOOLS=OFF]"
 
 echo ""
 echo "[test_compound --fix-single --self-test (default path mode + fix_single)]"

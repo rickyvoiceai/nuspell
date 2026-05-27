@@ -6,7 +6,7 @@
 ./install.sh
 ```
 
-Note: `install.sh` passes `-DBUILD_TOOLS=OFF` on this branch (finder is stubbed).
+Note: `install.sh` passes `-DBUILD_TOOLS=OFF` (finder stubbed) and `-DBUILD_DOCS=OFF` (avoids Doxygen dependency).
 
 Equivalent manual steps:
 

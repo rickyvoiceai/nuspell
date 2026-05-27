@@ -84,7 +84,7 @@ To also include the Compound Corrector API and its demo tool, add `-DBUILD_API=O
 A convenience script is also provided:
 
 ```bash
-./install.sh    # builds with -DBUILD_API=ON, then runs self-tests
+./install.sh    # builds with -DBUILD_API=ON (docs/tools off), then runs self-tests
 ```
 
 ## Building on OSX and macOS
