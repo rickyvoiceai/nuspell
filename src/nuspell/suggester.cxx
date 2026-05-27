@@ -18,7 +18,7 @@
 
 #include "suggester.hxx"
 #include "utils.hxx"
-#include <unicode/uchar.h>
+#include <cctype>
 
 using namespace std;
 
@@ -60,7 +60,7 @@ auto Suggester::suggest_priv(string_view input_word, List_Strings& out) const
 	case Casing::SMALL:
 		if (compound_force_uppercase &&
 		    check_compound(word, ALLOW_BAD_FORCEUCASE)) {
-			to_title(word, icu_locale, buffer);
+			to_title(word, buffer);
 			out.push_back(buffer);
 			return;
 		}
@@ -68,7 +68,7 @@ auto Suggester::suggest_priv(string_view input_word, List_Strings& out) const
 		break;
 	case Casing::INIT_CAPITAL:
 		hq_sugs |= suggest_low(word, out);
-		to_lower(word, icu_locale, buffer);
+		to_lower(word, buffer);
 		hq_sugs |= suggest_low(buffer, out);
 		break;
 	case Casing::CAMEL:
@@ -86,17 +86,17 @@ auto Suggester::suggest_priv(string_view input_word, List_Strings& out) const
 		}
 		if (casing == Casing::PASCAL) {
 			buffer = word;
-			to_lower_char_at(buffer, 0, icu_locale);
+			to_lower_char_at(buffer, 0);
 			if (spell_priv(buffer))
 				insert_sug_first(buffer, out);
 			hq_sugs |= suggest_low(buffer, out);
 		}
-		to_lower(word, icu_locale, buffer);
+		to_lower(word, buffer);
 		if (spell_priv(buffer))
 			insert_sug_first(buffer, out);
 		hq_sugs |= suggest_low(buffer, out);
 		if (casing == Casing::PASCAL) {
-			to_title(word, icu_locale, buffer);
+			to_title(word, buffer);
 			if (spell_priv(buffer))
 				insert_sug_first(buffer, out);
 			hq_sugs |= suggest_low(buffer, out);
@@ -112,20 +112,20 @@ auto Suggester::suggest_priv(string_view input_word, List_Strings& out) const
 				continue;
 			if (sug.compare(i, len, word, word.size() - len) == 0)
 				continue;
-			to_title_char_at(sug, i, icu_locale);
+			to_title_char_at(sug, i);
 			rotate(begin(out), it, it + 1);
 		}
 		break;
 	}
 	case Casing::ALL_CAPITAL:
-		to_lower(word, icu_locale, buffer);
+		to_lower(word, buffer);
 		if (keepcase_flag != 0 && spell_priv(buffer))
 			insert_sug_first(buffer, out);
 		hq_sugs |= suggest_low(buffer, out);
-		to_title(word, icu_locale, buffer);
+		to_title(word, buffer);
 		hq_sugs |= suggest_low(buffer, out);
 		for (auto& sug : out)
-			to_upper(sug, icu_locale, sug);
+			to_upper(sug, sug);
 		break;
 	}
 
@@ -133,12 +133,12 @@ auto Suggester::suggest_priv(string_view input_word, List_Strings& out) const
 		if (casing == Casing::SMALL)
 			buffer = word;
 		else
-			to_lower(word, icu_locale, buffer);
+			to_lower(word, buffer);
 		auto old_size = out.size();
 		ngram_suggest(buffer, out);
 		if (casing == Casing::ALL_CAPITAL) {
 			for (auto i = old_size; i != out.size(); ++i)
-				to_upper(out[i], icu_locale, out[i]);
+				to_upper(out[i], out[i]);
 		}
 	}
 
@@ -172,7 +172,7 @@ auto Suggester::suggest_priv(string_view input_word, List_Strings& out) const
 
 	if (casing == Casing::INIT_CAPITAL || casing == Casing::PASCAL) {
 		for (auto& sug : out)
-			to_title_char_at(sug, 0, icu_locale);
+			to_title_char_at(sug, 0);
 	}
 
 	// Suggest with dots can go here but nobody uses it so no point in
@@ -185,10 +185,10 @@ auto Suggester::suggest_priv(string_view input_word, List_Strings& out) const
 				return true;
 			if (spell_priv(s))
 				return true;
-			to_lower(s, icu_locale, s);
+			to_lower(s, s);
 			if (spell_priv(s))
 				return true;
-			to_title(s, icu_locale, s);
+			to_title(s, s);
 			return spell_priv(s);
 		};
 		auto it = begin(out);
@@ -262,7 +262,7 @@ auto Suggester::add_sug_if_correct(std::string& word, List_Strings& out) const
 auto Suggester::uppercase_suggest(const std::string& word,
                                   List_Strings& out) const -> void
 {
-	auto upp = to_upper(word, icu_locale);
+	auto upp = to_upper(word);
 	add_sug_if_correct(upp, out);
 }
 
@@ -557,7 +557,7 @@ auto Suggester::keyboard_suggest(std::string& word, List_Strings& out) const
 		char32_t c;
 		valid_u8_advance_cp(word, next_j, c);
 		auto enc_cp = U8_Encoded_CP(word, {j, next_j});
-		auto upp_c = char32_t(u_toupper(c));
+		auto upp_c = char32_t(static_cast<unsigned char>(std::toupper(static_cast<unsigned char>(c))));
 		if (upp_c != c) {
 			auto enc_upp_c = U8_Encoded_CP(upp_c);
 			word.replace(j, enc_cp.size(), enc_upp_c);
@@ -841,7 +841,7 @@ auto left_common_substring_length(u32string_view a, u32string_view b)
 {
 	if (a.empty() || b.empty())
 		return 0;
-	if (a[0] != b[0] && UChar32(a[0]) != u_tolower(b[0]))
+	if (a[0] != b[0] && std::tolower(static_cast<unsigned char>(a[0])) != std::tolower(static_cast<unsigned char>(b[0])))
 		return 0;
 	auto it = std::mismatch(begin(a) + 1, end(a), begin(b) + 1, end(b));
 	return it.first - begin(a);
@@ -930,7 +930,7 @@ auto Suggester::ngram_suggest(const std::string& word_u8,
 			auto score =
 			    left_common_substring_length(wrong_word, dict_word);
 			auto& lower_dict_word = wide_buf;
-			to_lower(dict_word, icu_locale, lower_dict_word);
+			to_lower(dict_word, lower_dict_word);
 			score += ngram_similarity_longer_worse(3, wrong_word,
 			                                       lower_dict_word);
 			if (roots.size() != 100) {
@@ -968,7 +968,7 @@ auto Suggester::ngram_suggest(const std::string& word_u8,
 			auto score = left_common_substring_length(
 			    wrong_word, expanded_word);
 			auto& lower_expanded_word = wide_buf;
-			to_lower(expanded_word, icu_locale,
+			to_lower(expanded_word,
 			         lower_expanded_word);
 			score += ngram_similarity_any_mismatch(
 			    wrong_word.size(), wrong_word, lower_expanded_word);
@@ -995,7 +995,7 @@ auto Suggester::ngram_suggest(const std::string& word_u8,
 		auto& guess_word = guess_word_entry.word;
 		auto& score = guess_word_entry.score;
 		auto& lower_guess_word = wide_buf;
-		to_lower(guess_word, icu_locale, lower_guess_word);
+		to_lower(guess_word, lower_guess_word);
 		auto lcs = longest_common_subsequence_length(
 		    wrong_word, lower_guess_word, lcs_state);
 

@@ -163,8 +163,6 @@ auto Checker::spell_casing(std::string& s) const -> const Flag_Set*
 
 auto Checker::spell_casing_upper(std::string& s) const -> const Flag_Set*
 {
-	auto& loc = icu_locale;
-
 	auto res = check_word(s, ALLOW_BAD_FORCEUCASE);
 	if (res)
 		return res;
@@ -176,13 +174,13 @@ auto Checker::spell_casing_upper(std::string& s) const -> const Flag_Set*
 		// apostophe is at beginning of word or dividing the word
 		auto part1 = s.substr(0, apos + 1);
 		auto part2 = s.substr(apos + 1);
-		to_lower(part1, loc, part1);
-		to_title(part2, loc, part2);
+		to_lower(part1, part1);
+		to_title(part2, part2);
 		auto t = part1 + part2;
 		res = check_word(t, ALLOW_BAD_FORCEUCASE);
 		if (res)
 			return res;
-		to_title(part1, loc, part1);
+		to_title(part1, part1);
 		t = part1 + part2;
 		res = check_word(t, ALLOW_BAD_FORCEUCASE);
 		if (res)
@@ -192,22 +190,22 @@ auto Checker::spell_casing_upper(std::string& s) const -> const Flag_Set*
 
 	// handle sharp s for German
 	if (checksharps && s.find("SS") != s.npos) {
-		to_lower(s, loc, s2);
+		to_lower(s, s2);
 		res = spell_sharps(s2);
 		if (res)
 			return res;
 
-		to_title(s, loc, s2);
+		to_title(s, s2);
 		res = spell_sharps(s2);
 		if (res)
 			return res;
 	}
-	to_title(s, loc, s2);
+	to_title(s, s2);
 	res = check_word(s2, ALLOW_BAD_FORCEUCASE);
 	if (res && !res->contains(keepcase_flag))
 		return res;
 
-	to_lower(s, loc, s2);
+	to_lower(s, s2);
 	res = check_word(s2, ALLOW_BAD_FORCEUCASE);
 	if (res && !res->contains(keepcase_flag))
 		return res;
@@ -216,15 +214,13 @@ auto Checker::spell_casing_upper(std::string& s) const -> const Flag_Set*
 
 auto Checker::spell_casing_title(std::string& s) const -> const Flag_Set*
 {
-	auto& loc = icu_locale;
-
 	// check title case
 	auto res = check_word(s, ALLOW_BAD_FORCEUCASE, SKIP_HIDDEN_HOMONYM);
 	if (res)
 		return res;
 
 	auto s2 = string();
-	to_lower(s, loc, s2);
+	to_lower(s, s2);
 	res = check_word(s2, ALLOW_BAD_FORCEUCASE);
 
 	// with CHECKSHARPS, ß is allowed too in KEEPCASE words with title case

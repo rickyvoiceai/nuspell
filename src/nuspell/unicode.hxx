@@ -21,8 +21,177 @@
 
 #include <string>
 #include "string_view.hxx"
-#include <unicode/utf16.h>
-#include <unicode/utf8.h>
+
+// ============================================================
+// Self-contained UTF-8 helpers (no ICU dependency)
+// ============================================================
+
+#define U8_MAX_LENGTH 4
+
+namespace nuspell {
+namespace unicode_detail {
+
+// -- Malformed-tolerant decode: reads one codepoint, returns -1 on error --
+template <class Range>
+inline auto u8_decode(const Range& str, size_t& i, size_t len, int32_t& cp) -> void {
+	if (i >= len) { cp = -1; return; }
+	auto c = static_cast<unsigned char>(str[i++]);
+	if (c < 0x80) { cp = c; return; }
+	int n;
+	if      ((c & 0xE0) == 0xC0) { n = 2; cp = c & 0x1F; }
+	else if ((c & 0xF0) == 0xE0) { n = 3; cp = c & 0x0F; }
+	else if ((c & 0xF8) == 0xF0) { n = 4; cp = c & 0x07; }
+	else { cp = -1; return; }
+	for (int j = 1; j < n; ++j) {
+		if (i >= len) { cp = -1; return; }
+		c = static_cast<unsigned char>(str[i++]);
+		if ((c & 0xC0) != 0x80) { cp = -1; return; }
+		cp = (cp << 6) | (c & 0x3F);
+	}
+	// Reject overlong encodings
+	if ((n == 2 && cp < 0x80) || (n == 3 && cp < 0x800) || (n == 4 && cp < 0x10000))
+		cp = -1;
+}
+
+// -- Malformed-tolerant skip-forward by one codepoint --
+template <class Range>
+inline auto u8_skip_fwd(const Range& str, size_t& i, size_t len) -> void {
+	if (i >= len) return;
+	auto c = static_cast<unsigned char>(str[i]);
+	if (c < 0x80) { ++i; return; }
+	if (c < 0xC0 || c > 0xF7) { ++i; return; } // invalid lead byte, skip one
+	int n = (c >= 0xF0) ? 4 : (c >= 0xE0) ? 3 : 2;
+	i = (i + n > len) ? len : i + n;
+}
+
+// -- Malformed-tolerant skip-backward by one codepoint --
+template <class Range>
+inline auto u8_skip_back(const Range& str, size_t /*start*/, size_t& i) -> void {
+	while (i > 0) {
+		auto c = static_cast<unsigned char>(str[--i]);
+		if ((c & 0xC0) != 0x80) return;
+	}
+}
+
+// -- Malformed-tolerant decode-reverse --
+template <class Range>
+inline auto u8_decode_rev(const Range& str, size_t /*start*/, size_t& i, int32_t& cp) -> void {
+	u8_skip_back(str, 0, i);
+	cp = static_cast<unsigned char>(str[i]);
+	if (cp < 0x80) return; // single byte
+	// Re-decode forward from this position
+	size_t j = i;
+	size_t len = str.size();
+	int n;
+	auto c = static_cast<unsigned char>(str[j++]);
+	if      ((c & 0xE0) == 0xC0) { n = 2; cp = c & 0x1F; }
+	else if ((c & 0xF0) == 0xE0) { n = 3; cp = c & 0x0F; }
+	else if ((c & 0xF8) == 0xF0) { n = 4; cp = c & 0x07; }
+	else return;
+	for (int k = 1; k < n; ++k) {
+		if (j >= len) { cp = -1; return; }
+		c = static_cast<unsigned char>(str[j++]);
+		if ((c & 0xC0) != 0x80) { cp = -1; return; }
+		cp = (cp << 6) | (c & 0x3F);
+	}
+}
+
+// -- Malformed-tolerant encode --
+template <class Range>
+inline auto u8_encode(Range& buf, size_t& i, size_t len, int32_t cp, bool& error) -> void {
+	error = false;
+	if (cp < 0) { error = true; return; }
+	if (cp < 0x80) {
+		if (i >= len) { error = true; return; }
+		buf[i++] = static_cast<char>(cp);
+	} else if (cp < 0x800) {
+		if (i + 1 >= len) { error = true; return; }
+		buf[i++] = static_cast<char>(0xC0 | (cp >> 6));
+		buf[i++] = static_cast<char>(0x80 | (cp & 0x3F));
+	} else if (cp < 0x10000) {
+		if (i + 2 >= len) { error = true; return; }
+		buf[i++] = static_cast<char>(0xE0 | (cp >> 12));
+		buf[i++] = static_cast<char>(0x80 | ((cp >> 6) & 0x3F));
+		buf[i++] = static_cast<char>(0x80 | (cp & 0x3F));
+	} else if (cp < 0x110000) {
+		if (i + 3 >= len) { error = true; return; }
+		buf[i++] = static_cast<char>(0xF0 | (cp >> 18));
+		buf[i++] = static_cast<char>(0x80 | ((cp >> 12) & 0x3F));
+		buf[i++] = static_cast<char>(0x80 | ((cp >> 6) & 0x3F));
+		buf[i++] = static_cast<char>(0x80 | (cp & 0x3F));
+	} else {
+		error = true;
+	}
+}
+
+// -- Unsafe (valid-UTF-8-only) decode --
+inline auto u8_decode_unsafe(const char* s, size_t& i, char32_t& cp) -> void {
+	auto c = static_cast<unsigned char>(s[i++]);
+	if (c < 0x80) { cp = c; return; }
+	if ((c & 0xE0) == 0xC0) {
+		cp = c & 0x1F;
+		cp = (cp << 6) | (static_cast<unsigned char>(s[i++]) & 0x3F);
+	} else if ((c & 0xF0) == 0xE0) {
+		cp = c & 0x0F;
+		cp = (cp << 6) | (static_cast<unsigned char>(s[i++]) & 0x3F);
+		cp = (cp << 6) | (static_cast<unsigned char>(s[i++]) & 0x3F);
+	} else {
+		cp = c & 0x07;
+		cp = (cp << 6) | (static_cast<unsigned char>(s[i++]) & 0x3F);
+		cp = (cp << 6) | (static_cast<unsigned char>(s[i++]) & 0x3F);
+		cp = (cp << 6) | (static_cast<unsigned char>(s[i++]) & 0x3F);
+	}
+}
+
+// -- Unsafe skip-forward --
+inline auto u8_skip_fwd_unsafe(const char* s, size_t& i) -> void {
+	auto c = static_cast<unsigned char>(s[i]);
+	if (c < 0x80)       { i += 1; }
+	else if (c < 0xE0)  { i += 2; }
+	else if (c < 0xF0)  { i += 3; }
+	else                { i += 4; }
+}
+
+// -- Unsafe skip-backward --
+inline auto u8_skip_back_unsafe(const char* s, size_t& i) -> void {
+	while ((static_cast<unsigned char>(s[--i]) & 0xC0) == 0x80) {}
+}
+
+// -- Unsafe decode-reverse --
+inline auto u8_decode_rev_unsafe(const char* s, size_t& i, char32_t& cp) -> void {
+	u8_skip_back_unsafe(s, i);
+	u8_decode_unsafe(s, i, cp);
+}
+
+// -- Unsafe encode --
+inline auto u8_encode_unsafe(char* buf, size_t& i, char32_t cp) -> void {
+	if (cp < 0x80) {
+		buf[i++] = static_cast<char>(cp);
+	} else if (cp < 0x800) {
+		buf[i++] = static_cast<char>(0xC0 | (cp >> 6));
+		buf[i++] = static_cast<char>(0x80 | (cp & 0x3F));
+	} else if (cp < 0x10000) {
+		buf[i++] = static_cast<char>(0xE0 | (cp >> 12));
+		buf[i++] = static_cast<char>(0x80 | ((cp >> 6) & 0x3F));
+		buf[i++] = static_cast<char>(0x80 | (cp & 0x3F));
+	} else {
+		buf[i++] = static_cast<char>(0xF0 | (cp >> 18));
+		buf[i++] = static_cast<char>(0x80 | ((cp >> 12) & 0x3F));
+		buf[i++] = static_cast<char>(0x80 | ((cp >> 6) & 0x3F));
+		buf[i++] = static_cast<char>(0x80 | (cp & 0x3F));
+	}
+}
+
+// ============================================================
+// UTF-16 helpers (not used by CompoundCorrector, stub/simplify)
+// ============================================================
+
+#define U16_MAX_LENGTH 2
+
+inline bool u16_is_surrogate(int32_t cp) { return cp >= 0xD800 && cp <= 0xDFFF; }
+
+} // namespace unicode_detail
+} // namespace nuspell
 
 namespace nuspell {
 NUSPELL_BEGIN_INLINE_NAMESPACE
@@ -36,57 +205,35 @@ auto inline u8_is_cp_error(int32_t cp) -> bool { return cp < 0; }
 template <class Range>
 auto u8_advance_cp(const Range& str, size_t& i, int32_t& cp) -> void
 {
-#if U_ICU_VERSION_MAJOR_NUM <= 60
-	auto s_ptr = str.data();
-	int32_t idx = i;
-	int32_t len = str.size();
-	U8_NEXT(s_ptr, idx, len, cp);
-	i = idx;
-#else
 	auto len = str.size();
-	U8_NEXT(str, i, len, cp);
-#endif
+	unicode_detail::u8_decode(str, i, len, cp);
 }
 
 template <class Range>
 auto u8_advance_index(const Range& str, size_t& i) -> void
 {
 	auto len = str.size();
-	U8_FWD_1(str, i, len);
+	unicode_detail::u8_skip_fwd(str, i, len);
 }
 
 template <class Range>
 auto u8_reverse_cp(const Range& str, size_t& i, int32_t& cp) -> void
 {
-	auto ptr = str.data();
-	int32_t idx = i;
-	U8_PREV(ptr, 0, idx, cp);
-	i = idx;
+	unicode_detail::u8_decode_rev(str, 0, i, cp);
 }
 
 template <class Range>
 auto u8_reverse_index(const Range& str, size_t& i) -> void
 {
-	auto ptr = str.data();
-	int32_t idx = i;
-	U8_BACK_1(ptr, 0, idx);
-	i = idx;
+	unicode_detail::u8_skip_back(str, 0, i);
 }
 
 template <class Range>
 auto u8_write_cp_and_advance(Range& buf, size_t& i, int32_t cp, bool& error)
      -> void
 {
-#if U_ICU_VERSION_MAJOR_NUM <= 60
-	auto ptr = buf.data();
-	int32_t idx = i;
-	int32_t len = buf.size();
-	U8_APPEND(buf, idx, len, cp, error);
-	i = idx;
-#else
 	auto len = buf.size();
-	U8_APPEND(buf, i, len, cp, error);
-#endif
+	unicode_detail::u8_encode(buf, i, len, cp, error);
 }
 
 // UTF-8, valid
@@ -94,71 +241,75 @@ auto u8_write_cp_and_advance(Range& buf, size_t& i, int32_t cp, bool& error)
 template <class Range>
 auto valid_u8_advance_cp(const Range& str, size_t& i, char32_t& cp) -> void
 {
-	U8_NEXT_UNSAFE(str, i, cp);
+	unicode_detail::u8_decode_unsafe(str.data(), i, cp);
 }
 
 template <class Range>
 auto valid_u8_advance_index(const Range& str, size_t& i) -> void
 {
-	U8_FWD_1_UNSAFE(str, i);
+	unicode_detail::u8_skip_fwd_unsafe(str.data(), i);
 }
 
 template <class Range>
 auto valid_u8_reverse_cp(const Range& str, size_t& i, char32_t& cp) -> void
 {
-	U8_PREV_UNSAFE(str, i, cp);
+	unicode_detail::u8_decode_rev_unsafe(str.data(), i, cp);
 }
 
 template <class Range>
 auto valid_u8_reverse_index(const Range& str, size_t& i) -> void
 {
-	U8_BACK_1_UNSAFE(str, i);
+	unicode_detail::u8_skip_back_unsafe(str.data(), i);
 }
 
 template <class Range>
 auto valid_u8_write_cp_and_advance(Range& buf, size_t& i, char32_t cp) -> void
 {
-	U8_APPEND_UNSAFE(buf, i, cp);
+	unicode_detail::u8_encode_unsafe(buf.data(), i, cp);
 }
 
 // UTF-16, work on malformed
 
 constexpr auto u16_max_cp_length = U16_MAX_LENGTH;
 
-auto inline u16_is_cp_error(int32_t cp) -> bool { return U_IS_SURROGATE(cp); }
+auto inline u16_is_cp_error(int32_t cp) -> bool { return unicode_detail::u16_is_surrogate(cp); }
+
+// UTF-16 decode/encode stubs — not used by CompoundCorrector code path.
+// Fall back to single-code-unit for unsigned shorts.
 
 template <class Range>
 auto u16_advance_cp(const Range& str, size_t& i, int32_t& cp) -> void
 {
-	auto len = str.size();
-	U16_NEXT(str, i, len, cp);
+	if (i >= str.size()) { cp = -1; return; }
+	cp = static_cast<int32_t>(static_cast<unsigned short>(str[i++]));
 }
 
 template <class Range>
 auto u16_advance_index(const Range& str, size_t& i) -> void
 {
-	auto len = str.size();
-	U16_FWD_1(str, i, len);
+	if (i < str.size()) ++i;
 }
 
 template <class Range>
 auto u16_reverse_cp(const Range& str, size_t& i, int32_t& cp) -> void
 {
-	U16_PREV(str, 0, i, cp);
+	if (i == 0) { cp = -1; return; }
+	cp = static_cast<int32_t>(static_cast<unsigned short>(str[--i]));
 }
 
 template <class Range>
 auto u16_reverse_index(const Range& str, size_t& i) -> void
 {
-	U16_BACK_1(str, 0, i);
+	if (i > 0) --i;
 }
 
 template <class Range>
 auto u16_write_cp_and_advance(Range& buf, size_t& i, int32_t cp, bool& error)
      -> void
 {
-	auto len = buf.size();
-	U16_APPEND(buf, i, len, cp, error);
+	error = false;
+	if (i >= buf.size()) { error = true; return; }
+	buf[i++] = static_cast<typename std::remove_reference<decltype(buf[0])>::type>(cp & 0xFFFF);
 }
 
 // UTF-16, valid
@@ -166,31 +317,31 @@ auto u16_write_cp_and_advance(Range& buf, size_t& i, int32_t cp, bool& error)
 template <class Range>
 auto valid_u16_advance_cp(const Range& str, size_t& i, char32_t& cp) -> void
 {
-	U16_NEXT_UNSAFE(str, i, cp);
+	cp = static_cast<char32_t>(static_cast<unsigned short>(str[i++]));
 }
 
 template <class Range>
 auto valid_u16_advance_index(const Range& str, size_t& i) -> void
 {
-	U16_FWD_1_UNSAFE(str, i);
+	++i;
 }
 
 template <class Range>
 auto valid_u16_reverse_cp(const Range& str, size_t& i, char32_t& cp) -> void
 {
-	U16_PREV_UNSAFE(str, i, cp);
+	cp = static_cast<char32_t>(static_cast<unsigned short>(str[--i]));
 }
 
 template <class Range>
 auto valid_u16_reverse_index(const Range& str, size_t& i) -> void
 {
-	U16_BACK_1_UNSAFE(str, i);
+	--i;
 }
 
 template <class Range>
 auto valid_u16_write_cp_and_advance(Range& buf, size_t& i, char32_t cp) -> void
 {
-	U16_APPEND_UNSAFE(buf, i, cp);
+	buf[i++] = static_cast<typename std::remove_reference<decltype(buf[0])>::type>(cp & 0xFFFF);
 }
 
 // higher level funcs
@@ -220,7 +371,7 @@ class U8_Encoded_CP {
 	U8_Encoded_CP(char32_t cp)
 	{
 		size_t z = 0;
-		valid_u8_write_cp_and_advance(d, z, cp);
+		unicode_detail::u8_encode_unsafe(d, z, cp);
 		sz = z;
 	}
 	auto size() const noexcept -> size_t { return sz; }

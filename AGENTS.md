@@ -6,6 +6,8 @@
 ./install.sh
 ```
 
+Note: `install.sh` passes `-DBUILD_TOOLS=OFF` on this branch (finder is stubbed).
+
 Equivalent manual steps:
 
 ```bash
@@ -44,6 +46,17 @@ or, equivalently:
 | `src/api/` | Compound Corrector API, `test_compound`, `pack_resources` |  
 | `tests/` | Catch2-based tests (run via `ctest`) |  
 | `res/` | API resources: dictionary, ARPA unigrams, acronyms, test fixtures, bundle |  
+
+## ICU-Free / C++14-Only Branch
+
+- **ICU removed** — case folding is ASCII-only (`[a-zA-Z]`).
+- **`finder.cxx`** — all functions are no-op stubs (no dictionary auto-discovery).
+- **`filesystem.hxx`** — minimal `path` wrapper only; `directory_entry`,
+  `directory_iterator`, `filesystem_error` removed.
+- **`BUILD_TOOLS=OFF`** — CLI tools depend on finder stubs, so they are disabled.
+- **C++14 only** — no C++17 features used anywhere, including tests.
+- For the full-featured nuspell (ICU, dictionary discovery, CLI tools), see the
+  `icu` branch.
 
 ## `src/nuspell/` and `src/api/` are C++14-Compatible
 

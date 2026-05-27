@@ -8,32 +8,25 @@ add_library(nuspell
                  unicode.hxx
  utils.cxx        utils.hxx
                  structures.hxx
- filesystem.cxx   filesystem.hxx
+                 filesystem.hxx
                  string_view.hxx)
 
 add_library(Nuspell::nuspell ALIAS nuspell)
 
-include(GenerateExportHeader)
-generate_export_header(nuspell)
-
 set(nuspell_headers aff_data.hxx checker.hxx suggester.hxx dictionary.hxx
 	finder.hxx structures.hxx unicode.hxx defines.hxx filesystem.hxx
-	string_view.hxx
-	${CMAKE_CURRENT_BINARY_DIR}/nuspell_export.h)
+	string_view.hxx)
 set_target_properties(nuspell PROPERTIES
 	PUBLIC_HEADER "${nuspell_headers}"
 	VERSION ${PROJECT_VERSION}
 	SOVERSION ${PROJECT_VERSION_MAJOR}
-	CXX_VISIBILITY_PRESET hidden)
+	CXX_VISIBILITY_PRESET default)
 
 target_compile_features(nuspell PUBLIC cxx_std_14)
 
 target_include_directories(nuspell
-	PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 	INTERFACE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
 	          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-
-target_link_libraries(nuspell PUBLIC ICU::uc ICU::data)
 
 if (subproject)
 	return()

@@ -19,11 +19,9 @@
 #ifndef NUSPELL_AFF_DATA_HXX
 #define NUSPELL_AFF_DATA_HXX
 
-#include "nuspell_export.h"
 #include "structures.hxx"
 
 #include <iosfwd>
-#include <unicode/locid.h>
 
 namespace nuspell {
 NUSPELL_BEGIN_INLINE_NAMESPACE
@@ -119,7 +117,6 @@ struct Aff_Data {
 	Break_Table break_table = {};
 	Substr_Replacer input_substr_replacer = {};
 	std::string ignored_chars = {};
-	icu::Locale icu_locale = {};
 	Substr_Replacer output_substr_replacer = {};
 
 	// suggestion options

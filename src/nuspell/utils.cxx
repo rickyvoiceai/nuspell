@@ -20,13 +20,8 @@
 #include "unicode.hxx"
 
 #include <algorithm>
+#include <cctype>
 #include <locale>
-
-#include <unicode/stringoptions.h>
-#include <unicode/uchar.h>
-#include <unicode/ucnv.h>
-#include <unicode/unistr.h>
-#include <unicode/ustring.h>
 
 #if ' ' != 32 || '.' != 46 || 'A' != 65 || 'Z' != 90 || 'a' != 97 || 'z' != 122
 #error "Basic execution character set is not ASCII"
@@ -37,19 +32,6 @@ using namespace std;
 namespace nuspell {
 NUSPELL_BEGIN_INLINE_NAMESPACE
 
-/**
- * @internal
- * @brief Splits string on set of single char separators.
- *
- * Consecutive separators are treated as separate and will emit empty strings.
- *
- * @deprecated TODO delete this on new major version. it was exported internal
- * symbol, but now it isn't used internally. it was exported for unit_test.
- * @param s string to split.
- * @param sep separator(s) to split on.
- * @param out vector where separated strings are appended.
- * @return @p out.
- */
 auto split_on_any_of(string_view, const char*,
                      std::vector<std::string>& out) -> std::vector<std::string>&
 {
@@ -88,6 +70,7 @@ auto valid_utf8_to_32(string_view in) -> std::u32string
 	return out;
 }
 
+// UTF-8 to UTF-16 conversion (simple, non-surrogate-pair for BMP only)
 auto utf8_to_16(string_view in) -> std::u16string
 {
 	auto out = u16string();
@@ -97,28 +80,36 @@ auto utf8_to_16(string_view in) -> std::u16string
 
 bool utf8_to_16(string_view in, std::u16string& out)
 {
-	int32_t len;
-	auto err = U_ZERO_ERROR;
-	u_strFromUTF8(&out[0], out.size(), &len, in.data(), in.size(), &err);
-	out.resize(len);
-	if (err == U_BUFFER_OVERFLOW_ERROR) {
-		err = U_ZERO_ERROR;
-		u_strFromUTF8(&out[0], out.size(), &len, in.data(), in.size(),
-		              &err);
-	}
-	if (U_SUCCESS(err))
-		return true;
 	out.clear();
-	return false;
+	for (size_t i = 0; i < in.size();) {
+		char32_t cp;
+		valid_u8_advance_cp(in, i, cp);
+		if (cp > 0xFFFF) cp = 0xFFFD; // replacement char for non-BMP
+		out.push_back(static_cast<char16_t>(cp));
+	}
+	return true;
 }
 
+// Simple UTF-8 validation: just check that all bytes are valid UTF-8 sequences.
 bool validate_utf8(string_view s)
 {
-	auto err = U_ZERO_ERROR;
-	u_strFromUTF8(nullptr, 0, nullptr, s.data(), s.size(), &err);
-	if (err == U_INVALID_CHAR_FOUND)
-		return false;
-	return err == U_BUFFER_OVERFLOW_ERROR || U_SUCCESS(err);
+	for (size_t i = 0; i < s.size();) {
+		auto c = static_cast<unsigned char>(s[i]);
+		int n;
+		if (c < 0x80)       { n = 1; }
+		else if (c < 0xC0)  { return false; }
+		else if (c < 0xE0)  { n = 2; }
+		else if (c < 0xF0)  { n = 3; }
+		else if (c < 0xF8)  { n = 4; }
+		else                { return false; }
+		for (int j = 1; j < n; ++j) {
+			if (i + j >= s.size()) return false;
+			auto t = static_cast<unsigned char>(s[i + j]);
+			if ((t & 0xC0) != 0x80) return false;
+		}
+		i += n;
+	}
+	return true;
 }
 
 auto static is_ascii(char c) -> bool
@@ -163,105 +154,82 @@ auto to_upper_ascii(std::string& s) -> void
 	char_type.toupper(begin_ptr(s), end_ptr(s));
 }
 
-auto static utf32_to_icu(u32string_view in) -> icu::UnicodeString
-{
-	static_assert(sizeof(UChar32) == sizeof(char32_t));
-	return icu::UnicodeString::fromUTF32(
-	    reinterpret_cast<const UChar32*>(static_cast<const void*>(in.data())), in.size());
-}
-auto static icu_to_utf32(const icu::UnicodeString& in, std::u32string& out)
-    -> bool
-{
-	out.resize(in.length());
-	auto err = U_ZERO_ERROR;
-	auto len =
-	    in.toUTF32(reinterpret_cast<UChar32*>(static_cast<void*>(&out[0])), out.size(), err);
-	if (U_SUCCESS(err)) {
-		out.erase(len);
-		return true;
+// --- ASCII-only case folding (replaces ICU) ---
+
+auto inline ascii_to_lower(std::string& s) -> void {
+	for (auto& c : s) {
+		if (c >= 'A' && c <= 'Z') c = static_cast<char>(c - 'A' + 'a');
 	}
-	out.clear();
-	return false;
 }
 
-auto to_upper(string_view in, const icu::Locale& loc) -> std::string
+auto inline ascii_to_upper(std::string& s) -> void {
+	for (auto& c : s) {
+		if (c >= 'a' && c <= 'z') c = static_cast<char>(c - 'a' + 'A');
+	}
+}
+
+auto inline ascii_to_title(std::string& s) -> void {
+	if (!s.empty() && s[0] >= 'a' && s[0] <= 'z')
+		s[0] = static_cast<char>(s[0] - 'a' + 'A');
+	for (size_t i = 1; i < s.size(); ++i) {
+		if (s[i] >= 'A' && s[i] <= 'Z')
+			s[i] = static_cast<char>(s[i] - 'A' + 'a');
+	}
+}
+
+auto to_upper(string_view in) -> std::string
 {
-	auto out = std::string();
-	to_upper(in, loc, out);
+	auto out = std::string(in);
+	ascii_to_upper(out);
 	return out;
 }
-auto to_title(string_view in, const icu::Locale& loc) -> std::string
+auto to_title(string_view in) -> std::string
 {
-	auto out = std::string();
-	to_title(in, loc, out);
+	auto out = std::string(in);
+	ascii_to_title(out);
 	return out;
 }
-auto to_lower(string_view in, const icu::Locale& loc) -> std::string
+auto to_lower(string_view in) -> std::string
 {
-	auto out = std::string();
-	to_lower(in, loc, out);
+	auto out = std::string(in);
+	ascii_to_lower(out);
 	return out;
 }
 
-auto to_upper(string_view in, const icu::Locale& loc, string& out) -> void
+auto to_upper(string_view in, string& out) -> void
 {
-	auto sp = icu::StringPiece(in.data(), in.size());
-	auto us = icu::UnicodeString::fromUTF8(sp);
-	us.toUpper(loc);
-	out.clear();
-	us.toUTF8String(out);
+	out = in;
+	ascii_to_upper(out);
 }
-auto to_title(string_view in, const icu::Locale& loc, string& out) -> void
+auto to_title(string_view in, string& out) -> void
 {
-	auto sp = icu::StringPiece(in.data(), in.size());
-	auto us = icu::UnicodeString::fromUTF8(sp);
-	us.toTitle(nullptr, loc, U_TITLECASE_WHOLE_STRING);
-	out.clear();
-	us.toUTF8String(out);
+	out = in;
+	ascii_to_title(out);
 }
-auto to_lower(u32string_view in, const icu::Locale& loc, u32string& out) -> void
+auto to_lower(u32string_view in, u32string& out) -> void
 {
-	auto us = utf32_to_icu(in);
-	us.toLower(loc);
-	icu_to_utf32(us, out);
+	out = in;
+	for (auto& c : out) {
+		if (c >= 'A' && c <= 'Z') c = c - 'A' + 'a';
+	}
 }
-auto to_lower(string_view in, const icu::Locale& loc, string& out) -> void
+auto to_lower(string_view in, string& out) -> void
 {
-	auto sp = icu::StringPiece(in.data(), in.size());
-	auto us = icu::UnicodeString::fromUTF8(sp);
-	us.toLower(loc);
-	out.clear();
-	us.toUTF8String(out);
+	out = in;
+	ascii_to_lower(out);
 }
 
-auto to_lower_char_at(std::string& s, size_t i, const icu::Locale& loc) -> void
+auto to_lower_char_at(std::string& s, size_t i) -> void
 {
-	auto cp = valid_u8_next_cp(s, i);
-	auto us = icu::UnicodeString(UChar32(cp.cp));
-	us.toLower(loc);
-	auto u8_low = string();
-	us.toUTF8String(u8_low);
-	s.replace(i, cp.end_i - i, u8_low);
+	if (i < s.size() && s[i] >= 'A' && s[i] <= 'Z')
+		s[i] = static_cast<char>(s[i] - 'A' + 'a');
 }
-auto to_title_char_at(std::string& s, size_t i, const icu::Locale& loc) -> void
+auto to_title_char_at(std::string& s, size_t i) -> void
 {
-	auto cp = valid_u8_next_cp(s, i);
-	auto us = icu::UnicodeString(UChar32(cp.cp));
-	us.toTitle(nullptr, loc, U_TITLECASE_WHOLE_STRING);
-	auto u8_title = string();
-	us.toUTF8String(u8_title);
-	s.replace(i, cp.end_i - i, u8_title);
+	if (i < s.size() && s[i] >= 'a' && s[i] <= 'z')
+		s[i] = static_cast<char>(s[i] - 'a' + 'A');
 }
 
-/**
- * @internal
- * @brief Determines casing (capitalization) type for a word.
- *
- * Casing is sometimes referred to as capitalization.
- *
- * @param s word.
- * @return The casing type.
- */
 auto classify_casing(string_view s) -> Casing
 {
 	size_t upper = 0;
@@ -269,19 +237,19 @@ auto classify_casing(string_view s) -> Casing
 	for (size_t i = 0; i != s.size();) {
 		char32_t c;
 		valid_u8_advance_cp(s, i, c);
-		if (u_isupper(c))
+		if (c >= 'A' && c <= 'Z')
 			upper++;
-		else if (u_islower(c))
+		else if (c >= 'a' && c <= 'z')
 			lower++;
 		// else neutral
 	}
-	if (upper == 0)               // all lowercase, maybe with some neutral
-		return Casing::SMALL; // most common case
+	if (upper == 0)
+		return Casing::SMALL;
 
 	auto first_cp = valid_u8_next_cp(s, 0);
-	auto first_capital = u_isupper(first_cp.cp);
+	auto first_capital = (first_cp.cp >= 'A' && first_cp.cp <= 'Z');
 	if (first_capital && upper == 1)
-		return Casing::INIT_CAPITAL; // second most common
+		return Casing::INIT_CAPITAL;
 
 	if (lower == 0)
 		return Casing::ALL_CAPITAL;
@@ -292,62 +260,20 @@ auto classify_casing(string_view s) -> Casing
 		return Casing::CAMEL;
 }
 
-/**
- * @internal
- * @brief Check if word[i] or word[i-1] are uppercase
- *
- * Check if the two chars are alphabetic and at least one of them is in
- * uppercase.
- *
- * @return true if at least one is uppercase, false otherwise.
- */
 auto has_uppercase_at_compound_word_boundary(string_view word, size_t i) -> bool
 {
 	auto cp = valid_u8_next_cp(word, i);
 	auto cp_prev = valid_u8_prev_cp(word, i);
-	if (u_isupper(cp.cp)) {
-		if (u_isalpha(cp_prev.cp))
-			return true;
+	bool upper_cp = (cp.cp >= 'A' && cp.cp <= 'Z');
+	bool alpha_cp = ((cp.cp >= 'A' && cp.cp <= 'Z') || (cp.cp >= 'a' && cp.cp <= 'z'));
+	bool upper_prev = (cp_prev.cp >= 'A' && cp_prev.cp <= 'Z');
+	bool alpha_prev = ((cp_prev.cp >= 'A' && cp_prev.cp <= 'Z') || (cp_prev.cp >= 'a' && cp_prev.cp <= 'z'));
+	if (upper_cp) {
+		if (alpha_prev) return true;
 	}
-	else if (u_isupper(cp_prev.cp) && u_isalpha(cp.cp))
+	else if (upper_prev && alpha_cp)
 		return true;
 	return false;
-}
-
-Encoding_Converter::Encoding_Converter(const char* enc)
-{
-	auto err = UErrorCode();
-	cnv = ucnv_open(enc, &err);
-}
-
-Encoding_Converter::~Encoding_Converter()
-{
-	if (cnv)
-		ucnv_close(cnv);
-}
-
-auto Encoding_Converter::to_utf8(string_view in, string& out) -> bool
-{
-	if (ucnv_getType(cnv) == UCNV_UTF8) {
-		if (validate_utf8(in)) {
-			out = in;
-			return true;
-		}
-		else {
-			out.clear();
-			return false;
-		}
-	}
-	auto err = U_ZERO_ERROR;
-	auto len = ucnv_toAlgorithmic(UCNV_UTF8, cnv, &out[0], out.size(),
-	                              in.data(), in.size(), &err);
-	out.resize(len);
-	if (err == U_BUFFER_OVERFLOW_ERROR) {
-		err = U_ZERO_ERROR;
-		ucnv_toAlgorithmic(UCNV_UTF8, cnv, &out[0], out.size(),
-		                   in.data(), in.size(), &err);
-	}
-	return U_SUCCESS(err);
 }
 
 auto replace_ascii_char(string& s, char from, char to) -> void
@@ -372,13 +298,6 @@ auto erase_chars(string& s, string_view erase_chars) -> void
 	return;
 }
 
-/**
- * @internal
- * @brief Tests if word is a number.
- *
- * Allow numbers with dot ".", dash "-" or comma "," between the digits, but
- * forbids double separators such as "..", "--" and ".,".
- */
 auto is_number(string_view s) -> bool
 {
 	if (s.empty())

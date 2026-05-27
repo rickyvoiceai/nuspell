@@ -17,7 +17,6 @@ option(BUILD_DOCS "Build the docs." ON)
 cmake_dependent_option(BUILD_MAN "Build man-pages." ON BUILD_DOCS OFF)
 cmake_dependent_option(BUILD_API_DOCS "Build API docs." ON BUILD_DOCS OFF)
 
-find_package(ICU 60 REQUIRED COMPONENTS uc data)
 get_directory_property(subproject PARENT_DIRECTORY)
 add_subdirectory(src/nuspell)
 

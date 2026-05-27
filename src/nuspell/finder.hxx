@@ -25,7 +25,6 @@
 #define NUSPELL_FINDER_HXX
 
 #include "defines.hxx"
-#include "nuspell_export.h"
 
 #include "filesystem.hxx"
 #include <string>

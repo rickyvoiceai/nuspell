@@ -3,9 +3,10 @@ add_library(compound_corrector STATIC
     compound_corrector.hxx
     bundle.cxx
     bundle.hxx
+    nuspell_corrector.cc
+    nuspell_corrector.h
 )
-# Our code is C++14-compatible, but Nuspell depends on C++17.
-# CMake resolves the standard based on linked targets.
+# Pure C++14 — no ICU dependency.
 target_link_libraries(compound_corrector PUBLIC Nuspell::nuspell)
 
 # Resource packer

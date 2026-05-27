@@ -411,18 +411,14 @@ class Aff_Line_Parser {
 		return in;
 	}
 
-	auto& parse(istream& in, icu::Locale& loc)
+	auto& parse(istream& in)
 	{
 		in >> str_buf;
 		if (in.fail()) {
 			err = Err::ISTREAM_READING_ERROR;
 			return in;
 		}
-		loc = icu::Locale(str_buf.c_str());
-		if (loc.isBogus()) {
-			err = Err::INVALID_LANG_IDENTIFIER;
-			in.setstate(in.failbit);
-		}
+		// LANG directive parsed but locale not needed for ASCII-only operation.
 		return in;
 	}
 
@@ -842,7 +838,7 @@ auto Aff_Data::parse_aff(istream& in, ostream& err_msg) -> bool
 			p.parse(ss, flag_type);
 		}
 		else if (command == "LANG") {
-			p.parse(ss, icu_locale);
+			p.parse(ss);
 		}
 		else if (command == "AF") {
 			parse_vector_of_T(ss, p, command, cmd_with_vec_cnt,
@@ -1042,7 +1038,7 @@ auto Aff_Data::parse_dic(istream& in, ostream& err_msg) -> bool
 			// entries.
 			if (inserted->second.contains(forbiddenword_flag))
 				break;
-			to_title(u8word, icu_locale, u8word);
+			to_title(u8word, u8word);
 			flags += HIDDEN_HOMONYM_FLAG;
 			words.emplace(u8word, flags);
 			break;

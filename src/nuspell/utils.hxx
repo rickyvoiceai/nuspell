@@ -20,13 +20,11 @@
 #define NUSPELL_UTILS_HXX
 
 #include "defines.hxx"
-#include "nuspell_export.h"
 
 #include <string>
 #include "string_view.hxx"
 #include <vector>
 
-#include <unicode/locid.h>
 
 #ifdef __GNUC__
 #define likely(expr) __builtin_expect(!!(expr), 1)
@@ -36,7 +34,6 @@
 #define unlikely(expr) (expr)
 #endif
 
-struct UConverter; // unicode/ucnv.h
 
 namespace nuspell {
 NUSPELL_BEGIN_INLINE_NAMESPACE
@@ -67,26 +64,19 @@ NUSPELL_EXPORT auto is_all_bmp(u16string_view s) -> bool;
 
 auto to_upper_ascii(std::string& s) -> void;
 
-NUSPELL_NODISCARD NUSPELL_EXPORT auto to_upper(string_view in,
-                                            const icu::Locale& loc)
+NUSPELL_NODISCARD NUSPELL_EXPORT auto to_upper(string_view in)
     -> std::string;
-NUSPELL_NODISCARD NUSPELL_EXPORT auto to_title(string_view in,
-                                            const icu::Locale& loc)
+NUSPELL_NODISCARD NUSPELL_EXPORT auto to_title(string_view in)
     -> std::string;
-NUSPELL_NODISCARD NUSPELL_EXPORT auto to_lower(string_view in,
-                                            const icu::Locale& loc)
+NUSPELL_NODISCARD NUSPELL_EXPORT auto to_lower(string_view in)
     -> std::string;
 
-auto to_upper(string_view in, const icu::Locale& loc, std::string& out)
-    -> void;
-auto to_title(string_view in, const icu::Locale& loc, std::string& out)
-    -> void;
-auto to_lower(u32string_view in, const icu::Locale& loc,
-              std::u32string& out) -> void;
-auto to_lower(string_view in, const icu::Locale& loc, std::string& out)
-    -> void;
-auto to_lower_char_at(std::string& s, size_t i, const icu::Locale& loc) -> void;
-auto to_title_char_at(std::string& s, size_t i, const icu::Locale& loc) -> void;
+auto to_upper(string_view in, std::string& out) -> void;
+auto to_title(string_view in, std::string& out) -> void;
+auto to_lower(u32string_view in, std::u32string& out) -> void;
+auto to_lower(string_view in, std::string& out) -> void;
+auto to_lower_char_at(std::string& s, size_t i) -> void;
+auto to_title_char_at(std::string& s, size_t i) -> void;
 
 /**
  * @internal
@@ -108,33 +98,16 @@ NUSPELL_EXPORT auto classify_casing(string_view s) -> Casing;
 auto has_uppercase_at_compound_word_boundary(string_view word, size_t i)
     -> bool;
 
+// Encoding_Converter removed — always UTF-8.
+// Stub: pass-through converter for API compatibility.
 class Encoding_Converter {
-	UConverter* cnv = nullptr;
-
       public:
 	Encoding_Converter() = default;
-	explicit Encoding_Converter(const char* enc);
-	explicit Encoding_Converter(const std::string& enc)
-	    : Encoding_Converter(enc.c_str())
-	{
-	}
-	~Encoding_Converter();
-	Encoding_Converter(const Encoding_Converter& other) = delete;
-	Encoding_Converter(Encoding_Converter&& other) noexcept
-	{
-		cnv = other.cnv;
-		cnv = nullptr;
-	}
-	auto operator=(const Encoding_Converter& other)
-	    -> Encoding_Converter& = delete;
-	auto operator=(Encoding_Converter&& other) noexcept
-	    -> Encoding_Converter&
-	{
-		std::swap(cnv, other.cnv);
-		return *this;
-	}
-	auto to_utf8(string_view in, std::string& out) -> bool;
-	auto valid() -> bool { return cnv != nullptr; }
+	explicit Encoding_Converter(const char* /*enc*/) {}
+	explicit Encoding_Converter(const std::string& /*enc*/) {}
+	~Encoding_Converter() {}
+	auto to_utf8(string_view in, std::string& out) -> bool { out = in; return true; }
+	auto valid() -> bool { return true; }
 };
 
 auto replace_ascii_char(std::string& s, char from, char to) -> void;
