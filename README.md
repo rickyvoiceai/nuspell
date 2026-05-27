@@ -6,7 +6,7 @@ Nuspell is written in modern C++ and it supports Hunspell dictionaries.
 
 Main features of Nuspell spelling checker:
 
-  - Provides software library and command-line tool.
+  - Provides software library (CLI tools available on the `icu` branch).
   - Suggests high-quality spelling corrections.
   - Backward compatibility with Hunspell dictionary file format.
   - Up to 3.5 times faster than Hunspell.
@@ -68,15 +68,10 @@ of Make.
 
 ### C++14 compatibility
 
-Nuspell builds with C++14. If you need the advanced unit tests (which use
-C++17 features such as CTAD and `is_same_v`), enable them explicitly:
-
-```bash
-cmake .. -DBUILD_API=ON -DBUILD_ADVANCED_TESTS=ON
-```
-
-Otherwise, the default C++14 build skips these tests and runs a lighter
-smoke test (`api_smoke_test`) instead.
+Nuspell builds with strict C++14. The C++17 Catch2-based unit tests (which
+use CTAD, `is_same_v`, etc.) are **not available** on this branch.
+The default build runs the lighter `api_smoke_test` (<tt>ctest</tt>) and
+<tt>test_compound</tt> API tests instead.
 
 If you are making a Linux distribution package (deb, rpm) you need
 some additional configurations on the CMake invocation. For example:
@@ -172,14 +167,16 @@ Then run the standard cmake and make as on Linux. See above.
 
 ## Using the command-line tool
 
-The main executable is located in `src/nuspell`.
+> **Note:** The `nuspell` CLI binary is **disabled** on this branch
+> (`BUILD_TOOLS=OFF`). Dictionary finder functions are stubs, so
+> auto-discovery of installed dictionaries would not work. See the `icu`
+> branch for the full CLI tool with dictionary discovery.
 
-After compiling and installing you can run the Nuspell spell checker
-with a Nuspell, Hunspell or Myspell dictionary:
+The nuspell spell checker would normally be invoked like:
 
     nuspell -d en_US text.txt
 
-For more details run see the [man-page](docs/nuspell.1.md).
+Its source code lives in `src/tools/`.
 
 <!-- old hunspell v1 stuff
 The src/tools directory contains ten executables after compiling.

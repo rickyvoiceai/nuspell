@@ -42,7 +42,7 @@ or, equivalently:
 | Directory | Content |
 |---|---|
 | `src/nuspell/` | Core spelling library |  
-| `src/tools/` | `nuspell` CLI binary |  
+| `src/tools/` | `nuspell` CLI binary (disabled on this branch; `BUILD_TOOLS=OFF`) |  
 | `src/api/` | Compound Corrector API, `test_compound`, `pack_resources` |  
 | `tests/` | Catch2-based tests (run via `ctest`) |  
 | `res/` | API resources: dictionary, ARPA unigrams, acronyms, test fixtures, bundle |  
