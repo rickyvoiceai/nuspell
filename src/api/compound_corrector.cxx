@@ -373,6 +373,14 @@ CorrectionResult CompoundCorrector::CorrectWithStatus(
 			                       "\" core=\"" + core + "\" fix_single=true: " + reason);
 		}
 		if (!is_chinese && !is_non_letter && !spelled) {
+			std::string title = core;
+			if (!title.empty())
+				title[0] = static_cast<char>(
+				    std::toupper(static_cast<unsigned char>(title[0])));
+			if (impl_->dict.spell(title)) {
+				result.text = input;
+				return result;
+			}
 			auto fix = impl_->try_single_fix(core, verbose_log);
 			if (fix.has_value()) {
 				result.text = fix.value() + tail;
@@ -621,6 +629,13 @@ std::to_string(i + 1) + "] into \"" + merge_info[i].word + "\"");
 			if (impl_->dict.spell(core)) {
 				if (verbose_log) verbose_log->push_back(
 				    "  core[\"" + core + "\"] dict OK → SKIP");
+				continue;
+			}
+			std::string title = core;
+			if (!title.empty())
+				title[0] = static_cast<char>(
+				    std::toupper(static_cast<unsigned char>(title[0])));
+			if (impl_->dict.spell(title)) {
 				continue;
 			}
 			auto fix = impl_->try_single_fix(core, verbose_log);
