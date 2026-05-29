@@ -100,6 +100,9 @@ public:
 
 	~CompoundCorrector();
 
+	// Runtime-config override (safe to call any time after construction).
+	void SetConfig(const NuspellConfig& cfg);
+
 	// Corrects split acronyms and compound terms in a single line.
 	// When fix_single is true, tokens that still fail spell() after the
 	// merge pass are passed to suggest() and replaced if a matching suggestion

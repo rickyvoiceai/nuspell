@@ -27,18 +27,18 @@
 #include <unordered_map>
 
 namespace {
-auto parse_uint(const char* first, const char* last, unsigned long& out) -> bool
+auto parse_uint(const char* first, const char* last, size_t& out) -> bool
 {
 	char* end;
 	errno = 0;
-	out = strtoul(first, &end, 10);
+	out = strtoull(first, &end, 10);
 	return end == last && errno == 0;
 }
-auto parse_uint_ptr(const char* first, const char* last, unsigned long& out, const char** end_ptr) -> bool
+auto parse_uint_ptr(const char* first, const char* last, size_t& out, const char** end_ptr) -> bool
 {
 	char* end;
 	errno = 0;
-	out = strtoul(first, &end, 10);
+	out = strtoull(first, &end, 10);
 	*end_ptr = end;
 	return end > first && errno == 0;
 }
@@ -132,7 +132,7 @@ auto decode_flags(string_view s, Flag_Type t, const Encoding& enc,
 	}
 	case Ft::NUMBER:
 		for (auto p = begin_ptr(s);;) {
-			unsigned long val;
+			size_t val;
 			const char* end2;
 			auto ok = parse_uint_ptr(p, end_ptr(s), val, &end2);
 			if (!ok)
@@ -290,7 +290,7 @@ auto decode_compound_rule(string_view s, Flag_Type t, const Encoding& enc,
 			if (*p != '(')
 				return Err::COMPOUND_RULE_INVALID_FORMAT;
 			++p;
-			unsigned long val;
+			size_t val;
 			const char* end2;
 			auto ok2 = parse_uint_ptr(p, end_ptr(s), val, &end2);
 			if (!ok2)

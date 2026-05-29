@@ -179,4 +179,10 @@ NUSPELL_EXPORT auto search_default_dirs_for_dicts()
 NUSPELL_END_INLINE_NAMESPACE
 } // namespace nuspell
 
+#ifndef _MSC_VER
+namespace std {
+namespace filesystem = ::nuspell::v5;
+}
+#endif
+
 #endif // NUSPELL_FILESYSTEM_HXX
