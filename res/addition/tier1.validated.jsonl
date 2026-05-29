@@ -1,0 +1,435 @@
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a biblical figure and common surname.", "word": "abraham", "logprob": -4.743912}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a U.S. state and a common proper noun.", "word": "alabama", "logprob": -4.996358}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Adjective derived from the proper noun Africa, widely used in English.", "word": "african", "logprob": -4.324718}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common proper noun referring to the first man in Abrahamic religions and a common given name.", "word": "adam", "logprob": -4.464744}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Central Asia.", "word": "afghanistan", "logprob": -4.639102}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the continent of Africa.", "word": "africa", "logprob": -4.214736}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (biblical name and surname).", "word": "aaron", "logprob": -4.894898}
+{"valid": true, "score": 2, "category": "common_word", "note": "Valid archaic or dialectal adverb meaning 'before', often found in older literature or specific regional usage.", "word": "afore", "logprob": -4.797188}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common given name and short form of Alexander.", "word": "alex", "logprob": -4.628448}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a U.S. state and country.", "word": "alaska", "logprob": -4.903362}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a given name or historical figures like Prince Albert.", "word": "albert", "logprob": -4.627789}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a female name or the literary character Alice in Wonderland.", "word": "alice", "logprob": -4.415291}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name.", "word": "alan", "logprob": -4.629938}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the continent or country.", "word": "america", "logprob": -3.947785}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (surname and given name)", "word": "allen", "logprob": -4.62026}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (e.g., Allan, a common given name or surname).", "word": "allan", "logprob": -4.854564}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name.", "word": "anderson", "logprob": -4.65091}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name and biblical figure).", "word": "andrew", "logprob": -4.458133}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid variant of 'among', commonly used in British English.", "word": "amongst", "logprob": -4.169151}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to people or things from the United States; capitalized in standard usage.", "word": "american", "logprob": -3.679082}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and surname.", "word": "angela", "logprob": -4.992381}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (female given name) and a known place name.", "word": "anna", "logprob": -4.587856}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid English preposition meaning 'in the middle of', commonly used in both British and American English.", "word": "amidst", "logprob": -4.513416}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name and nickname for Andrew.", "word": "andy", "logprob": -4.619184}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name).", "word": "anthony", "logprob": -4.615145}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (given name) of Spanish and Italian origin.", "word": "antonio", "logprob": -4.918067}
+{"valid": true, "score": 5, "category": "loanword", "note": "Commonly used English noun and adjective referring to the language or people of Arabic origin.", "word": "arabic", "logprob": -4.89625}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the Greek god, NASA's space program, and other well-known entities.", "word": "apollo", "logprob": -4.925619}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name and nickname.", "word": "annie", "logprob": -4.778317}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of the fourth month in the Gregorian calendar.", "word": "april", "logprob": -4.326596}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun and name of a famous comic book character.", "word": "archie", "logprob": -4.93761}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to people or things of Arab origin.", "word": "arab", "logprob": -4.527268}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "arizona", "logprob": -4.823647}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of the ancient Greek philosopher; valid proper noun.", "word": "aristotle", "logprob": -4.998507}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (first name and surname), notably associated with Arnold Schwarzenegger.", "word": "arnold", "logprob": -4.835488}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid British English spelling of 'armor', commonly used in UK, Canada, and other Commonwealth countries.", "word": "armour", "logprob": -4.998199}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the continent of Asia.", "word": "asia", "logprob": -4.515841}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to Neil Armstrong or the surname.", "word": "armstrong", "logprob": -4.865549}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to King Arthur or a given name.", "word": "arthur", "logprob": -4.398873}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid demonym and adjective referring to people or things from Asia; capitalized as proper noun in formal contexts.", "word": "asian", "logprob": -4.668529}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country and continent.", "word": "australia", "logprob": -4.275149}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in Georgia, USA; widely recognized proper noun.", "word": "atlanta", "logprob": -4.758321}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a city in Texas or the Austin automobile brand.", "word": "austin", "logprob": -4.763441}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Refers to the Atlantic Ocean or related proper nouns; commonly used in English.", "word": "atlantic", "logprob": -4.739407}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in Maryland, USA; widely recognized proper noun.", "word": "baltimore", "logprob": -4.868816}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Central Europe.", "word": "austria", "logprob": -4.90649}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Adjective derived from the proper noun Australia; commonly used to describe people or things from Australia.", "word": "australian", "logprob": -4.551679}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to Barack Obama or a place name; also a variant spelling of 'barrack' in some contexts.", "word": "barack", "logprob": -4.732249}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and surname.", "word": "barbara", "logprob": -4.658638}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Capital city of Germany and a major global metropolis.", "word": "berlin", "logprob": -4.813397}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and literary reference (e.g., Dante's Beatrice).", "word": "beatrice", "logprob": -4.980824}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (e.g., Bart Simpson) and a common nickname for Bartholomew.", "word": "bart", "logprob": -4.951224}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name and surname).", "word": "benjamin", "logprob": -4.705438}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and surname.", "word": "barry", "logprob": -4.731502}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid British English spelling of the word meaning actions or reactions.", "word": "behaviour", "logprob": -4.486735}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (given name and surname), also refers to the Saint Bernard dog breed.", "word": "bernard", "logprob": -4.8394}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun and name.", "word": "betty", "logprob": -4.595993}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Proper noun referring to Joe Biden, the current President of the United States.", "word": "biden", "logprob": -4.92778}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a surname or place name (e.g., Tony Blair, Blair Witch).", "word": "blair", "logprob": -4.843989}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun referring to a female name or the SS Bessie steamship; also used as a nickname for cows.", "word": "bessie", "logprob": -4.995397}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and biblical figure.", "word": "beth", "logprob": -4.896977}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in Massachusetts and a common proper noun.", "word": "boston", "logprob": -4.406319}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name.", "word": "bradley", "logprob": -4.954577}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and given name), also a common surname in English-speaking countries.", "word": "blake", "logprob": -4.830403}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and surname.", "word": "brandon", "logprob": -4.984351}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a country in South America.", "word": "brazil", "logprob": -4.651426}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country.", "word": "britain", "logprob": -4.362604}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (given name), also a common misspelling of the anatomical term 'brain'. As a standalone entry for a spelling dictionary, it is valid as a name.", "word": "brian", "logprob": -4.666735}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard English adjective referring to Britain or its people.", "word": "british", "logprob": -3.998165}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "A well-known borough of New York City and a common proper noun.", "word": "brooklyn", "logprob": -4.929149}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Proper noun referring to the famous theater district in New York City and a common metonym for American musical theater.", "word": "broadway", "logprob": -4.912889}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to Bruce Lee or a first name.", "word": "bruce", "logprob": -4.645839}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a country", "word": "canada", "logprob": -4.295835}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "california", "logprob": -4.170109}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common surname and brand name (Campbell Soup Company).", "word": "campbell", "logprob": -4.802743}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in England and name of a prestigious university.", "word": "cambridge", "logprob": -4.802114}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (given name and surname).", "word": "cameron", "logprob": -4.786811}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the Roman emperor and a common salad name.", "word": "caesar", "logprob": -4.777691}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to something from Canada; typically capitalized as 'Canadian'.", "word": "canadian", "logprob": -4.504541}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname), also associated with Burton upon Trent and Burton beer.", "word": "burton", "logprob": -4.906816}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and surname.", "word": "caroline", "logprob": -4.878078}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name and surname), also a historical title.", "word": "carl", "logprob": -4.807237}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common surname and literary reference (Lewis Carroll), valid as a proper noun.", "word": "carroll", "logprob": -4.994863}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a US state or region; also appears in common phrases like 'Carolina Reaper'.", "word": "carolina", "logprob": -4.595075}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (female given name).", "word": "catherine", "logprob": -4.715855}
+{"valid": true, "score": 5, "category": "common_word", "note": "Valid English word (British spelling of center), commonly used in UK and Commonwealth English.", "word": "centre", "logprob": -4.237696}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and surname; also appears in common phrases like 'Casey Jones'.", "word": "casey", "logprob": -4.9427}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (name) and informal term for a police officer or soldier.", "word": "charley", "logprob": -4.866314}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in the United States", "word": "chicago", "logprob": -4.448841}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Common Chinese surname; also a loanword in some contexts but primarily recognized as a proper noun.", "word": "chen", "logprob": -4.944257}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the language or people of China; commonly capitalized as 'Chinese'.", "word": "chinese", "logprob": -4.117485}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a city in North Carolina or a dessert; also appears as a common given name.", "word": "charlotte", "logprob": -4.715111}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common surname and given name; also refers to Clark Kent or the city of Clark.", "word": "clark", "logprob": -4.691146}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common French-origin proper name widely used in English-speaking countries.", "word": "claire", "logprob": -4.902503}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and surname; also refers to the Clara cell in biology.", "word": "clara", "logprob": -4.781763}
+{"valid": true, "score": 5, "category": "common_word", "note": "Valid English noun referring to the monotheistic religion based on the life and teachings of Jesus.", "word": "christianity", "logprob": -4.664737}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name) and surname.", "word": "colin", "logprob": -4.997528}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to the Clinton family or surname.", "word": "clinton", "logprob": -4.525773}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state and a major river.", "word": "colorado", "logprob": -4.784468}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a common given name or the Claude AI model series.", "word": "claude", "logprob": -4.967438}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English surname and given name.", "word": "clarke", "logprob": -4.987761}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard British English spelling of the word for hue.", "word": "colour", "logprob": -4.35078}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common name of a city in Ohio and other locations.", "word": "cleveland", "logprob": -4.946714}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the District of Columbia, Columbia University, or the historical personification of the United States.", "word": "columbia", "logprob": -4.797771}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (given name and surname)", "word": "daniel", "logprob": -4.519633}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country of Cuba.", "word": "cuba", "logprob": -4.934618}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (surname and given name)", "word": "craig", "logprob": -4.836723}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "connecticut", "logprob": -4.931464}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English male given name.", "word": "dave", "logprob": -4.542622}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and nickname.", "word": "danny", "logprob": -4.744227}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name), though often a variant spelling of 'Constance'.", "word": "constance", "logprob": -4.926264}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Proper noun referring to Charles Darwin or the genus of finches; widely recognized in English.", "word": "darwin", "logprob": -4.880554}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in Michigan, USA; widely recognized proper noun.", "word": "detroit", "logprob": -4.818152}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a biblical figure or a given name.", "word": "david", "logprob": -4.034591}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to the name Donald or specific figures like Donald Trump.", "word": "donald", "logprob": -4.601788}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to a historical diving helmet or the surname Davy; also appears in common phrases like 'Davy Jones'. Not a standard dictionary entry as a standalone common word.", "word": "davy", "logprob": -4.97239}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Well-known proper noun referring to The Walt Disney Company and its associated brands.", "word": "disney", "logprob": -4.897803}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun, notably a female given name and the character Dora the Explorer.", "word": "dora", "logprob": -4.955449}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a Roman goddess or the late Princess of Wales.", "word": "diana", "logprob": -4.607821}
+{"valid": true, "score": 5, "category": "common_word", "note": "Valid British English spelling of the noun meaning protection or military defense.", "word": "defence", "logprob": -4.575739}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Capitalized name of the capital city of Scotland.", "word": "edinburgh", "logprob": -4.812619}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), also a surname.", "word": "edith", "logprob": -4.81359}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (female name) and literary character.", "word": "dorothy", "logprob": -4.608114}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (name), e.g., Edgar Allan Poe or King Edgar.", "word": "edgar", "logprob": -4.999103}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a country in North Africa.", "word": "egypt", "logprob": -4.541736}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "edwin", "logprob": -4.881298}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English surname and given name.", "word": "duncan", "logprob": -4.863346}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name and historical title).", "word": "edward", "logprob": -4.396184}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "A very common English proper noun (female given name and surname).", "word": "elizabeth", "logprob": -4.407693}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "elsie", "logprob": -4.786107}
+{"valid": true, "score": 5, "category": "common_word", "note": "Adjective and noun referring to Egypt or its people; standard English vocabulary.", "word": "egyptian", "logprob": -4.781882}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid English word (British spelling of 'endevour'), meaning to try hard.", "word": "endeavour", "logprob": -4.890642}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name and surname.", "word": "ellen", "logprob": -4.72463}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a country in the United Kingdom.", "word": "england", "logprob": -3.999663}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common female given name and title of a famous novel.", "word": "emma", "logprob": -4.699877}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the language or people of England.", "word": "english", "logprob": -3.822345}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name and surname.", "word": "eugene", "logprob": -4.964577}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Well-known social media platform and brand name.", "word": "facebook", "logprob": -4.298662}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name) and surname.", "word": "eric", "logprob": -4.650709}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun (name), also a common misspelling of the adjective 'earnest'. As a standalone entry for names, it is valid.", "word": "ernest", "logprob": -4.909771}
+{"valid": true, "score": 4, "category": "common_word", "note": "Standard English noun referring to a male person from England.", "word": "englishman", "logprob": -4.482998}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to people or things from Europe; commonly used as an adjective.", "word": "european", "logprob": -4.144238}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (female name) of Arabic origin widely used in English-speaking contexts.", "word": "fatima", "logprob": -4.979908}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the continent.", "word": "europe", "logprob": -4.07427}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Well-known web browser and trademarked brand name.", "word": "firefox", "logprob": -4.827942}
+{"valid": true, "score": 5, "category": "common_word", "note": "Valid English word for the second month of the year.", "word": "february", "logprob": -4.503256}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a U.S. state and commonly used in English contexts.", "word": "florida", "logprob": -4.495893}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a major city in Italy and a common female given name.", "word": "florence", "logprob": -4.662106}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard British English spelling of 'favorite', widely recognized and used.", "word": "favourite", "logprob": -4.543782}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard British English spelling of the word meaning a helpful act or kindness.", "word": "favour", "logprob": -4.623994}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun referring to a surname or place names (e.g., Ferguson, Missouri).", "word": "ferguson", "logprob": -4.945213}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper name and the Latin word for lucky; also a brand of cat food.", "word": "felix", "logprob": -4.886521}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "A common English given name and surname.", "word": "frederick", "logprob": -4.774074}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to the archangel or a given name.", "word": "gabriel", "logprob": -4.865016}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common component of the proper noun San Francisco; valid as a standalone name in some contexts.", "word": "francisco", "logprob": -4.569061}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to Benjamin Franklin or the US state of Franklin; also used as a surname.", "word": "franklin", "logprob": -4.765663}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a given name or the city of Gary, Indiana.", "word": "gary", "logprob": -4.854418}
+{"valid": true, "score": 5, "category": "common_word", "note": "Valid English word referring to the sixth day of the week.", "word": "friday", "logprob": -4.251591}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name.", "word": "geoffrey", "logprob": -4.973266}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Western Europe.", "word": "france", "logprob": -4.18072}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common English given name and surname.", "word": "gerald", "logprob": -4.930974}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a U.S. state and a country.", "word": "georgia", "logprob": -4.646958}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Central Europe.", "word": "germany", "logprob": -4.282461}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (name) and term in religious music (Gloria).", "word": "gloria", "logprob": -4.856204}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common English proper noun (first name and surname).", "word": "george", "logprob": -3.988002}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Major city in Scotland and a common proper noun.", "word": "glasgow", "logprob": -4.960149}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name (e.g., Gordon Ramsay, Gordon, Scotland).", "word": "gordon", "logprob": -4.487502}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to the Gilbert and Sullivan duo or a given name; also related to the unit of magnetomotive force (Gilbert).", "word": "gilbert", "logprob": -4.70128}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common short form or nickname for the name Gregory.", "word": "greg", "logprob": -4.949034}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard English color term (British spelling variant of gray).", "word": "grey", "logprob": -4.319356}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Southern Europe.", "word": "greece", "logprob": -4.748228}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to the country in the Caribbean.", "word": "haiti", "logprob": -4.976806}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to Alexander Hamilton or the musical; also a place name.", "word": "hamilton", "logprob": -4.662715}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (first name and surname), also refers to Pope Gregory or Saint Gregory.", "word": "gregory", "logprob": -4.941972}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the people, language, or culture of Greece; capitalized as 'Greek' in standard usage.", "word": "greek", "logprob": -4.414009}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid English word (British spelling of harbor)", "word": "harbour", "logprob": -4.849875}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English male given name and surname.", "word": "harold", "logprob": -4.786834}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "A common English given name and surname.", "word": "harriet", "logprob": -4.887213}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (female given name) and a biblical figure.", "word": "hannah", "logprob": -4.864768}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and given name.", "word": "harvey", "logprob": -4.890953}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English surname and given name.", "word": "harrison", "logprob": -4.878962}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a prestigious university and city in the United States.", "word": "harvard", "logprob": -4.743486}
+{"valid": true, "score": 4, "category": "loanword", "note": "Refers to the language or people of ancient Israel; commonly used in English contexts.", "word": "hebrew", "logprob": -4.975447}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (female given name).", "word": "helen", "logprob": -4.448609}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "herbert", "logprob": -4.741312}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun (surname) and common unit of inductance named after Joseph Henry.", "word": "henry", "logprob": -4.177764}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and place name (e.g., Henderson, Nevada), not a standard common noun.", "word": "henderson", "logprob": -4.75984}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common proper noun referring to Hillary Clinton or a given name.", "word": "hillary", "logprob": -4.777849}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a country in Europe or the fabric known as holland cloth.", "word": "holland", "logprob": -4.838049}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Proper noun referring to the district in Los Angeles known for the American film industry.", "word": "hollywood", "logprob": -4.629722}
+{"valid": true, "score": 2, "category": "loanword", "note": "German honorific meaning 'Mr.' or 'Lord', occasionally used in English contexts referring to German culture.", "word": "herr", "logprob": -4.853623}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Major city in Texas and a common proper noun.", "word": "houston", "logprob": -4.79281}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard British English spelling of the word 'honor', widely recognized and used.", "word": "honour", "logprob": -4.450714}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to the Roman poet Horace or a common given name.", "word": "horace", "logprob": -4.859494}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Hong Kong), but not a standard common English word.", "word": "hong", "logprob": -4.729305}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English surname and given name.", "word": "howard", "logprob": -4.608881}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to the Hudson River or Robert Hudson.", "word": "hudson", "logprob": -4.92619}
+{"valid": true, "score": 5, "category": "common_word", "note": "Valid British English spelling of the word meaning amusement or funny quality.", "word": "humour", "logprob": -4.691698}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun (name), also a common misspelling of the adjective 'huge'.", "word": "hugh", "logprob": -4.637209}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country Indonesia.", "word": "indonesia", "logprob": -4.998239}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country India.", "word": "india", "logprob": -4.202866}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Name of a U.S. state and common proper noun.", "word": "indiana", "logprob": -4.890858}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a person from India or the indigenous peoples of the Americas; capitalized in standard usage.", "word": "indian", "logprob": -4.17188}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country Iraq.", "word": "iraq", "logprob": -4.551173}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country Iran.", "word": "iran", "logprob": -4.496812}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "iowa", "logprob": -4.818669}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Adjective derived from the proper noun Iran, commonly used to describe people or things related to Iran.", "word": "iranian", "logprob": -4.987938}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country Ireland.", "word": "ireland", "logprob": -4.512176}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a biblical figure or a common given name.", "word": "isaac", "logprob": -4.741768}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Adjective derived from the proper noun Ireland; commonly used in English.", "word": "irish", "logprob": -4.437265}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun (variant spelling of Isabel), commonly used as a given name.", "word": "isabel", "logprob": -4.806038}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a major world religion and proper noun.", "word": "islam", "logprob": -4.758188}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a country and its people.", "word": "israel", "logprob": -4.388514}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Adjective and noun derived from the proper noun Israel, commonly used in English.", "word": "israeli", "logprob": -4.861339}
+{"valid": true, "score": 5, "category": "common_word", "note": "Adjective derived from Islam, widely used in English to describe religion, culture, or people.", "word": "islamic", "logprob": -4.778606}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common male given name of Russian origin.", "word": "ivan", "logprob": -4.918399}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the nationality or language of Italy.", "word": "italian", "logprob": -4.367509}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a biblical figure or a common given name.", "word": "jacob", "logprob": -4.715903}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a surname or place names (e.g., Andrew Jackson, Jackson, Mississippi).", "word": "jackson", "logprob": -4.426721}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name.", "word": "jamie", "logprob": -4.888066}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name.", "word": "janet", "logprob": -4.814057}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun and a generic female name.", "word": "jane", "logprob": -4.338891}
+{"valid": true, "score": 3, "category": "common_word", "note": "Informal adjective meaning fine or satisfactory; also a slang term for prison.", "word": "jake", "logprob": -4.831099}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "A common French female given name and surname.", "word": "jeanne", "logprob": -4.95083}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name) and mythological figure.", "word": "jason", "logprob": -4.640757}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid English proper noun referring to the first month of the year.", "word": "january", "logprob": -4.374394}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Adjective and noun referring to Japan or its people/language; standard English usage.", "word": "japanese", "logprob": -4.269629}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name (short for Jeffrey or Jeffery).", "word": "jeff", "logprob": -4.673481}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Capitalized proper noun referring to a major city and historical site.", "word": "jerusalem", "logprob": -4.798216}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to Thomas Jefferson or places named after him.", "word": "jefferson", "logprob": -4.842104}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (name) and slang term for German soldiers in WWII.", "word": "jerry", "logprob": -4.613005}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English surname and proper noun.", "word": "johnson", "logprob": -4.326367}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English male given name and biblical figure.", "word": "joel", "logprob": -4.935592}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (female given name) and historical figure.", "word": "joan", "logprob": -4.753983}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Adjective derived from the proper noun 'Jew', commonly used to describe people, culture, or religion of Jewish origin.", "word": "jewish", "logprob": -4.462688}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name of Hebrew origin.", "word": "jonathan", "logprob": -4.731019}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name and biblical figure).", "word": "joseph", "logprob": -4.392106}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a country, historical figure, or brand.", "word": "jordan", "logprob": -4.723309}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a biblical figure and a common given name.", "word": "joshua", "logprob": -4.971895}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name and biblical figure).", "word": "judith", "logprob": -4.917514}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common Spanish male given name widely recognized in English contexts.", "word": "juan", "logprob": -4.964485}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and a well-known brand (Julia Child)", "word": "julia", "logprob": -4.610272}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (female given name) and reference to Judy Garland.", "word": "judy", "logprob": -4.955099}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English female given name.", "word": "julie", "logprob": -4.890724}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of the sixth month of the year.", "word": "june", "logprob": -4.263417}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a name or the Julian calendar.", "word": "julian", "logprob": -4.911578}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Originally a proper name, now widely used as a common noun to describe a specific type of entitled person.", "word": "karen", "logprob": -4.947828}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name.", "word": "katie", "logprob": -4.96164}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common Germanic male given name and surname.", "word": "karl", "logprob": -4.862419}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "A common English proper noun (female given name).", "word": "katherine", "logprob": -4.919636}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common proper noun (female given name) and brand name.", "word": "kate", "logprob": -4.463102}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and surname.", "word": "keith", "logprob": -4.79447}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a county in England and a common surname.", "word": "kent", "logprob": -4.877793}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to the Kennedy family or John F. Kennedy.", "word": "kennedy", "logprob": -4.572615}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (name), also refers to the Katy bird or place names.", "word": "katy", "logprob": -4.982282}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name.", "word": "kevin", "logprob": -4.811974}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "kentucky", "logprob": -4.867101}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country on the Korean peninsula.", "word": "korea", "logprob": -4.810386}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the nationality or language of Korea.", "word": "korean", "logprob": -4.853802}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard British English spelling of labor.", "word": "labour", "logprob": -4.328904}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name and surname.", "word": "larry", "logprob": -4.692942}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and surname.", "word": "laura", "logprob": -4.603144}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Refers to the Latin language or people; capitalized as a proper noun but often used in lowercase contexts.", "word": "latin", "logprob": -4.407728}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to Leonardo da Vinci or the name Leonard.", "word": "leonard", "logprob": -4.907728}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid past tense and past participle of 'learn', commonly used in British English.", "word": "learnt", "logprob": -4.818751}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a given name or place (e.g., Lawrence, Kansas).", "word": "lawrence", "logprob": -4.657351}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid past tense and past participle of 'leap', commonly used in both British and American English.", "word": "leapt", "logprob": -4.848253}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and place name.", "word": "linda", "logprob": -4.893762}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (female given name)", "word": "lisa", "logprob": -4.901649}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name and surname).", "word": "leslie", "logprob": -4.84583}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Proper noun referring to Abraham Lincoln or the city of Lincoln.", "word": "lincoln", "logprob": -4.548369}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name of French origin.", "word": "louise", "logprob": -4.715349}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Capitalized name of the capital city of England and the United Kingdom.", "word": "london", "logprob": -3.955027}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a major city in England and a famous football club.", "word": "liverpool", "logprob": -4.908728}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or Lloyd's of London; not a common dictionary word.", "word": "lloyd", "logprob": -4.974139}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a U.S. state.", "word": "louisiana", "logprob": -4.985649}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a historical region or a common female given name.", "word": "lydia", "logprob": -4.97319}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (e.g., Luke Skywalker) and a given name.", "word": "luke", "logprob": -4.80083}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a female name or the famous hominin fossil Lucy.", "word": "lucy", "logprob": -4.58214}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (female given name) and brand name.", "word": "maggie", "logprob": -4.831524}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a US president, city, or surname.", "word": "madison", "logprob": -4.969644}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "mabel", "logprob": -4.956475}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the singer or the religious figure; also used as a common noun for the Virgin Mary.", "word": "madonna", "logprob": -4.998176}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "A very common English proper noun (female given name).", "word": "margaret", "logprob": -4.33026}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to Malcolm X or a common first name.", "word": "malcolm", "logprob": -4.891762}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to the Virgin Mary or a female given name.", "word": "marian", "logprob": -4.996555}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "A well-known borough of New York City and a common noun for a cocktail or sandwich.", "word": "manhattan", "logprob": -4.894467}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun (surname) and common variant spelling of marshal in some contexts.", "word": "marshall", "logprob": -4.830018}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (first name) and part of compound terms like Marie Curie.", "word": "marie", "logprob": -4.620255}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common proper noun (first name) and a term for puppet in French-derived contexts.", "word": "marion", "logprob": -4.910622}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A proper noun, notably a character name from literature (e.g., Marilla Cuthbert in Anne of Green Gables).", "word": "marilla", "logprob": -4.91161}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common English proper noun and biblical name.", "word": "matthew", "logprob": -4.678}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (female given name).", "word": "martha", "logprob": -4.770268}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "maryland", "logprob": -4.841596}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common proper noun (female given name) and biblical figure.", "word": "mary", "logprob": -4.06316}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in Australia; valid proper noun.", "word": "melbourne", "logprob": -4.996514}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to the McCain political family or brand.", "word": "mccain", "logprob": -4.782426}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (first name), not a common dictionary word.", "word": "maurice", "logprob": -4.826033}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Adjective and noun referring to Mexico or its people; standard English usage.", "word": "mexican", "logprob": -4.674551}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major multinational technology corporation and brand name.", "word": "microsoft", "logprob": -4.670769}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country Mexico.", "word": "mexico", "logprob": -4.479664}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common English proper noun (given name) and surname.", "word": "michael", "logprob": -4.164707}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a U.S. state and common proper noun.", "word": "michigan", "logprob": -4.747687}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to John Milton or Milton Keynes.", "word": "milton", "logprob": -4.931379}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "minnesota", "logprob": -4.882059}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a major river and state in the United States.", "word": "mississippi", "logprob": -4.892753}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (biblical name), but not a common English dictionary entry for general vocabulary.", "word": "miriam", "logprob": -4.992178}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and given name.", "word": "mitchell", "logprob": -4.824203}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid English proper noun referring to the first day of the week.", "word": "monday", "logprob": -4.284631}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a U.S. state and a common proper noun.", "word": "missouri", "logprob": -4.893735}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a surname or place names (e.g., Montgomery County).", "word": "montgomery", "logprob": -4.988101}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Capitalized name of the capital city of Russia.", "word": "moscow", "logprob": -4.843739}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid British English spelling of the word meaning fungus or to shape.", "word": "mould", "logprob": -4.993576}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common surname and place name; also refers to the Morgan horse breed.", "word": "morgan", "logprob": -4.581871}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English surname and place name; also appears in idioms like 'Murphy's Law'.", "word": "murphy", "logprob": -4.895133}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name and surname.", "word": "nathan", "logprob": -4.960807}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and nickname for Nancy.", "word": "nancy", "logprob": -4.612823}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common surname and name of the Murray River in Australia.", "word": "murray", "logprob": -4.627873}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a follower of Islam; commonly capitalized as 'Muslim' but accepted in lowercase in general contexts.", "word": "muslim", "logprob": -4.643429}
+{"valid": true, "score": 4, "category": "common_word", "note": "Valid British English spelling of the word for a district or area.", "word": "neighbourhood", "logprob": -4.835795}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard British English spelling of the word for a person living nearby.", "word": "neighbour", "logprob": -4.850663}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name), e.g., Neil Armstrong.", "word": "neil", "logprob": -4.885011}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (common female name and surname), also a loanword in some contexts.", "word": "nora", "logprob": -4.982854}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Northern Europe.", "word": "norway", "logprob": -4.959556}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard British English spelling of the word meaning a crime or insult.", "word": "offence", "logprob": -4.868205}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Proper noun referring to Barack Obama, a former US President.", "word": "obama", "logprob": -4.202162}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to people from Normandy or a common given name.", "word": "norman", "logprob": -4.670991}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a Canadian province.", "word": "ontario", "logprob": -4.986662}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "oklahoma", "logprob": -4.963304}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Name of a U.S. state and a common river name.", "word": "ohio", "logprob": -4.539725}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Refers to the Olympic Games or Mount Olympus; a well-known proper noun.", "word": "olympic", "logprob": -4.810154}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common Welsh name and surname.", "word": "owen", "logprob": -4.824671}
+{"valid": true, "score": 5, "category": "common_word", "note": "Valid British English spelling of organization.", "word": "organisation", "logprob": -4.697816}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "oregon", "logprob": -4.975536}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Proper noun referring to the Academy Awards or a common given name.", "word": "oscar", "logprob": -4.829937}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Name of a country in South Asia.", "word": "pakistan", "logprob": -4.687803}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name of Portuguese origin.", "word": "paula", "logprob": -4.975827}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name and surname).", "word": "paul", "logprob": -4.124935}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name and saint's name).", "word": "patrick", "logprob": -4.786738}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English female given name and nickname for Margaret.", "word": "peggy", "logprob": -4.858319}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "pennsylvania", "logprob": -4.706186}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid English noun referring to a fermented beverage made from pears.", "word": "perry", "logprob": -4.835129}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly known as a first name (e.g., Percy Jackson) or surname.", "word": "percy", "logprob": -4.955712}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in Pennsylvania and a common proper noun.", "word": "philadelphia", "logprob": -4.680349}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common short form of the name Philip or a nickname.", "word": "phil", "logprob": -4.623523}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name) and surname.", "word": "philip", "logprob": -4.420386}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the language, people, or culture of Iran.", "word": "persian", "logprob": -4.866821}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English surname and given name.", "word": "powell", "logprob": -4.989041}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Central Europe.", "word": "poland", "logprob": -4.893902}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the language or people of Portugal.", "word": "portuguese", "logprob": -4.969802}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common French proper name and place name widely recognized in English contexts.", "word": "pierre", "logprob": -4.636406}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name.", "word": "ralph", "logprob": -4.583257}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name and surname.", "word": "raymond", "logprob": -4.910433}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to Ronald Reagan or the surname.", "word": "reagan", "logprob": -4.797184}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (female given name and surname).", "word": "rachel", "logprob": -4.665301}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name and biblical figure.", "word": "rebecca", "logprob": -4.878456}
+{"valid": true, "score": 5, "category": "common_word", "note": "Valid British English spelling of the verb meaning to identify or acknowledge.", "word": "recognise", "logprob": -4.954724}
+{"valid": true, "score": 5, "category": "common_word", "note": "Valid British English spelling of the verb meaning to become aware of something.", "word": "realise", "logprob": -4.951924}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), also a variant spelling of the name Reid.", "word": "reid", "logprob": -4.972311}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name).", "word": "robert", "logprob": -4.188202}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name and surname).", "word": "richard", "logprob": -4.202733}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common surname and literary reference (Robinson Crusoe)", "word": "robinson", "logprob": -4.712059}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to multiple cities and places in English-speaking countries.", "word": "richmond", "logprob": -4.903783}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a historical figure or the Roland brand.", "word": "roland", "logprob": -4.916806}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), also a brand name for beer.", "word": "rupert", "logprob": -4.936904}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common surname and given name (e.g., Bertrand Russell, Russell Crowe).", "word": "russell", "logprob": -4.763828}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (first name), e.g., Ronald Reagan or Ronald McDonald.", "word": "ronald", "logprob": -4.893603}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name and surname.", "word": "ryan", "logprob": -4.761072}
+{"valid": true, "score": 3, "category": "common_word", "note": "A legitimate English noun meaning deep sorrow or pity.", "word": "ruth", "logprob": -4.584219}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country Russia.", "word": "russia", "logprob": -4.366341}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Adjective and noun referring to Russia or its people; standard English usage.", "word": "russian", "logprob": -4.366018}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name of Hebrew origin.", "word": "sarah", "logprob": -4.426329}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name and biblical figure).", "word": "samuel", "logprob": -4.700221}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a day of the week.", "word": "saturday", "logprob": -4.263352}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common proper noun referring to Saint Nicholas or the Christmas figure.", "word": "santa", "logprob": -4.57106}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a country in the United Kingdom.", "word": "scotland", "logprob": -4.441845}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a person from Scotland or the surname Scott.", "word": "scott", "logprob": -4.443307}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Refers to Saudi Arabia or its people; commonly used as an adjective in English contexts.", "word": "saudi", "logprob": -4.871634}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Refers to the Germanic people or their language; commonly used in historical and cultural contexts.", "word": "saxon", "logprob": -4.994175}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (name) and brand name.", "word": "shirley", "logprob": -4.998493}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a major city in Washington state.", "word": "seattle", "logprob": -4.952282}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Adjective derived from the proper noun Scotland; commonly used in English.", "word": "scottish", "logprob": -4.589775}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Refers to William Shakespeare or his works; a well-known proper noun.", "word": "shakespeare", "logprob": -4.674234}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to the Simpson family or surname.", "word": "simpson", "logprob": -4.968035}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to King Solomon or the biblical figure.", "word": "solomon", "logprob": -4.865109}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the sovereign city-state in Southeast Asia.", "word": "singapore", "logprob": -4.731161}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (first name and surname), also refers to Sir Philip Sidney.", "word": "sidney", "logprob": -4.989803}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Europe.", "word": "spain", "logprob": -4.539279}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun and name of Greek origin meaning wisdom.", "word": "sophia", "logprob": -4.990737}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the language or people of Spain.", "word": "spanish", "logprob": -4.330172}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Proper noun referring to Stanford University or the city of Stanford.", "word": "stanford", "logprob": -4.99943}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name.", "word": "steven", "logprob": -4.885883}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English given name.", "word": "steve", "logprob": -4.430152}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun (first name) and surname.", "word": "stephen", "logprob": -4.494818}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to a surname or place names (e.g., Stanley Cup).", "word": "stanley", "logprob": -4.72961}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English female given name.", "word": "susan", "logprob": -4.557881}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid English proper noun referring to a day of the week.", "word": "sunday", "logprob": -4.146166}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English proper noun referring to a surname or the Stuart dynasty.", "word": "stuart", "logprob": -4.87224}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common surname and given name; also refers to the Stewart family or brand.", "word": "stewart", "logprob": -4.755218}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country Sweden.", "word": "sweden", "logprob": -4.88308}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in Australia and a common proper noun.", "word": "sydney", "logprob": -4.70556}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Central Europe.", "word": "switzerland", "logprob": -4.9093}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Adjective derived from the proper noun Sweden; commonly used in English.", "word": "swedish", "logprob": -4.931073}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common female given name and genus of birds.", "word": "sylvia", "logprob": -4.711315}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "tennessee", "logprob": -4.911487}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Western Asia.", "word": "syria", "logprob": -4.864016}
+{"valid": true, "score": 5, "category": "common_word", "note": "Standard spelling variant of 'theater', widely used in British English and other regions.", "word": "theatre", "logprob": -4.434435}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English surname.", "word": "thompson", "logprob": -4.69337}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "A common English given name of Greek origin.", "word": "theodore", "logprob": -4.998842}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid English word referring to the fifth day of the week.", "word": "thursday", "logprob": -4.3854}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Thornton, Colorado).", "word": "thornton", "logprob": -4.985399}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Major city in Canada and a common proper noun.", "word": "toronto", "logprob": -4.887359}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Capital city of Japan and a major global metropolis.", "word": "tokyo", "logprob": -4.931825}
+{"valid": true, "score": 4, "category": "common_word", "note": "Common noun referring to a British soldier or a type of sandwich.", "word": "tommy", "logprob": -4.694862}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name) and a type of beer; not a standard common dictionary word.", "word": "toby", "logprob": -4.908134}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Well-known Japanese automotive manufacturer and brand name.", "word": "toyota", "logprob": -4.985002}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "utah", "logprob": -4.999471}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid English proper noun referring to the second day of the week.", "word": "tuesday", "logprob": -4.35414}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Adjective derived from the proper noun Turkey; commonly used in English.", "word": "turkish", "logprob": -4.813082}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Proper noun referring to the famous city in Italy.", "word": "venice", "logprob": -4.918673}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to the country in Southeast Asia.", "word": "vietnam", "logprob": -4.849383}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to Queen Victoria or the city in Australia.", "word": "victoria", "logprob": -4.666416}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Refers to the Victorian era or Queen Victoria; commonly capitalized as a proper noun but often used adjectivally.", "word": "victorian", "logprob": -4.949103}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state and historical region.", "word": "virginia", "logprob": -4.378661}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (surname) and name of a historical figure.", "word": "wallace", "logprob": -4.836104}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Capitalized proper noun referring to the US capital city or state.", "word": "washington", "logprob": -4.135135}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun (first name and surname), also associated with Saint Vincent.", "word": "vincent", "logprob": -4.926109}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common English surname and given name.", "word": "wilson", "logprob": -4.519015}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Common English proper noun (first name and surname).", "word": "william", "logprob": -4.14246}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Valid English proper noun referring to the day of the week.", "word": "wednesday", "logprob": -4.408397}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to the surname (e.g., Sherlock Holmes character) or IBM Watson.", "word": "watson", "logprob": -4.75022}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "Well-known video-sharing platform and brand name.", "word": "youtube", "logprob": -4.703854}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Valid proper noun referring to a U.S. state.", "word": "wisconsin", "logprob": -4.937313}
+{"valid": true, "score": 5, "category": "proper_noun", "note": "A major city in the United States and a common proper noun.", "word": "york", "logprob": -3.97766}
+{"valid": true, "score": 4, "category": "proper_noun", "note": "Common proper noun referring to people from the US or New England; also used as a common noun in specific contexts.", "word": "yankee", "logprob": -4.962579}

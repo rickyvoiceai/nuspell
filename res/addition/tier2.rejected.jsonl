@@ -1,0 +1,562 @@
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to the biblical figure Abel or a common surname.", "word": "abel", "logprob": -5.170833}
+{"valid": true, "score": 2, "category": "loanword", "note": "Scottish dialect word meaning 'about', recognized in English dictionaries as a loanword from Scots.", "word": "aboot", "logprob": -5.484333}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A feminine given name of Latin origin meaning 'noble' or 'kind', also a genus of moths.", "word": "adela", "logprob": -5.430706}
+{"valid": true, "score": 2, "category": "common_word", "note": "Archaic preposition meaning 'down' or 'from a higher to a lower position', found in literature and poetry.", "word": "adown", "logprob": -5.473741}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Arabic male given name, widely recognized in English contexts.", "word": "ahmad", "logprob": -5.435691}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common nickname for students/alumni of Texas A&M University or New Mexico State University; also a breed of dog.", "word": "aggie", "logprob": -5.499611}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A common Irish given name, valid as a proper noun.", "word": "aileen", "logprob": -5.444407}
+{"valid": true, "score": 3, "category": "loanword", "note": "Valid colloquial contraction of 'am not', widely used in informal English and dialects.", "word": "aint", "logprob": -5.46258}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (first name), e.g., Alec Guinness.", "word": "alec", "logprob": -5.157965}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and surname.", "word": "allison", "logprob": -5.062542}
+{"valid": true, "score": 3, "category": "loanword", "note": "Spanish loanword meaning 'soul', used in English contexts like 'Alma Mater'.", "word": "alma", "logprob": -5.100369}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name of a saint or place), not a common dictionary word.", "word": "ambrose", "logprob": -5.281047}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common given name (e.g., Alvin and the Chipmunks) or surname.", "word": "alvin", "logprob": -5.374506}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A Russian male given name (e.g., from Dostoevsky's The Brothers Karamazov), recognized as a proper noun in English literature.", "word": "alyosha", "logprob": -5.296778}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or given name), also a variant spelling of the common word 'amour'.", "word": "amory", "logprob": -5.407565}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common female given name and surname.", "word": "anita", "logprob": -5.159448}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A French feminine given name, commonly used as a proper noun in English contexts.", "word": "annette", "logprob": -5.293565}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A French given name and surname; not a common English word.", "word": "antoine", "logprob": -5.352776}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "antonia", "logprob": -5.421976}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A French feminine given name and surname (e.g., Marie Antoinette), commonly recognized in English contexts.", "word": "antoinette", "logprob": -5.493913}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a genus of moths or a Greek mythological figure; not a common dictionary word.", "word": "anthea", "logprob": -5.48734}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (first name), also appears in common phrases like 'Archibald Leach' or as a character name.", "word": "archibald", "logprob": -5.349325}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (first name), not a common dictionary word.", "word": "armand", "logprob": -5.381232}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name (e.g., Ashton-under-Lyne), also a given name.", "word": "ashton", "logprob": -5.081146}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), not a common English word.", "word": "atkinson", "logprob": -5.461502}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name and surname), also a variant of the plant name 'Aubrieta'. Not a standard common English word.", "word": "aubrey", "logprob": -5.354616}
+{"valid": true, "score": 3, "category": "loanword", "note": "Scottish dialect word meaning 'old', commonly found in literature and phrases like 'Auld Lang Syne'.", "word": "auld", "logprob": -5.384169}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English proper noun (first name) and brand name.", "word": "avery", "logprob": -5.36338}
+{"valid": true, "score": 3, "category": "loanword", "note": "A loanword from Slavic languages referring to a type of cake or a term of endearment for father.", "word": "baba", "logprob": -5.380221}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Scottish word for child; also a surname and given name.", "word": "baird", "logprob": -5.49702}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., James Ballard, Ballard Park).", "word": "ballard", "logprob": -5.459941}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname) and a specific type of cheese; also appears in technical contexts like Barlow's formula.", "word": "barlow", "logprob": -5.395522}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A traditional English given name and surname.", "word": "barnaby", "logprob": -5.4834}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to the Bassett hound breed or a surname.", "word": "bassett", "logprob": -5.359231}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), also a valid Scrabble word.", "word": "barton", "logprob": -5.111044}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A recognized English surname and place name.", "word": "beauchamp", "logprob": -5.430303}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a city in Texas or a surname.", "word": "beaumont", "logprob": -5.469583}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun (name), also appears in slang as a derogatory term for an uncool person.", "word": "becky", "logprob": -5.213822}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a city in England or Massachusetts; also appears in common phrases like Bedfordshire.", "word": "bedford", "logprob": -5.370603}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A recognized English surname and given name.", "word": "bellamy", "logprob": -5.485483}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "belinda", "logprob": -5.301084}
+{"valid": true, "score": 2, "category": "common_word", "note": "Valid English noun referring to a type of plant (Hibiscus) or a surname.", "word": "bennet", "logprob": -5.469788}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname), notably associated with characters like Elizabeth Bennet from Pride and Prejudice.", "word": "bennett", "logprob": -5.04605}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common slang term for a $5 bill or a nickname; also refers to the drug methamphetamine in some contexts.", "word": "benny", "logprob": -5.281048}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), not a common dictionary word.", "word": "benson", "logprob": -5.11343}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to Benton (a common surname or place name) and bentonite clay.", "word": "benton", "logprob": -5.438405}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (e.g., Beric Dondarrion from Game of Thrones or a historical figure), but not a common English word.", "word": "beric", "logprob": -5.484748}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common diminutive name for Bert or Albert.", "word": "bertie", "logprob": -5.086197}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name), also a known surname and character name.", "word": "bertram", "logprob": -5.148173}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name) and historical term for large cannons.", "word": "bertha", "logprob": -5.107142}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to Bertrand Russell or the surname.", "word": "bertrand", "logprob": -5.390725}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A proper noun, typically a female name or a nickname for a horse.", "word": "bessy", "logprob": -5.43299}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a town in England and a surname.", "word": "blackburn", "logprob": -5.31649}
+{"valid": true, "score": 3, "category": "common_word", "note": "Archaic or poetic past tense and past participle of 'bless', still valid in literature and religious contexts.", "word": "blest", "logprob": -5.264847}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a town in Greater Manchester, England.", "word": "bolton", "logprob": -5.16107}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname) and medical term for a specific bone deformity; not a standard common word.", "word": "blount", "logprob": -5.40537}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (name) and archaic adjective meaning carefree; not a standard common word in modern usage.", "word": "blythe", "logprob": -5.489649}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), also a valid Scrabble word meaning the marrow of an animal's bone.", "word": "boone", "logprob": -5.35051}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or place name), not a common English word.", "word": "bowen", "logprob": -5.377704}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid English word meaning a small stream or brook; also a variant spelling of 'born' in some contexts.", "word": "bourne", "logprob": -5.468389}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to James Boswell or a surname; also used in the phrase 'Boswellian'.", "word": "boswell", "logprob": -5.444802}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), not a common English word.", "word": "boyd", "logprob": -5.120823}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to Robert Boyle or the gas law; not a common standalone English word.", "word": "boyle", "logprob": -5.25019}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "brenda", "logprob": -5.154266}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to a surname or the Bradshaw railway guide; not a common dictionary word.", "word": "bradshaw", "logprob": -5.486591}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun (e.g., Brady Bunch, Tom Brady) and medical term (Bradykinesia/Bradyarrhythmia root), but not a standalone common dictionary word.", "word": "brady", "logprob": -5.060053}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), not a common English word.", "word": "brennan", "logprob": -5.413318}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (given name or surname), not a common English word.", "word": "brett", "logprob": -5.148103}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a river in England or a type of goose; also appears as a surname.", "word": "brent", "logprob": -5.184786}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Refers to a person from Brittany or a specific style of sweater; capitalized as proper noun but often used descriptively.", "word": "breton", "logprob": -5.249887}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to Brigham Young or the University of Utah; not a common dictionary word.", "word": "brigham", "logprob": -5.492539}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun (first name) and brand name; not a standard common English dictionary word.", "word": "bruno", "logprob": -5.091177}
+{"valid": true, "score": 2, "category": "common_word", "note": "Valid English word referring to a badger or a type of coal; somewhat regional/rare in modern usage.", "word": "brock", "logprob": -5.386165}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and given name), also refers to Bryce Canyon.", "word": "bryce", "logprob": -5.228126}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place (e.g., James Buchanan, Buchanan Street).", "word": "buchanan", "logprob": -5.421083}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), not a common dictionary word.", "word": "buckley", "logprob": -5.398014}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid as a proper noun (surname) and historically associated with Burke and Hare; also appears in idioms like 'bury the hatchet' but not typically used as a standalone common verb.", "word": "burke", "logprob": -5.006429}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid Irish surname; not a common English word.", "word": "byrne", "logprob": -5.346907}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname), notably associated with aviator Richard Byrd.", "word": "byrd", "logprob": -5.47922}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name), also a variant spelling of 'bert'.", "word": "burt", "logprob": -5.404087}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Burnham, UK).", "word": "burnham", "logprob": -5.369449}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A recognized proper noun referring to John C. Calhoun or the surname.", "word": "calhoun", "logprob": -5.205704}
+{"valid": false, "score": 1, "category": "invalid", "note": "Incomplete or misspelled; likely a typo for 'California', 'Caliph', or 'Cali'. Not a standalone valid English word.", "word": "calif", "logprob": -5.300601}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common French feminine given name and surname.", "word": "camille", "logprob": -5.403224}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), notably associated with the Italian footballer Alessandro Capello.", "word": "capello", "logprob": -5.433957}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a city in England and other locations.", "word": "carlisle", "logprob": -5.409735}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to Carleton University or various places named Carleton.", "word": "carleton", "logprob": -5.361988}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), e.g., Carey Mulligan or John Carey.", "word": "carey", "logprob": -5.186924}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to Thomas Carlyle or related terms.", "word": "carlyle", "logprob": -5.076356}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a place (Carlton) or surname; also associated with Carlton beer.", "word": "carlton", "logprob": -5.398318}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name.", "word": "carson", "logprob": -5.043626}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Carrington Hall, Edward Walter Maunder's colleague).", "word": "carrington", "logprob": -5.471001}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun; a common Irish surname and given name.", "word": "cassidy", "logprob": -5.430378}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or given name), not a standard common English word.", "word": "cary", "logprob": -5.466816}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name, valid as a proper noun.", "word": "cathy", "logprob": -5.455495}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to historical figures like Cato the Elder or a common surname.", "word": "cato", "logprob": -5.471179}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A recognized proper noun and given name of English origin.", "word": "cedric", "logprob": -5.439437}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "celia", "logprob": -5.090192}
+{"valid": true, "score": 3, "category": "common_word", "note": "Historical term for a traveling merchant or peddler; also appears in surnames and place names.", "word": "chapman", "logprob": -5.224071}
+{"valid": false, "score": 1, "category": "invalid", "note": "Outdated and offensive racial slur; not a valid term for modern dictionaries.", "word": "chinaman", "logprob": -5.497608}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid as a proper noun (e.g., Chet Atkins) or informal shortening of Chester; not a standard common English word.", "word": "chet", "logprob": -5.257302}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and surname.", "word": "christy", "logprob": -5.399292}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name.", "word": "cindy", "logprob": -5.359116}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "claudia", "logprob": -5.425447}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name (e.g., Clayton, Missouri).", "word": "clayton", "logprob": -5.200033}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common female given name and the title of a famous novel by Samuel Richardson.", "word": "clarissa", "logprob": -5.336236}
+{"valid": true, "score": 2, "category": "abbreviation", "note": "Common informal abbreviation for 'clever' or a nickname; not a standard dictionary entry as a standalone word.", "word": "clem", "logprob": -5.487636}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly known as a surname or the name of the fictional character Clifford the Big Red Dog.", "word": "clifford", "logprob": -5.186298}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a place name (e.g., Clifton, Bristol or Clifton, Virginia) and a common surname.", "word": "clifton", "logprob": -5.482274}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to the River Clyde in Scotland or a common surname.", "word": "clyde", "logprob": -5.409727}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (e.g., Clive Staples Lewis), but not a common English word.", "word": "clive", "logprob": -5.250707}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to a suburb in Melbourne or the Collingwood Football Club.", "word": "collingwood", "logprob": -5.434262}
+{"valid": true, "score": 2, "category": "loanword", "note": "French loanword meaning 'like' or 'as', occasionally used in English contexts.", "word": "comme", "logprob": -5.414814}
+{"valid": true, "score": 2, "category": "common_word", "note": "Archaic third-person singular form of 'come', primarily found in religious texts and historical literature.", "word": "cometh", "logprob": -5.266108}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to a surname or place names (e.g., Compton, California); also associated with the Compton effect in physics.", "word": "compton", "logprob": -5.485627}
+{"valid": true, "score": 2, "category": "loanword", "note": "French title for a count, used in English historical contexts.", "word": "comte", "logprob": -5.382425}
+{"valid": true, "score": 3, "category": "abbreviation", "note": "Common informal abbreviation for 'connection', 'connect', or 'commander'. Not a standard dictionary entry in formal contexts.", "word": "conn", "logprob": -5.488822}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid British English variant of 'connection', though less common than the modern spelling.", "word": "connexion", "logprob": -5.427921}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly recognized as a surname (e.g., Joseph Conrad) or given name.", "word": "conrad", "logprob": -5.147315}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A proper noun from Shakespeare's King Lear and a common given name.", "word": "cordelia", "logprob": -5.488338}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place names (e.g., Conway, Arkansas; John Conway).", "word": "conway", "logprob": -5.220853}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "corey", "logprob": -5.469336}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name and surname), also associated with medical conditions like Cornelia de Lange syndrome.", "word": "cornelia", "logprob": -5.290108}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname), e.g., Crawford County or the actor Tom Cruise's character in a film, but not a common dictionary word.", "word": "crawford", "logprob": -5.146449}
+{"valid": true, "score": 3, "category": "loanword", "note": "Spanish/Portuguese word for 'Christ', commonly used in English contexts regarding art, history, or place names (e.g., Christ the Redeemer).", "word": "cristo", "logprob": -5.353085}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or place name), not a standard common English word.", "word": "cruz", "logprob": -5.287976}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to Aleister Crowley or the fictional character from Hellblazer.", "word": "crowley", "logprob": -5.419434}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common English surname and place name.", "word": "cunningham", "logprob": -5.252803}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name and former name of the moon goddess).", "word": "cynthia", "logprob": -5.152802}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid English proper noun, historically a given name (e.g., Saint Cuthbert) and appearing in literature.", "word": "cuthbert", "logprob": -5.135669}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name) and a common loanword in some contexts.", "word": "dana", "logprob": -5.278904}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a unit of permeability or the surname Darcy.", "word": "darcy", "logprob": -5.261366}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid English proper noun (given name), though not a common dictionary entry for general vocabulary.", "word": "darrell", "logprob": -5.23113}
+{"valid": true, "score": 2, "category": "technical", "note": "A technical term referring to a type of pipe fitting or a specific tool used in plumbing and metalworking.", "word": "darby", "logprob": -5.390586}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "darrin", "logprob": -5.41397}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and name of several institutions (e.g., Davidson College)", "word": "davidson", "logprob": -5.207624}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and place name (e.g., Dawson City), not a standard common noun.", "word": "dawson", "logprob": -5.165154}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name (short for Deborah).", "word": "debbie", "logprob": -5.465778}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Italian surname and given name, also used in English contexts (e.g., Della Street).", "word": "della", "logprob": -5.38823}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Primarily a female given name or reference to Delia (mythology), not a common dictionary word.", "word": "delia", "logprob": -5.389644}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun (name) and brand name; not a standard common English word.", "word": "denny", "logprob": -5.422042}
+{"valid": true, "score": 2, "category": "loanword", "note": "A loanword from Spanish meaning 'there', used in English contexts involving Spanish speakers or cultural references.", "word": "dere", "logprob": -5.360499}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "desmond", "logprob": -5.115177}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "derek", "logprob": -5.127898}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid variant spelling of 'dispatch', primarily used in British English and formal contexts.", "word": "despatch", "logprob": -5.240105}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid informal term for a bow tie or a false front on clothing; also used in slang.", "word": "dicky", "logprob": -5.196291}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Common surname and given name; also refers to the chemical element Diazonium in technical contexts.", "word": "diaz", "logprob": -5.449174}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid English word with multiple meanings including a type of shirt collar or a small boat; also used as a slang term.", "word": "dickie", "logprob": -5.407537}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name), but not a common English dictionary word.", "word": "dion", "logprob": -5.44221}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and given name; also refers to a city in Texas.", "word": "dillon", "logprob": -5.335402}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female name), also appears in the idiom 'Dinah Shore' or song title.", "word": "dinah", "logprob": -5.234149}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and place name in English-speaking countries.", "word": "dixon", "logprob": -5.084158}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common female given name and surname.", "word": "dorothea", "logprob": -5.429166}
+{"valid": false, "score": 1, "category": "invalid", "note": "Common misspelling of the contraction 'don't'; lacks apostrophe.", "word": "dont", "logprob": -5.263048}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Proper noun referring to a surname or the Doyle unit of measurement.", "word": "doyle", "logprob": -5.285132}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Irish surname and given name; also associated with the singer Donavan.", "word": "donovan", "logprob": -5.343561}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), not a common English word.", "word": "drummond", "logprob": -5.349846}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name; also known from the character Dudley Dursley in Harry Potter.", "word": "dudley", "logprob": -5.148723}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid as a proper noun (e.g., Daffy Duck) and a surname; also appears in slang contexts.", "word": "duffy", "logprob": -5.463686}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A city in Scotland and a type of marmalade named after the city.", "word": "dundee", "logprob": -5.227635}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to a surname or place; also associated with Dunbar's number in social science.", "word": "dunbar", "logprob": -5.315915}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (e.g., Dwight Eisenhower), not a common English word.", "word": "dwight", "logprob": -5.395414}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and place name (e.g., Eaton Corporation), not a standard common noun.", "word": "eaton", "logprob": -5.358686}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname) and archaic spelling of 'earl', but less common than standard forms.", "word": "earle", "logprob": -5.386769}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common English male given name and surname.", "word": "edmund", "logprob": -5.058338}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid English proper noun, commonly used as a female given name.", "word": "edna", "logprob": -5.227272}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A valid English proper noun (diminutive of Effie/Euphemia), but not a common word.", "word": "effie", "logprob": -5.409792}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (name), also refers to the ELIZA chatbot.", "word": "eliza", "logprob": -5.004531}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A common female given name (e.g., Elise, variant of Alice or Elizabeth).", "word": "elise", "logprob": -5.367857}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name or surname), also appears in place names like Emanuel County.", "word": "emanuel", "logprob": -5.436366}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (e.g., Émile Zola), but not a common English word.", "word": "emile", "logprob": -5.37142}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, primarily known as a female given name or the name of a Welsh poet.", "word": "enid", "logprob": -5.373911}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A common Scandinavian male given name.", "word": "erik", "logprob": -5.333351}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (Irish name or short for Erin)", "word": "erin", "logprob": -5.365355}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A valid proper noun (female given name), but not a common English word.", "word": "ernestine", "logprob": -5.430976}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a biblical figure or place; not a common dictionary entry for general usage.", "word": "ephraim", "logprob": -5.396787}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (German surname or first name), not a standard English common word.", "word": "ernst", "logprob": -5.443599}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly known as a character name (e.g., Ernie from Sesame Street) or a given name.", "word": "ernie", "logprob": -5.494013}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Historical name element and surname of Germanic origin.", "word": "ethel", "logprob": -5.06454}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A French given name and surname, commonly recognized in English contexts.", "word": "etienne", "logprob": -5.476772}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "eunice", "logprob": -5.435781}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a genus of plants or a female given name.", "word": "eugenia", "logprob": -5.389296}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A French feminine given name and surname (e.g., Empress Eugénie), valid as a proper noun.", "word": "eugenie", "logprob": -5.460945}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or given name), not a common dictionary word.", "word": "everard", "logprob": -5.482304}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A proper noun (surname or given name), notably associated with characters in literature such as Eustace Scrabble from The Chronicles of Narnia.", "word": "eustace", "logprob": -5.100206}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a biblical figure and common given name.", "word": "ezra", "logprob": -5.36062}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a common given name and several place names.", "word": "everett", "logprob": -5.329794}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname), e.g., Farrell or Farrell's.", "word": "farrell", "logprob": -5.326252}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name) and a genus of flowering plants.", "word": "felicia", "logprob": -5.444555}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Proper noun referring to a surname (e.g., Brett Favre) or the French word for 'favorite', but not a standard common English dictionary entry.", "word": "favre", "logprob": -5.349638}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Spanish male given name and surname.", "word": "felipe", "logprob": -5.37959}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A historical European royal name (e.g., Ferdinand Magellan), valid as a proper noun.", "word": "ferdinand", "logprob": -5.096026}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Fenwick Island), but not a common dictionary word.", "word": "fenwick", "logprob": -5.487524}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place names (e.g., Fenton, Michigan); also associated with the Fenton reaction in chemistry.", "word": "fenton", "logprob": -5.368766}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Spanish surname and proper noun.", "word": "fernandez", "logprob": -5.494194}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common Spanish given name and surname.", "word": "fernando", "logprob": -5.28783}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and historical prefix (e.g., Fitzroy), also appears in brand names like Fitbit.", "word": "fitz", "logprob": -5.323329}
+{"valid": true, "score": 3, "category": "technical", "note": "Valid technical term referring to Foley art in film production or a type of medical catheter.", "word": "foley", "logprob": -5.41155}
+{"valid": true, "score": 2, "category": "loanword", "note": "Scots dialect word meaning 'from', recognized in English dictionaries as a loanword from Scots.", "word": "frae", "logprob": -5.277339}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly recognized as a surname (e.g., Flynn Rider) or associated with the Flynn effect.", "word": "flynn", "logprob": -5.290414}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid Italian feminine given name, commonly used in English contexts.", "word": "francesca", "logprob": -5.454026}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to Francisco Franco or the Spanish peseta currency unit.", "word": "franco", "logprob": -5.310349}
+{"valid": true, "score": 2, "category": "loanword", "note": "German loanword for a young unmarried woman, historically used in English contexts but now considered dated and potentially offensive.", "word": "fraeulein", "logprob": -5.326767}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common diminutive or given name derived from Francis.", "word": "frankie", "logprob": -5.396494}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A German given name and surname (e.g., Franz Kafka), valid as a proper noun.", "word": "franz", "logprob": -5.047928}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common given name and surname (e.g., Frédéric Chopin), valid as a proper noun.", "word": "frederic", "logprob": -5.233963}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A German given name and surname (e.g., Friedrich Nietzsche), valid as a proper noun.", "word": "friedrich", "logprob": -5.41366}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid English word meaning a pledge or challenge; variant spelling of 'gauge'.", "word": "gage", "logprob": -5.416817}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common French feminine given name and brand name (e.g., Chanel Gabrielle), valid as a proper noun.", "word": "gabrielle", "logprob": -5.357388}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Refers to a breed of cattle or a place in Scotland; also historically associated with the gallows.", "word": "galloway", "logprob": -5.351512}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common Welsh given name and a character from Arthurian legend.", "word": "gareth", "logprob": -5.490441}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or given name), not a common English word.", "word": "garry", "logprob": -5.437482}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), not a common dictionary word.", "word": "garrett", "logprob": -5.319489}
+{"valid": true, "score": 3, "category": "common_word", "note": "A valid English noun referring to a small enclosed garden or courtyard, often associated with a churchyard.", "word": "garth", "logprob": -5.340557}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and surname.", "word": "gavin", "logprob": -5.324573}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Historical region and people; also a surname.", "word": "gaul", "logprob": -5.440117}
+{"valid": false, "score": 1, "category": "invalid", "note": "Misspelling of the word 'gaiety'; not a valid English word.", "word": "gayety", "logprob": -5.341607}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun; a French given name and character from Disney's Beauty and the Beast.", "word": "gaston", "logprob": -5.216086}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common French feminine given name.", "word": "genevieve", "logprob": -5.409798}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), though not a common dictionary entry for general vocabulary.", "word": "geoff", "logprob": -5.325942}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common diminutive or nickname for the name George.", "word": "georgie", "logprob": -5.292713}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A feminine given name and a type of gelatin dessert; valid as both a proper noun and common noun.", "word": "geraldine", "logprob": -5.313775}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun (first name), not a standard dictionary entry for common usage.", "word": "gerard", "logprob": -5.09957}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (e.g., Gerry), also a root for the term 'gerrymander'.", "word": "gerry", "logprob": -5.284415}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a biblical figure and common given name.", "word": "gideon", "logprob": -5.358406}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname and given name), also a common place name in English-speaking countries.", "word": "glenn", "logprob": -5.158747}
+{"valid": true, "score": 3, "category": "loanword", "note": "Valid loanword but considered a pejorative term; the preferred modern spelling is 'Gypsy' or 'Romani'.", "word": "gipsy", "logprob": -5.198956}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or the philosopher William Godwin; not a common English word.", "word": "godwin", "logprob": -5.371275}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A recognized English proper noun (given name and surname), also associated with the historical figure Godfrey of Bouillon.", "word": "godfrey", "logprob": -5.122494}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Spanish surname and given name used in English contexts.", "word": "gomez", "logprob": -5.379796}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun and surname; also appears in historical titles like 'Goodman'.", "word": "goodman", "logprob": -5.265463}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), not a common English word.", "word": "goodwin", "logprob": -5.407264}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), e.g., John Gould or Charles Darwin's collaborator.", "word": "gould", "logprob": -5.301986}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or given name), but not a common English dictionary word.", "word": "gregg", "logprob": -5.23074}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common German female given name and character archetype in English literature.", "word": "gretchen", "logprob": -5.449451}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A French given name and surname (e.g., Gustave Eiffel), commonly recognized in English contexts.", "word": "gustave", "logprob": -5.492347}
+{"valid": true, "score": 3, "category": "loanword", "note": "Loanword from Italian referring to a person of Italian descent or a specific subculture; also used in English contexts.", "word": "guido", "logprob": -5.465739}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common Welsh given name and surname.", "word": "gwen", "logprob": -5.292684}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Scottish variant of the name Hamish", "word": "hamish", "logprob": -5.349748}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Common surname of Scandinavian origin; not a standard common noun.", "word": "hansen", "logprob": -5.333956}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place names (e.g., John Hancock).", "word": "hancock", "logprob": -5.379656}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name.", "word": "harrington", "logprob": -5.193741}
+{"valid": true, "score": 3, "category": "technical", "note": "A unit of information in telecommunications named after R.V.L. Hartley; also a proper noun.", "word": "hartley", "logprob": -5.323855}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Arabic given name and surname, widely recognized in English contexts.", "word": "hassan", "logprob": -5.218036}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Hatton Garden), but not a common English word.", "word": "hatton", "logprob": -5.46602}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English proper noun (surname and given name), also associated with the Haydn composer.", "word": "hayden", "logprob": -5.418847}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A German given name (e.g., Heinrich Himmler), valid as a proper noun.", "word": "heinrich", "logprob": -5.394588}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), but not a common English dictionary entry for general vocabulary.", "word": "helene", "logprob": -5.271355}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common French given name and surname (e.g., Henri Matisse), valid as a proper noun.", "word": "henri", "logprob": -5.080835}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A French feminine given name, valid as a proper noun.", "word": "henriette", "logprob": -5.325365}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (German name), not a common English word.", "word": "hermann", "logprob": -5.464016}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (name), also a variant spelling of the Germanic name Herman.", "word": "herman", "logprob": -5.232139}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A valid English proper noun (female given name), historically significant in contexts like Henrietta Street or the Henrietta Maria ship.", "word": "henrietta", "logprob": -5.103101}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Refers to Herod the Great or other biblical rulers; a valid proper noun.", "word": "herod", "logprob": -5.377009}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or the Herrick family; also a variant of 'hericium' in some contexts but primarily recognized as a name.", "word": "herrick", "logprob": -5.477765}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), not a common English word.", "word": "hewitt", "logprob": -5.311381}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or given name), not a common English word.", "word": "hervey", "logprob": -5.476423}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid past participle of 'hew', meaning to cut or shape with an axe.", "word": "hewn", "logprob": -5.338855}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A traditional English diminutive name for Hetty (e.g., Henrietta), also known as a character in literature.", "word": "hetty", "logprob": -5.195859}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A common female given name and surname.", "word": "hilda", "logprob": -5.023968}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a biblical figure or historical name.", "word": "hiram", "logprob": -5.140728}
+{"valid": false, "score": 1, "category": "invalid", "note": "Non-standard dialectal form or misspelling of 'himself'; not accepted in standard English.", "word": "hisself", "logprob": -5.282094}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid word referring to a confused mixture or jumble; often appears in the phrase 'hodgepodge'.", "word": "hodge", "logprob": -5.442716}
+{"valid": true, "score": 3, "category": "common_word", "note": "A small wood or grove of trees; also a surname.", "word": "holt", "logprob": -5.220541}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to the Holden automobile brand or a surname.", "word": "holden", "logprob": -5.358499}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or place name), not a common English word.", "word": "howe", "logprob": -5.276374}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A well-known proper noun from Shakespeare's Hamlet and a common given name.", "word": "horatio", "logprob": -5.404162}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name) or variant of honorarium; not a standard common English word.", "word": "honora", "logprob": -5.496454}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (e.g., Horton the Elephant, Horton Hears a Who), but not a common dictionary word.", "word": "horton", "logprob": -5.460707}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or the Hubbard Glacier.", "word": "hubbard", "logprob": -5.388218}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or place name), not a common dictionary word.", "word": "howell", "logprob": -5.470233}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place names (e.g., Howland Island).", "word": "howland", "logprob": -5.46945}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "hubert", "logprob": -5.18326}
+{"valid": true, "score": 3, "category": "loanword", "note": "A variant of 'hello', often used as a greeting or exclamation.", "word": "hullo", "logprob": -5.471748}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to David Hume or the surname; not a common English dictionary word.", "word": "hume", "logprob": -5.286227}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly known as a surname or first name (e.g., Humphrey Bogart).", "word": "humphrey", "logprob": -5.157686}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or place name), not a common dictionary word.", "word": "hutchinson", "logprob": -5.468307}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid as a proper noun (surname) and common noun referring to the Irish sport of hurling or its stick.", "word": "hurley", "logprob": -5.499274}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A proper noun (Arabic name), commonly recognized in English contexts.", "word": "ibrahim", "logprob": -5.268176}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place names (e.g., Hutton, West Yorkshire).", "word": "hutton", "logprob": -5.401541}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "inez", "logprob": -5.462155}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female name), also a genus of plants.", "word": "irene", "logprob": -5.037706}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common female given name of French origin.", "word": "jacqueline", "logprob": -5.290472}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a biblical figure or common given name.", "word": "ishmael", "logprob": -5.484464}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid English proper noun (female given name).", "word": "janice", "logprob": -5.46724}
+{"valid": true, "score": 2, "category": "loanword", "note": "Indonesian/Malay word for 'road', recognized in English as a loanword or proper noun (e.g., Jalan Besar).", "word": "jalan", "logprob": -5.274957}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common English proper noun (first name) and biblical figure.", "word": "jerome", "logprob": -5.140983}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (biblical name or given name), not a common dictionary word.", "word": "jesse", "logprob": -5.015472}
+{"valid": true, "score": 2, "category": "loanword", "note": "Variant spelling of 'genie', derived from Arabic 'jinn', used in English literature and folklore.", "word": "jinny", "logprob": -5.457398}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common German given name and surname.", "word": "johann", "logprob": -5.482075}
+{"valid": true, "score": 3, "category": "common_word", "note": "Informal variant of 'gist', meaning the essential part or substance.", "word": "jist", "logprob": -5.294733}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name.", "word": "johnston", "logprob": -5.127686}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name) and also a type of rose or plant.", "word": "johanna", "logprob": -5.474777}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, a biblical name and common given name.", "word": "josiah", "logprob": -5.228563}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to the Roman god Jupiter or a poetic name for him.", "word": "jove", "logprob": -5.247523}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to James Joyce or a common surname.", "word": "joyce", "logprob": -5.028016}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), also a common surname.", "word": "justine", "logprob": -5.483384}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to Hamid Karzai, former President of Afghanistan.", "word": "karzai", "logprob": -5.407616}
+{"valid": true, "score": 2, "category": "technical", "note": "A technical term in textiles referring to coarse, brittle wool fibers.", "word": "kemp", "logprob": -5.339324}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), notably associated with the band Keane or individuals like John Keane.", "word": "keane", "logprob": -5.441515}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), also used as a given name.", "word": "kingsley", "logprob": -5.47329}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), e.g., Kerrang! or individuals named Kerr.", "word": "kerr", "logprob": -5.401408}
+{"valid": true, "score": 3, "category": "loanword", "note": "Scottish word for church, commonly used in Scottish dialect and literature.", "word": "kirk", "logprob": -5.027401}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common German surname and brand name (e.g., Felix Klein, Klein bottles), used in English contexts.", "word": "klein", "logprob": -5.308187}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A proper noun referring to a surname or place names (e.g., Kirkwood, Missouri), not a common dictionary word.", "word": "kirkwood", "logprob": -5.458485}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place names (e.g., Knox County).", "word": "knox", "logprob": -5.162887}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "krista", "logprob": -5.23562}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (name and place), not a common dictionary word.", "word": "kyle", "logprob": -5.313167}
+{"valid": true, "score": 3, "category": "technical", "note": "Valid technical term for a unit of luminance and a proper surname.", "word": "lambert", "logprob": -5.024696}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to the fictional character Robert Langdon from Dan Brown's novels.", "word": "langdon", "logprob": -5.497844}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A proper noun referring to the legendary knight Sir Lancelot; often misspelled with a single 'c'.", "word": "launcelot", "logprob": -5.370849}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname) and botanical genus name.", "word": "lawson", "logprob": -5.348282}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A historical Roman name and a common literary character (e.g., in Shakespeare's Titus Andronicus), but not a standard dictionary entry as a common noun.", "word": "lavinia", "logprob": -5.45134}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common female given name and short form of names like Elena or Lena.", "word": "lena", "logprob": -5.157246}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), also a variant spelling of the common word 'lea'.", "word": "leigh", "logprob": -5.211167}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Lennox Group, Lennox Hill).", "word": "lennox", "logprob": -5.384468}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A feminine given name and title of several operas; not a common dictionary word.", "word": "leonora", "logprob": -5.34131}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name), often a diminutive of Letitia or Leticia.", "word": "letty", "logprob": -5.354701}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common proper noun referring to historical figures (e.g., King Leopold II) or places.", "word": "leopold", "logprob": -5.267163}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), not a common English word.", "word": "levine", "logprob": -5.405605}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname) and archaic term for lightning; not a common modern word.", "word": "levin", "logprob": -5.168515}
+{"valid": true, "score": 2, "category": "loanword", "note": "A Chinese unit of weight (approx. 500g), used in English contexts regarding Asian trade or history.", "word": "liang", "logprob": -5.378881}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common female given name and a variant of the flower name Lily.", "word": "lilian", "logprob": -5.345232}
+{"valid": false, "score": 1, "category": "invalid", "note": "Incomplete abbreviation or misspelling of 'lieutenant'; not a standalone valid English word.", "word": "lieut", "logprob": -5.472949}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and given name.", "word": "lindsay", "logprob": -5.185307}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name and surname), also a type of fabric.", "word": "lindsey", "logprob": -5.38272}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and name of several places (e.g., Livingston, Scotland; Livingston, New Jersey).", "word": "livingston", "logprob": -5.477379}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to David Livingstone or a place named after him.", "word": "livingstone", "logprob": -5.392231}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Spanish surname and proper noun.", "word": "lopez", "logprob": -5.135495}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common female given name and title of a famous song.", "word": "lola", "logprob": -5.352557}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), also refers to the Lorenzo oil used in medical contexts.", "word": "lorenzo", "logprob": -5.285967}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun (first name or place), not a standard common English word.", "word": "louie", "logprob": -5.441945}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common diminutive name for Charlotte or Loretta; also refers to the Lottie doll brand.", "word": "lottie", "logprob": -5.415325}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common female given name and historical reference (e.g., Queen Louise of Denmark), but not a common noun.", "word": "louisa", "logprob": -5.187731}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a city in Massachusetts or the poet James Russell Lowell.", "word": "lowell", "logprob": -5.298995}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common female given name and surname.", "word": "lucille", "logprob": -5.440111}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A French feminine given name, occasionally used in English contexts.", "word": "lucile", "logprob": -5.491362}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (French given name), not a common English word.", "word": "lucien", "logprob": -5.338597}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common proper noun referring to Saint Lucian or the historical writer Lucian of Samosata.", "word": "lucian", "logprob": -5.378746}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "lucinda", "logprob": -5.441514}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common German given name and surname (e.g., Ludwig van Beethoven), valid as a proper noun.", "word": "ludwig", "logprob": -5.359967}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "lyle", "logprob": -5.475703}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or place name), not a standard common English word.", "word": "lynde", "logprob": -5.455168}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A surname (e.g., Thomas Babington Macaulay) and a common place name in English-speaking countries.", "word": "macaulay", "logprob": -5.498909}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place names (e.g., Mackay, Australia).", "word": "mackay", "logprob": -5.428447}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid English word referring to a type of coat or slang for a person; also appears in proper nouns like Mack Trucks.", "word": "mack", "logprob": -5.322244}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (name) and a valid archaic/dialectal common noun referring to a magpie or a foolish woman.", "word": "madge", "logprob": -5.085851}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, typically a female given name or a character name.", "word": "maisie", "logprob": -5.44662}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A proper noun referring to Mary Magdalene or various places/institutions named after her.", "word": "magdalen", "logprob": -5.417848}
+{"valid": true, "score": 3, "category": "loanword", "note": "French loanword commonly used in English contexts (e.g., maitre d'), often appearing as part of the phrase 'maitre d''.", "word": "maitre", "logprob": -5.478178}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname) and common in phrases like 'all by oneself', but not a standard dictionary entry as a standalone common word.", "word": "malone", "logprob": -5.130154}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common diminutive or nickname for names like Amanda or Mandi.", "word": "mandy", "logprob": -5.396287}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common nickname for Manuel or a surname; also appears in pop culture (e.g., Manny from Modern Family).", "word": "manny", "logprob": -5.483591}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), also appears as a loanword in some contexts.", "word": "manuel", "logprob": -5.087973}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Primarily a proper noun (given name) or referring to the Marcel wave hairstyle technique.", "word": "marcel", "logprob": -5.407702}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (e.g., Mara from Star Wars or a given name), but not a common English dictionary word.", "word": "mara", "logprob": -5.380917}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly used as a female given name.", "word": "marcella", "logprob": -5.301136}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common English dictionary word.", "word": "marcia", "logprob": -5.209146}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A historical English given name (e.g., Margery Kempe), not a common noun.", "word": "margery", "logprob": -5.31069}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common given name and surname.", "word": "margot", "logprob": -5.417661}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common French female given name and a national personification of France.", "word": "marianne", "logprob": -5.178309}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid English proper noun (female given name), historically common but less frequent in modern usage.", "word": "marjorie", "logprob": -5.020061}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Marston).", "word": "marston", "logprob": -5.465159}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Variant spelling of the proper noun Mars (the planet) or a surname; not a standard common English word.", "word": "marse", "logprob": -5.487885}
+{"valid": true, "score": 2, "category": "loanword", "note": "Historical loanword from Portuguese/Spanish meaning 'master', now considered archaic and often offensive in English context.", "word": "massa", "logprob": -5.092614}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid as a proper noun (name) or a variant spelling of 'matte', but not a standard common English word.", "word": "mattie", "logprob": -5.371138}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common Germanic given name and surname.", "word": "maximilian", "logprob": -5.454146}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), also known from the song 'Maude'.", "word": "maude", "logprob": -5.327882}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A valid proper noun (female given name), also historically used as a term for a foolish or silly person.", "word": "maud", "logprob": -5.069266}
+{"valid": true, "score": 2, "category": "common_word", "note": "Archaic adverb meaning 'perhaps', still recognized in literature and dictionaries.", "word": "mayhap", "logprob": -5.348275}
+{"valid": true, "score": 2, "category": "technical", "note": "Variant spelling of 'medieval', primarily used in academic or historical contexts.", "word": "mediaeval", "logprob": -5.372627}
+{"valid": true, "score": 2, "category": "loanword", "note": "Dialectal variant of 'maybe', commonly found in informal speech and literature.", "word": "mebbe", "logprob": -5.339374}
+{"valid": true, "score": 3, "category": "loanword", "note": "German loanword meaning 'my', commonly used in English contexts like 'Mein Kampf' or German cuisine.", "word": "mein", "logprob": -5.459381}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to the Merrill Lynch financial firm or a surname.", "word": "merrill", "logprob": -5.21639}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), also a place name; not a common dictionary word.", "word": "merritt", "logprob": -5.464585}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a place in London or associated with the Merton College.", "word": "merton", "logprob": -5.396303}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name.", "word": "middleton", "logprob": -5.323967}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to the surname of golfer Phil Mickelson.", "word": "mickelson", "logprob": -5.491794}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common diminutive name for Millicent or a standalone given name.", "word": "millie", "logprob": -5.419972}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "mindy", "logprob": -5.431233}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid as a proper noun (female given name) and a technical term for a mine in mining contexts.", "word": "mina", "logprob": -5.442809}
+{"valid": true, "score": 2, "category": "abbreviation", "note": "Valid French abbreviation for 'mademoiselle', occasionally used in English contexts.", "word": "mlle", "logprob": -5.247787}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name), also a slang term for a small amount or to move quickly.", "word": "mitch", "logprob": -5.415472}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A Russian diminutive form of the name Dmitry (Dmitri), used in literature and as a personal name.", "word": "mitya", "logprob": -5.435603}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place names (e.g., Morley, UK).", "word": "morley", "logprob": -5.431999}
+{"valid": true, "score": 3, "category": "common_word", "note": "Adjective referring to the Moors or their culture; valid but less common than basic adjectives.", "word": "moorish", "logprob": -5.414145}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname) and a variant of the name Morann; not a standard common English word.", "word": "moran", "logprob": -5.363922}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name.", "word": "mowbray", "logprob": -5.421402}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and place name (e.g., Morrison, Colorado), not a standard common noun.", "word": "morrison", "logprob": -5.101116}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Refers to Robert Mugabe, a former President of Zimbabwe; valid as a proper noun.", "word": "mugabe", "logprob": -5.497829}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid English word referring to a type of corn or the verb to crush/grind; also appears in proper nouns like Mullen.", "word": "mullen", "logprob": -5.491827}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A traditional female given name of English origin.", "word": "muriel", "logprob": -5.261024}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name and place names), also a genus of moths.", "word": "myra", "logprob": -5.366887}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Refers to Pervez Musharraf, former President of Pakistan; a recognized proper noun in English contexts.", "word": "musharraf", "logprob": -5.471194}
+{"valid": false, "score": 0, "category": "invalid", "note": "Incomplete word or suffix; not a standalone English word.", "word": "nance", "logprob": -5.284115}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), also a variant spelling of Neal.", "word": "neale", "logprob": -5.365999}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name), also a valid Scrabble word.", "word": "nell", "logprob": -5.089426}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), but not a common dictionary entry for general vocabulary.", "word": "nellie", "logprob": -5.159438}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A valid English given name (often a diminutive of Nettie or Netty), but not a common noun.", "word": "nettie", "logprob": -5.484758}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly found as a surname or given name.", "word": "neville", "logprob": -5.323237}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English male given name.", "word": "nigel", "logprob": -5.115051}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common diminutive nickname for Nicholas or Nicky.", "word": "nicky", "logprob": -5.46472}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname (e.g., Jack Nicholson) or place names.", "word": "nicholson", "logprob": -5.372973}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (common female name and historical ship names), but not a standard common English word.", "word": "nina", "logprob": -5.007242}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common dictionary word.", "word": "norah", "logprob": -5.183562}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to the Ogilvy advertising agency or a surname; not a common dictionary word.", "word": "ogilvy", "logprob": -5.25619}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name of Russian origin), but not a common English dictionary entry for general vocabulary.", "word": "olga", "logprob": -5.262896}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (Arabic name), not a common English word.", "word": "omar", "logprob": -5.148838}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), also a common brand name.", "word": "osborne", "logprob": -5.229977}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A proper noun referring to a common given name or surname (e.g., Lee Harvey Oswald).", "word": "oswald", "logprob": -5.146323}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Historic American automobile manufacturer and surname.", "word": "packard", "logprob": -5.44248}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun (e.g., Otto von Bismarck) and a valid Scrabble word.", "word": "otto", "logprob": -5.043897}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a city in New Jersey or a common surname.", "word": "paterson", "logprob": -5.401945}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name.", "word": "patterson", "logprob": -5.225511}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), also refers to the Pauline epistles in religious contexts.", "word": "pauline", "logprob": -5.027378}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), also a variant spelling of the common word 'pain', but primarily recognized as a name.", "word": "payne", "logprob": -5.283782}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly associated with the surname Paulson or the character from the TV show 'The West Wing'. Not a standard common English word.", "word": "paulson", "logprob": -5.413731}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Spanish given name and surname, recognized in English contexts.", "word": "pedro", "logprob": -5.051048}
+{"valid": true, "score": 2, "category": "technical", "note": "Valid technical term referring to a small shield or target in historical contexts; also appears in the phrase 'pell-mell'.", "word": "pell", "logprob": -5.315441}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to the Peabody Institute or a surname; also appears in pop culture (e.g., Mr. Peabody).", "word": "peabody", "logprob": -5.497467}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A proper noun referring to a surname or place name (e.g., Pennington, New Jersey).", "word": "pennington", "logprob": -5.443476}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Spanish surname and proper noun.", "word": "perez", "logprob": -5.253808}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun, primarily a given name and surname.", "word": "percival", "logprob": -5.260878}
+{"valid": true, "score": 2, "category": "loanword", "note": "French loanword meaning 'father', used in English contexts like 'père et mère' or specific cultural references.", "word": "pere", "logprob": -5.328448}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname, valid as a proper noun.", "word": "peterson", "logprob": -5.123139}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A French given name and surname, commonly recognized in English contexts.", "word": "philippe", "logprob": -5.309989}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A valid English proper noun (female given name), notably associated with historical figures like Philippa of Hainault.", "word": "philippa", "logprob": -5.342766}
+{"valid": true, "score": 3, "category": "technical", "note": "Valid technical term in architecture and optics referring to a flat surface or lens.", "word": "plano", "logprob": -5.180431}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid Italian proper noun (name), commonly recognized in English contexts.", "word": "pietro", "logprob": -5.429423}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Historical figure (Gnaeus Pompeius Magnus) and a common surname; also refers to the city of Pompeii.", "word": "pompey", "logprob": -5.406759}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a city in England or a common surname.", "word": "preston", "logprob": -5.195362}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a city in Arizona or the Prescott family name.", "word": "prescott", "logprob": -5.133305}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, a common female given name and biblical figure.", "word": "priscilla", "logprob": -5.056237}
+{"valid": false, "score": 1, "category": "invalid", "note": "Non-standard dialectal spelling of 'pretty', not a valid dictionary entry.", "word": "purty", "logprob": -5.481627}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Putnam County).", "word": "putnam", "logprob": -5.454904}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (first name), not a common dictionary word.", "word": "quentin", "logprob": -5.381025}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun referring to a city in Massachusetts or a given name.", "word": "quincy", "logprob": -5.474994}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and given name), commonly recognized in English-speaking contexts.", "word": "quinn", "logprob": -5.249249}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), not a common English word.", "word": "randall", "logprob": -5.287333}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), also refers to economist Frank Ramsey.", "word": "ramsey", "logprob": -5.276358}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname), notably associated with the Ramsay family in history and literature.", "word": "ramsay", "logprob": -5.392679}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (common first name and surname); also refers to a type of soup or dish in some contexts.", "word": "ramon", "logprob": -5.47522}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A French male given name, not a common English word.", "word": "raoul", "logprob": -5.108338}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common English surname and given name (e.g., Randolph Carter, Randolph Scott).", "word": "randolph", "logprob": -5.085148}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and nickname for Reginald.", "word": "reggie", "logprob": -5.254535}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or given name), not a standard common English word.", "word": "reddy", "logprob": -5.254887}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), though not a common dictionary entry for general vocabulary.", "word": "reginald", "logprob": -5.174221}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name or genus of plants), but not a common English dictionary word.", "word": "rhoda", "logprob": -5.224653}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname), also refers to Richardson's theorem in mathematics.", "word": "richardson", "logprob": -5.006242}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or given name), not a common English dictionary word.", "word": "ricardo", "logprob": -5.279348}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common diminutive proper noun (name), not a standard dictionary entry for general use.", "word": "richie", "logprob": -5.483747}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and surname; also appears in the idiom 'Riley's children'.", "word": "riley", "logprob": -5.134447}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A traditional English male given name.", "word": "roderick", "logprob": -5.369726}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or the Robertson screw drive type.", "word": "robertson", "logprob": -5.131209}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common given name and surname; also refers to the character Robbie Rotten from LazyTown.", "word": "robbie", "logprob": -5.32296}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common Spanish surname and proper noun.", "word": "rodriguez", "logprob": -5.193235}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or given name), also refers to a historical figure.", "word": "rodney", "logprob": -5.164905}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (e.g., Rollo the Viking or a surname), but not a common English dictionary word.", "word": "rollo", "logprob": -5.287971}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English given name and surname.", "word": "ronnie", "logprob": -5.324912}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to the Romney family or Mitt Romney.", "word": "romney", "logprob": -5.013686}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "rory", "logprob": -5.434222}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A valid proper noun (female given name), not a common dictionary word.", "word": "rosalie", "logprob": -5.295067}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A proper noun referring to a common female given name or historical figures like Rosalind Franklin.", "word": "rosalind", "logprob": -5.270639}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A traditional English female given name of Germanic origin.", "word": "rosamund", "logprob": -5.434479}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a Roth IRA or the surname Roth; not a common dictionary word.", "word": "roth", "logprob": -5.397432}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A historical proper noun (name of a countess) and an archaic variant spelling of the flower name 'rosemary' or 'rose-mound', but not a standard common word.", "word": "rosamond", "logprob": -5.392754}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (e.g., Rudy Giuliani), also a common nickname.", "word": "rudy", "logprob": -5.391128}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A proper noun referring to a common Germanic given name or historical figures.", "word": "rudolf", "logprob": -5.498487}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Rowland Hill).", "word": "rowland", "logprob": -5.271973}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common nickname for Samuel or a type of sandwich; also appears in brand names.", "word": "sammy", "logprob": -5.078938}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or biblical figure; not a common dictionary word.", "word": "sampson", "logprob": -5.32765}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a city in Florida or a surname.", "word": "sanford", "logprob": -5.314193}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to the fictional character Sancho Panza from Don Quixote.", "word": "sancho", "logprob": -5.192132}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, commonly recognized as a surname (e.g., Brandon Sanderson) or place name.", "word": "sanderson", "logprob": -5.477335}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to Nicolas Sarkozy, former President of France.", "word": "sarkozy", "logprob": -5.357772}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common German surname and place name, widely recognized in English contexts.", "word": "schmidt", "logprob": -5.182686}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), also a known misspelling of the German word 'Schwartz' meaning black.", "word": "schwartz", "logprob": -5.303589}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common female given name and a genus of moths.", "word": "selina", "logprob": -5.460211}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a city in Alabama or a common female name.", "word": "selma", "logprob": -5.475015}
+{"valid": false, "score": 1, "category": "invalid", "note": "Misspelling of the proper noun 'Shakespeare'.", "word": "shakspeare", "logprob": -5.458231}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (biblical name and common given name).", "word": "seth", "logprob": -5.10327}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or place name), not a common dictionary word.", "word": "seymour", "logprob": -5.29401}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name and surname), also a common character name in media.", "word": "shane", "logprob": -5.338078}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Proper noun referring to Shearson (Shearson Loeb Rhoades), a former financial services firm.", "word": "shearson", "logprob": -5.330387}
+{"valid": true, "score": 3, "category": "common_word", "note": "Past participle of the verb 'shear', commonly used in contexts like 'a shorn sheep'.", "word": "shorn", "logprob": -5.306746}
+{"valid": true, "score": 2, "category": "loanword", "note": "German reflexive pronoun meaning 'oneself', occasionally used in English academic or linguistic contexts.", "word": "sich", "logprob": -5.459562}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A biblical name and historical figure, valid as a proper noun.", "word": "simeon", "logprob": -5.436349}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and Latin term for forest; also a genus of plants.", "word": "silva", "logprob": -5.440536}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), also a variant spelling of 'slate' in some contexts.", "word": "slade", "logprob": -5.4862}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (female given name), not a common English dictionary word.", "word": "sonia", "logprob": -5.381015}
+{"valid": true, "score": 3, "category": "abbreviation", "note": "Common informal abbreviation for 'sociology' or 'social', often used in compound terms like 'socio-economic'. Not a standalone dictionary entry in formal contexts.", "word": "socio", "logprob": -5.481489}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid as a proper noun (e.g., name Sophia/Sophie variant) or archaic shortening of 'Sophie', but not a standard common English word.", "word": "sophy", "logprob": -5.239182}
+{"valid": true, "score": 2, "category": "technical", "note": "Rare technical term referring to a type of Italian pasta or a specific cooking method.", "word": "spargo", "logprob": -5.45289}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a place in England or a surname.", "word": "stafford", "logprob": -5.301549}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name), not a common dictionary word.", "word": "stacey", "logprob": -5.408583}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Elizabeth Cady Stanton), but not a common English word.", "word": "stanton", "logprob": -5.261207}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common given name of German origin.", "word": "stefan", "logprob": -5.336246}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common biblical and given name.", "word": "susanna", "logprob": -5.465503}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a Scottish county and surname.", "word": "sutherland", "logprob": -5.39875}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (name), often a variant of Susan or Susie.", "word": "susy", "logprob": -5.48929}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a prophetess or the name of a character in literature.", "word": "sybil", "logprob": -5.336939}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A French feminine given name meaning 'forest', commonly used as a proper noun in English contexts.", "word": "sylvie", "logprob": -5.48175}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun, a biblical name and common given name.", "word": "tabitha", "logprob": -5.499975}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a breed of dog or historical family name; also appears as a technical term in automotive history.", "word": "talbot", "logprob": -5.242147}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun, typically a female given name or short form of names like Tavia.", "word": "tavia", "logprob": -5.343392}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid as a proper noun (e.g., Tara from Buffy the Vampire Slayer or a place name) and a loanword for a type of fiber.", "word": "tara", "logprob": -5.302404}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to the Roman playwright Terence or a common given name.", "word": "terence", "logprob": -5.188528}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to Alfred Tennyson or his surname; not a common dictionary word.", "word": "tennyson", "logprob": -5.347986}
+{"valid": true, "score": 3, "category": "loanword", "note": "French loanword meaning head or top, used in English phrases like tête-à-tête.", "word": "tete", "logprob": -5.320872}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid as a proper noun (short form of Thaddeus or a given name), but not a common English word.", "word": "thad", "logprob": -5.419792}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (name) and a variant spelling of the word 'tea', though less common.", "word": "thea", "logprob": -5.475259}
+{"valid": true, "score": 2, "category": "loanword", "note": "A loanword from Spanish meaning 'there', used in English contexts like 'yeehaw' or Western themes.", "word": "thar", "logprob": -5.156013}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common short form or nickname for the name Theodor/Theodore.", "word": "theo", "logprob": -5.305813}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A common French feminine given name, often associated with Saint Thérèse of Lisieux.", "word": "therese", "logprob": -5.425418}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A historical proper noun referring to Byzantine Empress Theodora and a common female given name.", "word": "theodora", "logprob": -5.432062}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname or place name), not a common dictionary word.", "word": "thurston", "logprob": -5.463439}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Common English surname and place name suffix (e.g., Thorpe), not a standard common noun.", "word": "thorpe", "logprob": -5.139476}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname) and a common English word referring to a thorny shrub or plant.", "word": "thorne", "logprob": -5.443701}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to Michael Tippett, a renowned English composer.", "word": "tippett", "logprob": -5.277295}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid archaic or dialectal form of 'topsyturvy', meaning upside down or chaotic.", "word": "topsy", "logprob": -5.443145}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun referring to Josip Broz Tito or a nickname; also appears in brand names.", "word": "tito", "logprob": -5.444062}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (given name or surname), also a common brand name.", "word": "tracy", "logprob": -5.17101}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to the Italian football club or a common brand name for lottery systems.", "word": "toto", "logprob": -5.478653}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and place name (e.g., Townsend, Tennessee; Townsend, Massachusetts), also associated with figures like Charles Townshend.", "word": "townsend", "logprob": -5.446553}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to the River Trent in England or a surname.", "word": "trent", "logprob": -5.098538}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A proper noun referring to a legendary knight or the name of a character in literature (e.g., Tristram Shandy).", "word": "tristram", "logprob": -5.145062}
+{"valid": true, "score": 2, "category": "common_word", "note": "Archaic contraction of 'it were', primarily found in historical literature and poetry.", "word": "twere", "logprob": -5.437031}
+{"valid": true, "score": 2, "category": "common_word", "note": "Archaic contraction of 'it would', commonly found in historical literature and poetry.", "word": "twould", "logprob": -5.258279}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname (e.g., William Turnball) or place names; not a common dictionary word.", "word": "turnbull", "logprob": -5.413789}
+{"valid": true, "score": 3, "category": "loanword", "note": "A water spirit from European folklore, commonly used in literature and mythology.", "word": "undine", "logprob": -5.476646}
+{"valid": true, "score": 2, "category": "loanword", "note": "Biblical term referring to sacred objects used for divination in ancient Israel", "word": "urim", "logprob": -5.482555}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name; also historically refers to undergrowth in forestry.", "word": "underwood", "logprob": -5.352459}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (female given name), also associated with Ursula K. Le Guin and Disney's The Little Mermaid.", "word": "ursula", "logprob": -5.283765}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname and place name), not a common dictionary word.", "word": "vaughan", "logprob": -5.220486}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid as a proper noun (surname) or archaic term for 'advance', but not a standard common noun.", "word": "vance", "logprob": -5.389442}
+{"valid": true, "score": 2, "category": "technical", "note": "Valid technical term in biology (e.g., Vere's disease) and historical contexts; also a surname.", "word": "vere", "logprob": -5.442544}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to a common given name and several places.", "word": "vernon", "logprob": -5.135986}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid as a proper noun (surname or brand name like Vicks), but not a standard common English word.", "word": "vick", "logprob": -5.404007}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (surname), not a common English word.", "word": "walsh", "logprob": -5.13458}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid British English variant of 'wagon', though less common than the standard spelling.", "word": "waggon", "logprob": -5.463435}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and place name (e.g., Walton-on-Thames), not a standard common noun.", "word": "walton", "logprob": -5.340284}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common proper noun (name) and reference to fictional character Wendy Darling.", "word": "wendy", "logprob": -5.116024}
+{"valid": true, "score": 2, "category": "loanword", "note": "Scottish dialect variant of 'well', also used in specific contexts like 'weel-kept'.", "word": "weel", "logprob": -5.445056}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A proper noun referring to a surname or place name (e.g., Wentworth Miller, Wentworth House).", "word": "wentworth", "logprob": -5.391151}
+{"valid": true, "score": 3, "category": "common_word", "note": "Valid English verb meaning to fail to pay a debt or fulfill an obligation; also used as a proper noun (Welsh).", "word": "welch", "logprob": -5.400714}
+{"valid": true, "score": 3, "category": "common_word", "note": "Historical political party and ideology in Britain and the US.", "word": "whig", "logprob": -5.404824}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun referring to the University of Pennsylvania's business school or anatomical structures like Wharton's duct.", "word": "wharton", "logprob": -5.33794}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Weston-super-Mare), but not a common English dictionary word.", "word": "weston", "logprob": -5.319486}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "A town in Greater Manchester, England; also associated with Wigan Athletic FC.", "word": "wigan", "logprob": -5.473798}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Proper noun referring to Wilbur Wright (aviator) or a common given name.", "word": "wilbur", "logprob": -5.442121}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common English surname and place name.", "word": "williamson", "logprob": -5.292704}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Common surname and name of the Wilkinson catalyst; not a standard common noun.", "word": "wilkinson", "logprob": -5.226464}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun referring to a surname or place name (e.g., Willard, Utah).", "word": "willard", "logprob": -5.492582}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "A valid English surname and place name (e.g., Willoughby, Warwickshire), but not a common noun.", "word": "willoughby", "logprob": -5.342577}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname), also a common place name in English-speaking countries.", "word": "woodward", "logprob": -5.4634}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Winthrop is a recognized proper noun referring to a prominent American family and several places/institutions (e.g., Winthrop University).", "word": "winthrop", "logprob": -5.494486}
+{"valid": true, "score": 3, "category": "loanword", "note": "Internet slang derived from 'w00t', commonly used in gaming and online communities to express excitement.", "word": "woot", "logprob": -5.342082}
+{"valid": true, "score": 2, "category": "common_word", "note": "Valid archaic or poetic past tense and past participle of 'wrap', though 'wrapped' is the standard modern form.", "word": "wrapt", "logprob": -5.465137}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid as a proper noun (e.g., Wulf the Wolf in history/fiction) or an archaic spelling of 'wolf', but not standard modern English.", "word": "wulf", "logprob": -5.489078}
+{"valid": true, "score": 3, "category": "proper_noun", "note": "Valid proper noun (surname or place name), though not a common dictionary entry for general usage.", "word": "yorke", "logprob": -5.461765}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Valid proper noun (Chinese surname), not a common English word.", "word": "zhao", "logprob": -5.4521}
+{"valid": true, "score": 2, "category": "proper_noun", "note": "Common Chinese surname; valid as a proper noun but not a standard English common word.", "word": "zhang", "logprob": -5.226067}
