@@ -25,15 +25,16 @@ static void print_usage(const char* prog) {
 	          << "  --verbose              Show detailed merge/fix decision log to stderr\n"
 	          << "  --min-len N            Min length for single-word fix (default: 5)\n"
 	          << "  --hamming N            Hamming distance threshold (default: 1)\n"
-	          << "  --short-threshold F    ARPA threshold for SHORT+SHORT merges (default: -3.0)\n"
-	          << "  --acronym-score F      Boosted logprob for known acronyms (default: -3.0)\n"
-	          << "  --arpa-floor F         Default logprob for missing ARPA words (default: -10.0)\n"
-	          << "  -h, --help             Print this help and exit\n"
-	          << "\n"
-	          << "With no input file and no -t, reads from stdin.\n"
-	          << "Output format per line:\n"
-	          << "  original: <input>\n"
-	          << "  corrected: <output>\n";
+          << "  --short-threshold F    ARPA threshold for SHORT+SHORT merges (default: -3.0)\n"
+          << "  --same-first-bonus F   Logprob bonus when candidate first letter matches input (default: 0.0)\n"
+          << "  --acronym-score F      Boosted logprob for known acronyms (default: -3.0)\n"
+          << "  --arpa-floor F         Default logprob for missing ARPA words (default: -10.0)\n"
+          << "  -h, --help             Print this help and exit\n"
+          << "\n"
+          << "With no input file and no -t, reads from stdin.\n"
+          << "Output format per line:\n"
+          << "  original: <input>\n"
+          << "  corrected: <output>\n";
 }
 
 static std::string resolve_dict(int argc, char* argv[], int& pos) {
@@ -90,6 +91,7 @@ static bool is_flag_with_value(const std::string& arg) {
 	       arg == "--hamming" ||
 	       arg == "--short-threshold" ||
 	       arg == "--acronym-score" ||
+	       arg == "--same-first-bonus" ||
 	       arg == "--arpa-floor";
 }
 
@@ -98,7 +100,7 @@ static bool is_known_flag(const std::string& arg) {
 	       arg == "-t" || arg == "--self-test" || arg == "--test-status" ||
 	       arg == "-h" || arg == "--help" || arg == "--fix-single" || arg == "--verbose" ||
 	       arg == "--min-len" || arg == "--hamming" ||
-	       arg == "--short-threshold" || arg == "--acronym-score" || arg == "--arpa-floor";
+	       arg == "--short-threshold" || arg == "--same-first-bonus" || arg == "--acronym-score" || arg == "--arpa-floor";
 }
 
 static int resolve_int_flag(int argc, char* argv[], const char* name, int default_val) {
@@ -143,6 +145,7 @@ static bool arg_is_param(const std::string& arg) {
 	if (arg.compare(0, 11, "--min-len=") == 0) return false;
 	if (arg.compare(0, 11, "--hamming=") == 0) return false;
 	if (arg.compare(0, 17, "--short-threshold=") == 0) return false;
+	if (arg.compare(0, 19, "--same-first-bonus=") == 0) return false;
 	if (arg.compare(0, 15, "--acronym-score=") == 0) return false;
 	if (arg.compare(0, 13, "--arpa-floor=") == 0) return false;
 	return true;
@@ -291,6 +294,7 @@ int main(int argc, char* argv[]) {
 	config.single_word_fix_min_len    = resolve_int_flag(argc, argv, "--min-len", 5);
 	config.hamming_distance_threshold = resolve_int_flag(argc, argv, "--hamming", 1);
 	config.short_short_arpa_threshold = resolve_float_flag(argc, argv, "--short-threshold", -3.0f);
+	config.same_first_letter_bonus    = resolve_float_flag(argc, argv, "--same-first-bonus", 0.0f);
 	config.acronym_override_logprob   = resolve_float_flag(argc, argv, "--acronym-score", -3.0f);
 	config.arpa_unigram_floor         = resolve_float_flag(argc, argv, "--arpa-floor", -10.0f);
 
