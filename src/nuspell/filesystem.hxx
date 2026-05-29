@@ -42,8 +42,10 @@ class path {
 }
 }
 
+#ifndef _MSC_VER
 namespace std {
 namespace filesystem = ::nuspell::v5;
 }
+#endif
 
 #endif

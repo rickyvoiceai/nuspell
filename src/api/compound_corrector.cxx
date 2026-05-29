@@ -215,6 +215,8 @@ struct CompoundCorrector::Impl {
 			    "  fix word=\"" + word + "\": suggest() returned " +
 			    std::to_string(suggs.size()) + " candidate(s)");
 		}
+		std::string best_candidate;
+		float best_logprob = -std::numeric_limits<float>::infinity();
 		for (const auto& candidate : suggs) {
 			if (candidate.length() != word.length()) {
 				if (verbose_log) verbose_log->push_back(
@@ -225,16 +227,27 @@ struct CompoundCorrector::Impl {
 			}
 			int hd = hamming_distance_ci(word, candidate);
 			if (hd == config.hamming_distance_threshold) {
+				float lp = get_logprob(candidate);
 				if (verbose_log) verbose_log->push_back(
 				    "    candidate \"" + candidate + "\" hamming=" +
-				    std::to_string(config.hamming_distance_threshold) + " → ACCEPT");
-				return Optional<std::string>(candidate);
+				    std::to_string(config.hamming_distance_threshold) +
+				    " logprob=" + std::to_string(lp) + " → CANDIDATE");
+				if (lp > best_logprob) {
+					best_logprob = lp;
+					best_candidate = candidate;
+				}
 			} else {
 				if (verbose_log) verbose_log->push_back(
 				    "    candidate \"" + candidate + "\" hamming=" +
 				    std::to_string(hd) + " → REJECT (!=" +
 				    std::to_string(config.hamming_distance_threshold) + ")");
 			}
+		}
+		if (!best_candidate.empty()) {
+			if (verbose_log) verbose_log->push_back(
+			    "  best fix=\"" + best_candidate + "\" logprob=" +
+			    std::to_string(best_logprob));
+			return Optional<std::string>(best_candidate);
 		}
 		if (verbose_log) verbose_log->push_back(
 		    "  no hamming-" + std::to_string(config.hamming_distance_threshold) +
@@ -283,6 +296,10 @@ CompoundCorrector::CompoundCorrector(std::istream& bundle_stream,
 }
 
 CompoundCorrector::~CompoundCorrector() = default;
+
+void CompoundCorrector::SetConfig(const NuspellConfig& cfg) {
+	impl_->config = cfg;
+}
 
 std::string CompoundCorrector::Correct(const std::string& input,
                                        bool fix_single) const {

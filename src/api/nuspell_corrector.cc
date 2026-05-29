@@ -88,6 +88,11 @@ nuspell_corrector_handle_t nuspell_corrector_create(const char* buffer, int size
 
 char* nuspell_corrector_correct(nuspell_corrector_handle_t handle,
                                 const char* input) {
+	return nuspell_corrector_correct_ex(handle, input, 0);
+}
+
+char* nuspell_corrector_correct_ex(nuspell_corrector_handle_t handle,
+                                   const char* input, int fix_single) {
 	if (!handle || !input) {
 		char* out = new char[1];
 		out[0] = '\0';
@@ -100,7 +105,7 @@ char* nuspell_corrector_correct(nuspell_corrector_handle_t handle,
 		return out;
 	}
 
-	std::string result = state->corrector->Correct(input, /*fix_single=*/false);
+	std::string result = state->corrector->Correct(input, fix_single != 0);
 	char* c_result = new char[result.size() + 1];
 	std::memcpy(c_result, result.c_str(), result.size() + 1);
 	return c_result;
@@ -108,6 +113,71 @@ char* nuspell_corrector_correct(nuspell_corrector_handle_t handle,
 
 void nuspell_corrector_free_result(char* result) {
 	delete[] result;
+}
+
+struct nuspell_correction_result*
+nuspell_corrector_correct_with_status(nuspell_corrector_handle_t handle,
+                                      const char* input) {
+	return nuspell_corrector_correct_with_status_ex(handle, input, 0);
+}
+
+struct nuspell_correction_result*
+nuspell_corrector_correct_with_status_ex(nuspell_corrector_handle_t handle,
+                                            const char* input, int fix_single) {
+	if (!handle || !input)
+		return nullptr;
+	auto* state = static_cast<NuspellCorrectorState*>(handle);
+	if (!state->corrector)
+		return nullptr;
+
+	try {
+		CorrectionResult cpp_result =
+		    state->corrector->CorrectWithStatus(input, fix_single != 0);
+
+		auto* c_result = new nuspell_correction_result();
+		c_result->text = new char[cpp_result.text.size() + 1];
+		std::memcpy(c_result->text, cpp_result.text.c_str(),
+		           cpp_result.text.size() + 1);
+
+		c_result->num_tokens = static_cast<int>(cpp_result.status.size());
+		if (c_result->num_tokens > 0) {
+			c_result->status = new int[c_result->num_tokens];
+			std::memcpy(c_result->status, cpp_result.status.data(),
+			           c_result->num_tokens * sizeof(int));
+		} else {
+			c_result->status = nullptr;
+		}
+		return c_result;
+	} catch (const std::exception&) {
+		return nullptr;
+	}
+}
+
+void nuspell_corrector_free_status_result(
+    struct nuspell_correction_result* result) {
+	if (!result)
+		return;
+	delete[] result->text;
+	delete[] result->status;
+	delete result;
+}
+
+// Apply runtime config to an existing handle.
+// Returns 0 on success, -1 on error (null handle/corrector).
+int nuspell_corrector_set_config(
+    nuspell_corrector_handle_t handle,
+    const struct nuspell_config* cfg) {
+	if (!handle || !cfg)
+		return -1;
+	auto* state = static_cast<NuspellCorrectorState*>(handle);
+	if (!state->corrector)
+		return -1;
+	NuspellConfig nc;
+	nc.single_word_fix_min_len = cfg->single_word_fix_min_len;
+	nc.hamming_distance_threshold = cfg->hamming_distance_threshold;
+	nc.short_short_arpa_threshold = cfg->short_short_arpa_threshold;
+	state->corrector->SetConfig(nc);
+	return 0;
 }
 
 void nuspell_corrector_destroy(nuspell_corrector_handle_t handle) {
