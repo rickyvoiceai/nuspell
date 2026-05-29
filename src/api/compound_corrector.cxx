@@ -228,10 +228,21 @@ struct CompoundCorrector::Impl {
 			int hd = hamming_distance_ci(word, candidate);
 			if (hd == config.hamming_distance_threshold) {
 				float lp = get_logprob(candidate);
-				if (verbose_log) verbose_log->push_back(
-				    "    candidate \"" + candidate + "\" hamming=" +
-				    std::to_string(config.hamming_distance_threshold) +
-				    " logprob=" + std::to_string(lp) + " → CANDIDATE");
+				if (config.same_first_letter_bonus != 0.0f &&
+				    !word.empty() && !candidate.empty() &&
+				    std::tolower(static_cast<unsigned char>(word[0])) ==
+				    std::tolower(static_cast<unsigned char>(candidate[0]))) {
+					lp += config.same_first_letter_bonus;
+					if (verbose_log) verbose_log->push_back(
+					    "    candidate \"" + candidate + "\" first-letter match bonus=" +
+					    std::to_string(config.same_first_letter_bonus) +
+					    " adjusted=" + std::to_string(lp) + " → CANDIDATE");
+				} else {
+					if (verbose_log) verbose_log->push_back(
+					    "    candidate \"" + candidate + "\" hamming=" +
+					    std::to_string(config.hamming_distance_threshold) +
+					    " logprob=" + std::to_string(lp) + " → CANDIDATE");
+				}
 				if (lp > best_logprob) {
 					best_logprob = lp;
 					best_candidate = candidate;
