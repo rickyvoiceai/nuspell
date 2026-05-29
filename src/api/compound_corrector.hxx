@@ -65,6 +65,7 @@ struct NuspellConfig {
 	float short_short_arpa_threshold = -3.0f;
 	float acronym_override_logprob   = -3.0f;
 	float arpa_unigram_floor         = -10.0f;
+	float same_first_letter_bonus    = 0.0f;
 };
 
 struct CorrectionResult {
