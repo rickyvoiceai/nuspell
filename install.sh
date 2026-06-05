@@ -108,7 +108,7 @@ else
 fi
 
 # --------------------------------------------------------------
-# 4. Sanity tests
+# 4. Sanity tests (6 runs total)
 # --------------------------------------------------------------
 echo ""
 echo "==> Quick sanity run of built tools"
@@ -119,16 +119,37 @@ cd "${SCRIPT_DIR}"
 echo "[nuspell --help]"
 "${BUILD_DIR}/src/tools/nuspell" --help || true
 
+# --- Loose files mode ---
+if [[ -f "${SCRIPT_DIR}/res/en_US.aff" ]]; then
+	echo ""
+	echo "[test_compound -d res/en_US.aff --fix-single --self-test (loose files)]"
+	"${BUILD_DIR}/src/api/test_compound" -d res/en_US.aff --fix-single --self-test || true
+
+	echo ""
+	echo "[test_compound -d res/en_US.aff --test-status (loose files)]"
+	"${BUILD_DIR}/src/api/test_compound" -d res/en_US.aff --test-status || true
+fi
+
+# --- Full bundle ---
 if [[ -f "${SCRIPT_DIR}/res/res.bundle" ]]; then
 	echo ""
 	echo "[test_compound -b res/res.bundle --fix-single --self-test (full bundle)]"
 	"${BUILD_DIR}/src/api/test_compound" -b res/res.bundle --fix-single --self-test || true
+
+	echo ""
+	echo "[test_compound -b res/res.bundle --test-status (full bundle)]"
+	"${BUILD_DIR}/src/api/test_compound" -b res/res.bundle --test-status || true
 fi
 
+# --- Minimal bundle ---
 if [[ -f "${SCRIPT_DIR}/res/res-minimal.bundle" ]]; then
 	echo ""
 	echo "[test_compound -b res/res-minimal.bundle --fix-single --self-test (minimal bundle)]"
 	"${BUILD_DIR}/src/api/test_compound" -b res/res-minimal.bundle --fix-single --self-test || true
+
+	echo ""
+	echo "[test_compound -b res/res-minimal.bundle --test-status (minimal bundle)]"
+	"${BUILD_DIR}/src/api/test_compound" -b res/res-minimal.bundle --test-status || true
 fi
 
 echo ""
