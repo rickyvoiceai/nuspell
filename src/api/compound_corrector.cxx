@@ -321,6 +321,16 @@ void CompoundCorrector::SetConfig(const NuspellConfig& cfg) {
 	impl_->config = cfg;
 }
 
+bool CompoundCorrector::IsProperNameForTokens(const std::string& token1,
+                                               const std::string& token2) const {
+	std::string key = Impl::to_lower(token1);
+	if (!token2.empty()) {
+		key.push_back(' ');
+		key += Impl::to_lower(token2);
+	}
+	return impl_->proper_names.find(key) != impl_->proper_names.end();
+}
+
 std::string CompoundCorrector::Correct(const std::string& input,
                                        bool fix_single) const {
 	return CorrectWithStatus(input, fix_single).text;

@@ -107,7 +107,8 @@ else
 fi
 
 # --------------------------------------------------------------
-# 4. Sanity tests (6 runs total)
+# 4. Sanity tests (7 runs total)
+#   proper-names test only on full bundle (loose/minimal have no data)
 # --------------------------------------------------------------
 echo ""
 echo "==> Quick sanity run of built tools"
@@ -138,9 +139,13 @@ if [[ -f "${SCRIPT_DIR}/res/res.bundle" ]]; then
 	echo ""
 	echo "[test_compound -b res/res.bundle --test-status (full bundle)]"
 	"${BUILD_DIR}/src/api/test_compound" -b res/res.bundle --test-status || true
+
+	echo ""
+	echo "[test_compound -b res/res.bundle --test-proper-names (full bundle)]"
+	"${BUILD_DIR}/src/api/test_compound" -b res/res.bundle --test-proper-names || true
 fi
 
-# --- Minimal bundle ---
+# --- Minimal bundle (no proper-names data) ---
 if [[ -f "${SCRIPT_DIR}/res/res-minimal.bundle" ]]; then
 	echo ""
 	echo "[test_compound -b res/res-minimal.bundle --fix-single --self-test (minimal bundle)]"
