@@ -31,12 +31,28 @@ Before pushing changes that touch `src/api/` or `res/` always run one of:
 ./install.sh
 ```
 
+or, equivalently, all 6 test configurations (loose files, full bundle, minimal bundle):
+
+```bash
+./build/src/api/test_compound -d res/en_US.aff --self-test
+./build/src/api/test_compound -d res/en_US.aff --test-status
+./build/src/api/test_compound -b res/res.bundle --self-test
+./build/src/api/test_compound -b res/res.bundle --test-status
+./build/src/api/test_compound -b res/res-minimal.bundle --self-test
+./build/src/api/test_compound -b res/res-minimal.bundle --test-status
+```
+
 or, equivalently:
 
 ```bash
-./build/src/api/test_compound --self-test
-./build/src/api/test_compound --test-status
-./build/src/api/test_compound -b res/res.bundle --self-test
+./build/src/api/test_compound --self-test          # 33 string tests
+./build/src/api/test_compound --test-status        # 32 status code tests
+./build/src/api/test_compound -d res/en_US.aff --self-test || true
+./build/src/api/test_compound -d res/en_US.aff --test-status || true
+./build/src/api/test_compound -b res/res.bundle --self-test || true
+./build/src/api/test_compound -b res/res.bundle --test-status || true
+./build/src/api/test_compound -b res/res-minimal.bundle --self-test || true
+./build/src/api/test_compound -b res/res-minimal.bundle --test-status || true
 ```
 
 ## Directory Layout

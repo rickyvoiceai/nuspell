@@ -298,10 +298,18 @@ cmake .. -DBUILD_API=ON
 Or simply run the provided convenience script:
 
 ```bash
-./install.sh    # builds, packs res.bundle, copies it to res/,
-                # then runs test_compound sanity tests (default path + fix_single,
-                # and bundle mode + fix_single)
+./install.sh               # default: build full bundle, run 6 sanity tests
+./install.sh --build-both  # build both full and minimal bundles, run all 6 tests
+./install.sh --no-proper-names  # build minimal bundle (without proper names)
 ```
+
+Runs 6 sanity test configurations:
+1. Loose files (`-d`) + `--self-test`
+2. Loose files (`-d`) + `--test-status`
+3. Full bundle (`-b`) + `--self-test`
+4. Full bundle (`-b`) + `--test-status`
+5. Minimal bundle (`-b`) + `--self-test`
+6. Minimal bundle (`-b`) + `--test-status`
 
 ### Constructor
 
@@ -374,8 +382,11 @@ int main() {
 Built automatically when `-DBUILD_API=ON`. It is a line-processing CLI that demonstrates the API.
 
 ```bash
-# self-test (27 built-in cases)
+# self-test (33 built-in cases)
 ./build/src/api/test_compound --self-test
+
+# status-code regression test (32 built-in cases)
+./build/src/api/test_compound --test-status
 
 # process file or stdin
 echo "she is a ce o" | ./build/src/api/test_compound
