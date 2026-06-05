@@ -41,15 +41,19 @@ int main(int argc, char* argv[]) {
 		const char* filename;
 		BundleTag tag;
 	};
-	FileMapping mappings[] = {
+	FileMapping required[] = {
 		{"en_US.aff",    BundleTag::AFF},
 		{"en_US.dic",    BundleTag::DIC},
 		{"ug",           BundleTag::UG},
 		{"acronyms.txt", BundleTag::ACRONYMS},
 	};
 
+	FileMapping optional[] = {
+		{"addition/Names2020_Countries_Companies.txt", BundleTag::PROPER_NAMES},
+	};
+
 	Bundle bundle;
-	for (const auto& m : mappings) {
+	for (const auto& m : required) {
 		std::string p = join_path(in_dir, m.filename);
 		if (!file_exists(p)) {
 			std::fprintf(stderr, "Error: required file not found: %s\n", p.c_str());
@@ -66,6 +70,26 @@ int main(int argc, char* argv[]) {
 		auto sz = file_size(p);
 		entry.data.resize(sz);
 		in.read(entry.data.data(), sz);
+		bundle.entries.push_back(std::move(entry));
+		std::printf("Packed %s (%zu bytes)\n", m.filename, sz);
+	}
+	for (const auto& m : optional) {
+		std::string p = join_path(in_dir, m.filename);
+		if (!file_exists(p)) {
+			std::fprintf(stderr, "Warning: optional file not found, skipping: %s\n", p.c_str());
+			continue;
+		}
+		BundleEntry entry;
+		entry.tag  = m.tag;
+		entry.name = m.filename;
+		std::ifstream in(p, std::ios::binary);
+		if (!in) {
+			std::fprintf(stderr, "Warning: can not open optional file, skipping: %s\n", p.c_str());
+			continue;
+		}
+		auto sz = file_size(p);
+		entry.data.resize(sz);
+		in.read(&entry.data[0], sz);
 		bundle.entries.push_back(std::move(entry));
 		std::printf("Packed %s (%zu bytes)\n", m.filename, sz);
 	}
