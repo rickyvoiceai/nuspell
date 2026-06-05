@@ -329,9 +329,17 @@ std::ifstream bundle_in("res.bundle", std::ios::binary);
 CompoundCorrector corrector(bundle_in);  // loads aff, dic, ug, acronyms from the bundle
 ```
 
+The bundle can also include an optional proper-names overlay
+(`res/addition/Names2020_Countries_Companies.txt`) packed as `BundleTag::PROPER_NAMES`.
+If present, the corrector loads these into an internal `unordered_set`.
+Old bundles without this tag are fully backward-compatible.
+
 This is useful for deployment — everything is shipped as a single file, no relative path issues.
 
 CMake generates the bundle automatically at build time: `build/res.bundle`.
+When `res/addition/Names2020_Countries_Companies.txt` exists, it is packed as an
+optional `PROPER_NAMES` entry. If the file is missing, the packer warns once
+and skips it — the bundle still works.
 
 
 ### Example usage
