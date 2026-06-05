@@ -21,6 +21,7 @@ file(GLOB RESOURCE_FILES CONFIGURE_DEPENDS
     ${RESOURCE_DIR}/en_US.dic
     ${RESOURCE_DIR}/ug
     ${RESOURCE_DIR}/acronyms.txt
+    ${RESOURCE_DIR}/addition/Names2020_Countries_Companies.txt
 )
 add_custom_command(
     OUTPUT ${RESOURCE_BUNDLE}

@@ -22,6 +22,7 @@ struct CompoundCorrector::Impl {
 	nuspell::Dictionary dict;
 	std::unordered_map<std::string, float> unigrams;
 	std::unordered_set<std::string> acronyms;
+	std::unordered_set<std::string> proper_names;
 	NuspellConfig config;
 
 	Impl() = default;
@@ -303,6 +304,14 @@ CompoundCorrector::CompoundCorrector(std::istream& bundle_stream,
 	if (acr) {
 		std::istringstream acr_ss(acr->data);
 		impl_->load_acronyms_from_stream(acr_ss);
+	}
+	const BundleEntry* pn = bundle.find(BundleTag::PROPER_NAMES);
+	if (pn) {
+		std::istringstream pn_ss(pn->data);
+		for (std::string line; std::getline(pn_ss, line);) {
+			if (line.empty() || line[0] == '#' || line[0] == '\n') continue;
+			impl_->proper_names.insert(line);
+		}
 	}
 }
 

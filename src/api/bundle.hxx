@@ -8,10 +8,11 @@
 #include <vector>
 
 enum class BundleTag : std::uint32_t {
-	AFF       = 0,
-	DIC       = 1,
-	UG        = 2,
-	ACRONYMS  = 3
+	AFF          = 0,
+	DIC          = 1,
+	UG           = 2,
+	ACRONYMS     = 3,
+	PROPER_NAMES = 4
 };
 
 struct BundleEntry {
