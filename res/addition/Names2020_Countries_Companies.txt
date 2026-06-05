@@ -1011,3 +1011,113 @@ hindu
 islam
 judaism
 taoism
+
+### months
+august
+december
+february
+january
+july
+march
+november
+october
+september
+
+### days of week
+friday
+monday
+saturday
+sunday
+thursday
+tuesday
+wednesday
+
+### holidays and events
+christmas
+easter
+olympics
+
+### landmarks and monuments
+acropolis
+buckingham palace
+eiffel tower
+forbidden city
+notre dame
+westminster abbey
+white house
+
+### universities
+brown university
+cambridge university
+columbia university
+cornell university
+dartmouth college
+duke university
+imperial college
+johns hopkins
+northwestern university
+princeton university
+tsinghua university
+
+### additional cities
+aberdeen
+baltimore
+cleveland
+helsinki
+kingston
+minsk
+new delhi
+ottawa
+perth
+pittsburgh
+portland
+san antonio
+san diego
+seattle
+sheffield
+wellington
+
+### additional countries and territories
+england
+kabul
+kiev
+quebec
+taiwan
+
+### additional companies and brands
+adidas
+airbnb
+apple tv
+bbc
+chrome
+cisco
+cnn
+ebay
+firefox
+gucci
+heineken
+hewlett packard
+hilton
+j.p. morgan
+l'oréal
+mcdonald's
+motorola
+nintendo
+nokia
+safari
+skype
+telegram
+tesco
+texas instruments
+virgin atlantic
+wikipedia
+xerox
+
+### additional names
+da vinci
+van gogh
+washington d.c.
+wright brothers
+
+### religion
+baptist
