@@ -117,6 +117,14 @@ public:
 	                                    bool fix_single = false,
 	                                    std::vector<std::string>* verbose_log = nullptr) const;
 
+	// Check if a single token or two-token phrase is a known proper name.
+	// token1: first word (required)
+	// token2: second word (optional — empty string means single-token check)
+	// Input is lowercased automatically before lookup.
+	// Returns true if the phrase is found in the proper-names set.
+	bool IsProperNameForTokens(const std::string& token1,
+	                            const std::string& token2 = std::string()) const;
+
 private:
 	// Internal spell-check backend (loaded once at construction).
 	// Uses nuspell::Dictionary internally.

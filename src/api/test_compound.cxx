@@ -14,6 +14,7 @@ static void print_usage(const char* prog) {
 	          << "  " << prog << " [-b bundle] [--fix-single] [--verbose] [input.txt]\n"
 	          << "  " << prog << " -t [-d dict.aff|--b bundle] [--fix-single]\n"
 	          << "  " << prog << " --test-status [-d dict.aff|--b bundle]\n"
+	          << "  " << prog << " --test-proper-names [-d dict.aff|--b bundle]\n"
 	          << "  " << prog << " -h\n"
 	          << "\n"
 	          << "Options:\n"
@@ -21,6 +22,7 @@ static void print_usage(const char* prog) {
 	          << "  -b, --bundle PATH      Use a packed resource bundle instead of loose files\n"
 	          << "  -t, --self-test        Run built-in self-test (res/test_file.txt)\n"
 	          << "  --test-status          Run status-code self-test (res/test_status.txt)\n"
+	          << "  --test-proper-names    Run proper-name lookup self-test\n"
 	          << "  --fix-single           Also apply single-word spelling correction\n"
 	          << "  --verbose              Show detailed merge/fix decision log to stderr\n"
 	          << "  --min-len N            Min length for single-word fix (default: 5)\n"
@@ -98,6 +100,7 @@ static bool is_flag_with_value(const std::string& arg) {
 static bool is_known_flag(const std::string& arg) {
 	return arg == "-d" || arg == "--dictionary" || arg == "-b" || arg == "--bundle" ||
 	       arg == "-t" || arg == "--self-test" || arg == "--test-status" ||
+	       arg == "--test-proper-names" ||
 	       arg == "-h" || arg == "--help" || arg == "--fix-single" || arg == "--verbose" ||
 	       arg == "--min-len" || arg == "--hamming" ||
 	       arg == "--short-threshold" || arg == "--same-first-bonus" || arg == "--acronym-score" || arg == "--arpa-floor";
@@ -249,6 +252,54 @@ static int run_status_test(const CompoundCorrector& corrector, const std::string
 	return failed > 0 ? 1 : 0;
 }
 
+static int run_proper_name_test(const CompoundCorrector& corrector) {
+	int passed = 0;
+	int failed = 0;
+
+	struct TestCase {
+		const char* token1;
+		const char* token2;
+		bool expected;
+	};
+
+	TestCase cases[] = {
+		{"john",   "",        true},
+		{"John",   "",        true},
+		{"hello",  "",        false},
+		{"new",    "zealand", true},
+		{"New",    "Zealand", true},
+		{"NEW",    "ZEALAND", true},
+		{"big",    "house",   false},
+		{"costa",  "rica",    true},
+		{"microsoft", "",     true},
+		{"san",    "marino",  true},
+		{"",       "",        false},
+		{"berlin", "",        true},
+		{"hong",   "kong",    true},
+		{"tokyo",  "",        true},
+		{"the",    "",        false},
+	};
+
+	for (const auto& c : cases) {
+		bool result = corrector.IsProperNameForTokens(c.token1, c.token2);
+		if (result == c.expected) {
+			std::cout << "PASS: IsProperNameForTokens(\""
+			          << c.token1 << "\", \"" << c.token2 << "\") = "
+			          << (result ? "true" : "false") << "\n";
+			++passed;
+		} else {
+			std::cout << "FAIL: IsProperNameForTokens(\""
+			          << c.token1 << "\", \"" << c.token2 << "\") = "
+			          << (result ? "true" : "false")
+			          << " (expected: " << (c.expected ? "true" : "false") << ")\n";
+			++failed;
+		}
+	}
+
+	std::cout << "\nProper-Name Results: " << passed << " passed, " << failed << " failed\n";
+	return failed > 0 ? 1 : 0;
+}
+
 static int run_process_verbose(const CompoundCorrector& corrector,
                               std::istream& in, bool fix_single) {
 	std::string line;
@@ -286,6 +337,7 @@ int main(int argc, char* argv[]) {
 
 	bool self_test   = flag_present(argc, argv, {"-t", "--self-test"});
 	bool test_status = flag_present(argc, argv, {"--test-status"});
+	bool test_proper  = flag_present(argc, argv, {"--test-proper-names"});
 	bool fix_single  = flag_present(argc, argv, {"--fix-single"});
 	bool verbose     = flag_present(argc, argv, {"--verbose"});
 
@@ -333,6 +385,9 @@ int main(int argc, char* argv[]) {
 	}
 	if (test_status) {
 		return run_status_test(*corrector, "res/test_status.txt");
+	}
+	if (test_proper) {
+		return run_proper_name_test(*corrector);
 	}
 
 	if (!input_path.empty()) {
