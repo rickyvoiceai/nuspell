@@ -100,6 +100,14 @@ The file contains lowercase proper nouns (cities, countries, companies,
 famous people, US states, car brands, religions, etc.) intended for ASR
 downstream capitalization.
 
+**Format constraints:**
+- One entry per line, lowercase only.
+- Single-word entries: one token (e.g. `john`, `berlin`, `microsoft`).
+- Two-word entries: exactly two tokens separated by a single space
+  (e.g. `new zealand`, `hong kong`, `costa rica`).
+- No tabs, no multiple/consecutive spaces, no trailing spaces.
+- Entries with 3+ tokens are NOT supported by `IsProperNameForTokens()`.
+
 ### Runtime loading
 
 `CompoundCorrector::Impl::proper_names` is an `unordered_set<std::string>`

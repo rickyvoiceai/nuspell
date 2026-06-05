@@ -122,6 +122,12 @@ public:
 	// token2: second word (optional — empty string means single-token check)
 	// Input is lowercased automatically before lookup.
 	// Returns true if the phrase is found in the proper-names set.
+	//
+	// FORMAT CONSTRAINT on the proper-names data file:
+	//   - Each entry is at most 2 tokens (single word, or two words separated
+	//     by exactly one space).
+	//   - No tabs, no multiple spaces, no trailing spaces.
+	//   - Entries with 3+ tokens are not supported by this API.
 	bool IsProperNameForTokens(const std::string& token1,
 	                            const std::string& token2 = std::string()) const;
 
