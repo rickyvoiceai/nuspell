@@ -1,0 +1,1007 @@
+### PROPER NAME LIST
+john
+michael
+david
+kevin
+jennifer
+daniel
+james
+andrew
+maria
+jason
+joseph
+ryan
+michelle
+grace
+william
+christopher
+eric
+jonathan
+peter
+emily
+justin
+richard
+mohammad
+matthew
+sarah
+brian
+anthony
+jessica
+elizabeth
+ethan
+amy
+joshua
+muhammad
+robert
+paul
+mary
+anna
+kim
+thomas
+steven
+christine
+linda
+susan
+jenny
+alex
+mohammed
+alexander
+thanh
+benjamin
+lisa
+sophia
+henry
+mark
+nathan
+nancy
+angela
+helen
+phuong
+tony
+christina
+karen
+aaron
+andy
+julie
+jane
+van
+tiffany
+samuel
+vincent
+cindy
+stephanie
+rachel
+edward
+george
+jacob
+jeffrey
+victoria
+olivia
+catherine
+kenneth
+emma
+ashley
+tina
+annie
+vivian
+raymond
+lily
+katherine
+alan
+patrick
+jay
+charles
+timothy
+jimmy
+kyle
+alice
+kelly
+nicholas
+chloe
+jasmine
+nicole
+sean
+kimberly
+sharon
+rebecca
+danny
+julia
+victor
+christian
+chris
+diana
+sam
+amanda
+stephen
+melissa
+dennis
+jose
+anita
+irene
+albert
+joyce
+judy
+esther
+abdul
+dylan
+tyler
+johnny
+ronald
+bryan
+steve
+may
+patricia
+josephine
+gloria
+shirley
+ann
+sara
+evan
+lauren
+monica
+aiden
+jack
+austin
+lucas
+adam
+kathy
+wendy
+elaine
+jerry
+janet
+philip
+natalie
+frank
+gary
+allen
+teresa
+isabella
+alvin
+claire
+jeremy
+tommy
+ken
+calvin
+francis
+kenny
+edwin
+janice
+joanne
+laura
+vanessa
+sandy
+lee
+nina
+isaac
+jacqueline
+joe
+tom
+simon
+cecilia
+caroline
+carol
+gabriel
+mike
+derek
+lydia
+angelina
+virginia
+theresa
+kiran
+allison
+mason
+tracy
+antonio
+eva
+katie
+margaret
+marie
+lawrence
+joanna
+betty
+andrea
+scott
+diane
+ben
+xiao
+sabrina
+nguyen
+ruth
+stanley
+ellen
+phillip
+arthur
+sophie
+roger
+ivy
+oliver
+madison
+romeo
+harry
+ricky
+stella
+june
+ella
+elena
+ivan
+pamela
+jeff
+kristine
+leslie
+larry
+taylor
+wilson
+sally
+joan
+sofia
+nelson
+iris
+charlotte
+april
+ray
+terry
+brenda
+jessie
+charlie
+martin
+donald
+robin
+maggie
+emmanuel
+priscilla
+sydney
+barbara
+frances
+vicky
+winnie
+chan
+jackie
+jim
+howard
+carmen
+jade
+rolando
+regina
+marcus
+felix
+roberto
+pauline
+francisco
+jackson
+jenna
+bruce
+dominic
+leon
+alexandra
+nick
+kate
+abdullah
+joey
+chelsea
+louis
+bella
+eddie
+isabel
+billy
+douglas
+isabelle
+kelvin
+florence
+shannon
+doris
+russell
+lolita
+debbie
+fiona
+christy
+melvin
+jennie
+elisa
+frederick
+alison
+zara
+kylie
+jesus
+phoebe
+walter
+gordon
+bonnie
+morgan
+eliza
+helena
+dante
+lieu
+bryant
+vince
+rosie
+faye
+cyrus
+anson
+rachael
+anderson
+denny
+davis
+dianne
+geoffrey
+celina
+kennedy
+fanny
+edmond
+kobe
+
+### COUNTRIES LIST
+afghanistan
+albania
+algeria
+andorra
+angola
+antigua
+barbuda
+argentina
+armenia
+australia
+austria
+azerbaijan
+bahrain
+bangladesh
+barbados
+belarus
+belgium
+belize
+benin
+bhutan
+bolivia
+bosnia
+herzegovina
+botswana
+brazil
+brunei
+bulgaria
+burkina faso
+burundi
+cambodia
+cameroon
+canada
+cape verde
+chad
+chile
+china
+colombia
+comoros
+cook islands
+costa rica
+croatia
+cuba
+cyprus
+czech republic
+congo
+denmark
+djibouti
+dominica
+ecuador
+egypt
+el salvador
+equatorial guinea
+eritrea
+estonia
+eswatini
+ethiopia
+micronesia
+fiji
+finland
+france
+gabon
+georgia
+germany
+ghana
+greece
+grenada
+guatemala
+guinea
+guyana
+haiti
+honduras
+hungary
+iceland
+india
+indonesia
+iran
+iraq
+ireland
+israel
+italy
+ivory coast
+jamaica
+japan
+jordan
+kazakhstan
+kenya
+kiribati
+kuwait
+kyrgyzstan
+laos
+latvia
+lebanon
+lesotho
+liberia
+libya
+liechtenstein
+lithuania
+luxembourg
+madagascar
+malawi
+malaysia
+maldives
+mali
+malta
+marshall islands
+mauritania
+mauritius
+mexico
+moldova
+monaco
+mongolia
+montenegro
+morocco
+mozambique
+myanmar
+namibia
+nauru
+nepal
+netherlands
+new zealand
+nicaragua
+niger
+nigeria
+niue
+norfolk island
+north korea
+north macedonia
+norway
+oman
+pakistan
+palau
+panama
+paraguay
+peru
+philippines
+poland
+portugal
+qatar
+romania
+russia
+rwanda
+saint kitts
+saint lucia
+saint vincent
+grenadines
+samoa
+san marino
+saudi arabia
+senegal
+serbia
+seychelles
+sierra leone
+singapore
+slovakia
+slovenia
+solomon islands
+somalia
+south africa
+south korea
+south sudan
+spain
+sri lanka
+sudan
+suriname
+sweden
+switzerland
+syria
+tajikistan
+tanzania
+thailand
+the bahamas
+the gambia
+timor leste
+togo
+tonga
+tunisia
+turkey
+turkmenistan
+tuvalu
+uganda
+ukraine
+arab emirates
+united kingdom
+united states
+uruguay
+uzbekistan
+vanuatu
+vatican city
+venezuela
+vietnam
+yemen
+zambia
+zimbabwe
+
+### COMPANIES LIST 
+walmart
+amazon
+berkshire hathaway
+alphabet
+exxon mobil
+jp morgan 
+microsoft
+chevron
+ford motor
+citigroup
+meta
+phillips 
+nvidia
+goldman sachs
+wells fargo
+at&t
+morgan stanley
+tesla
+dell
+walt disney
+fedex
+boeing
+pfizer
+ibm
+hp
+intel
+nike
+coca cola
+eli lilly
+uber
+dow jones
+nasdaq
+netflix
+qualcomm
+starbucks
+visa
+hewlett packard 
+mastercard
+tencent
+alibaba
+foxconn
+byd
+xiaomi
+midea
+sinopec
+baidu
+zte
+sinopharm
+tcl
+lenovo
+huawei
+toyota
+hitachi
+sony
+tokyo
+mitsubishi
+sumitomo mitsui 
+samsung
+sk hynix
+hyundai motor 
+lg energy
+lg electronics
+deepseek
+facebook
+google
+youtube
+douyin
+whatsapp
+alipay
+taobao
+hsbc
+hang seng 
+dbs bank
+ck hutchison
+mtr corporation
+clp holdings
+hkex
+aia
+prudential
+manulife
+jardine matheson
+swire pacific
+wharf holdings
+pccw
+hkt
+tvb
+cathay pacific
+wechat
+tiktok
+bytedance
+pinduoduo
+meituan
+didi
+weibo
+oppo
+vivo
+smic
+dji
+honda
+canon
+nikon
+panasonic
+yamaha
+fujitsu
+lotte
+toshiba
+emirates
+british airways
+lufthansa
+qatar airways
+hku
+cuhk
+hkust
+polyu
+tsinghua
+peking university
+oxford
+cambridge
+harvard
+mit
+stanford
+
+### MAJOR CITIES
+bandung
+bangalore
+barcelona
+birmingham
+busan
+da nang
+hamburg
+incheon
+karachi
+lahore
+los angeles
+lyon
+manchester
+marseille
+melbourne
+milan
+mumbai
+munich
+naples
+new york
+novosibirsk
+osaka
+saigon
+saint petersburg
+salvador
+sao paulo
+surabaya
+toronto
+valencia
+vancouver
+yokohama
+hong kong
+macau
+beijing
+shenzhen
+shanghai
+guangzhou
+hangzhou
+chengdu
+wuhan
+xian
+suzhou
+nanjing
+tianjin
+chongqing
+dongguan
+zhuhai
+victoria harbour
+causeway bay
+mong kok
+admiralty
+wan chai
+kowloon
+lantau island
+bangkok
+london
+istanbul
+dubai
+mecca
+antalya
+paris
+kuala lumpur
+cancun
+delhi
+phuket
+rome
+pattaya
+taipei
+prague
+medina
+seoul
+amsterdam
+agra
+miami
+denpasar
+las vegas
+chennai
+vienna
+johor bahru
+jaipur
+berlin
+cairo
+athens
+orlando
+moscow
+venice
+madrid
+riyadh
+dublin
+hanoi
+johannesburg
+jakarta
+brussels
+jerusalem
+budapest
+lisbon
+dammam
+penang island
+heraklion
+kyoto
+chiang mai
+copenhagen
+san francisco
+krakow
+marrakesh
+kolkata
+cebu city
+auckland
+guilin
+honolulu
+hurghada
+warsaw
+mugla
+buenos aires
+chiba
+frankfurt
+stockholm
+lima
+batam
+nice
+fukuoka
+abu dhabi
+jeju
+porto
+rhodes
+krabi
+mexico city
+punta cana
+zurich
+montreal
+washington dc
+chicago
+dusseldorf
+boston
+edinburgh
+san jose
+tehran
+houston
+cape town
+manila
+bogota
+beirut
+geneva
+colombo
+xiamen
+bucharest
+casablanca
+atlanta
+dalian
+montevideo
+amman
+durban
+accra
+quito
+qingdao
+philadelphia
+lagos
+
+### relate to convoice list
+earth
+jupiter
+mars
+moon
+neptune
+pluto
+saturn
+the sun
+uranus
+venus
+abraham lincoln
+albert einstein
+alfred nobel
+amelia earhart
+andy warhol
+anne frank
+aristotle
+barack obama
+benjamin franklin
+bill gates
+charles darwin
+charles dickens
+christopher columbus
+cleopatra
+confucius
+elizabeth taylor
+elvis presley
+ernest hemingway
+franklin roosevelt
+frida kahlo
+galileo galilei
+george washington
+helen keller
+henry ford
+isaac newton
+jane austen
+louis armstrong
+mahatma gandhi
+marie curie
+michael jackson
+mother teresa
+mozart
+napoleon bonaparte
+nelson mandela
+pablo picasso
+plato
+queen elizabeth
+queen victoria
+shakespeare
+sigmund freud
+steve jobs
+thomas edison
+virginia woolf
+winston churchill
+brad pitt
+cristiano ronaldo
+dwayne johnson
+elon musk
+emma watson
+jeff bezos
+jennifer lawrence
+kim kardashian
+lionel messi
+malala yousafzai
+mark zuckerberg
+michelle obama
+muhammad ali
+oprah winfrey
+serena williams
+taylor swift
+tom hanks
+tom hiddleston
+tom holland
+usain bolt
+will smith
+william shakespeare
+alfa romeo
+audi
+bentley
+bmw
+buick
+cadillac
+chevrolet
+ferrari
+ford
+genesis
+hyundai
+jaguar
+jeep
+kia
+lamborghini
+lexus
+mazda
+mercedes benz
+mini
+nissan
+peugeot
+porsche
+renault
+subaru
+suzuki
+volkswagen
+volvo
+bing
+duckduckgo
+yahoo
+yandex
+instagram
+linkedin
+reddit
+snapchat
+twitter
+arsenal
+bayern munich
+boston celtics
+brooklyn nets
+chicago bulls
+chicago cubs
+dallas cowboys
+denver broncos
+fc barcelona
+houston rockets
+la lakers
+liverpool
+manchester city
+manchester united
+miami heat
+pittsburgh steelers
+real madrid
+toronto raptors
+hbo max
+spotify
+youtube premium
+arctic ocean
+atlantic ocean
+baltic sea
+black sea
+caribbean sea
+indian ocean
+mediterranean sea
+pacific ocean
+european union
+federal reserve
+harvard university
+nato
+oxford university
+red cross
+stanford university
+united nations
+yale university
+leo
+lucy
+samantha
+wyatt
+alabama
+alaska
+arizona
+arkansas
+california
+colorado
+florida
+hawaii
+illinois
+indiana
+iowa
+kansas
+louisiana
+maryland
+massachusetts
+michigan
+minnesota
+mississippi
+missouri
+nevada
+new hampshire
+new jersey
+new mexico
+north carolina
+ohio
+oklahoma
+pennsylvania
+rhode island
+south carolina
+south dakota
+texas
+utah
+washington
+west virginia
+wisconsin
+ikea
+kfc
+mcdonalds
+buddhism
+christianity
+hindu
+islam
+judaism
+taoism
