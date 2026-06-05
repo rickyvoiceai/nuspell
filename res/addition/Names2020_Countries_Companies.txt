@@ -1,4 +1,10 @@
 ### PROPER NAME LIST
+### FORMAT: one entry per line, lowercase only.
+### - Single word: one token (e.g. "john", "berlin", "microsoft")
+### - Two words: exactly TWO tokens separated by a SINGLE space
+###   (e.g. "new zealand", "hong kong", "costa rica")
+### - NO tabs, NO multiple/consecutive spaces, NO trailing spaces.
+### - Entries with 3+ tokens are NOT supported by IsProperNameForTokens().
 john
 michael
 david

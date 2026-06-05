@@ -342,6 +342,16 @@ The bundle can also include an optional proper-names overlay
 If present, the corrector loads these into an internal `unordered_set`.
 Old bundles without this tag are fully backward-compatible.
 
+**Format constraints for the proper-names file:**
+- One entry per line, lowercase only.
+- Single-word entries: one token (e.g. `john`, `berlin`, `microsoft`).
+- Two-word entries: exactly two tokens separated by a single space (e.g. `new zealand`, `hong kong`).
+- No tabs, no multiple/consecutive spaces, no trailing spaces.
+- Entries with 3+ tokens are NOT supported by `IsProperNameForTokens()`.
+
+Use `IsProperNameForTokens(token1, token2)` to query the set at runtime.
+It lowercases the input and joins the two tokens with a single space for lookup.
+
 This is useful for deployment — everything is shipped as a single file, no relative path issues.
 
 CMake generates the bundle automatically at build time: `build/res.bundle`.
@@ -443,7 +453,9 @@ All files are self-contained and committed to the repo for reproducible builds:
 | `res/en_US.aff` / `res/en_US.dic` | ~550 KB | Hunspell dictionary pair |
 | `res/ug` | ~5.2 MB | ARPA 1-gram log-probabilities (~280k unigrams) |
 | `res/acronyms.txt` | ~2 KB | Curated uppercase acronyms (medical, business, technology) |
+| `res/addition/Names2020_Countries_Companies.txt` | ~12 KB | Proper-name overlay: lowercase entries, max 2 tokens, single space only |
 | `res/test_file.txt` | ~1 KB | Pipe-delimited test cases (`input|expected`) |
+| `res/test_status.txt` | ~1 KB | Status-code regression tests (`input|expected_text|expected_status_csv`) |
 | `res/res.bundle` | ~5.7 MB | Auto-generated packed resource bundle (all of the above in one file) |
 
 ### Manual compilation against the API
