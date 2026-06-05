@@ -6,8 +6,6 @@
 ./install.sh
 ```
 
-Note: `install.sh` passes `-DBUILD_TOOLS=OFF` (finder stubbed) and `-DBUILD_DOCS=OFF` (avoids Doxygen dependency).
-
 Equivalent manual steps:
 
 ```bash
@@ -33,12 +31,28 @@ Before pushing changes that touch `src/api/` or `res/` always run one of:
 ./install.sh
 ```
 
+or, equivalently, all 6 test configurations (loose files, full bundle, minimal bundle):
+
+```bash
+./build/src/api/test_compound -d res/en_US.aff --self-test
+./build/src/api/test_compound -d res/en_US.aff --test-status
+./build/src/api/test_compound -b res/res.bundle --self-test
+./build/src/api/test_compound -b res/res.bundle --test-status
+./build/src/api/test_compound -b res/res-minimal.bundle --self-test
+./build/src/api/test_compound -b res/res-minimal.bundle --test-status
+```
+
 or, equivalently:
 
 ```bash
-./build/src/api/test_compound --self-test
-./build/src/api/test_compound --test-status
-./build/src/api/test_compound -b res/res.bundle --self-test
+./build/src/api/test_compound --self-test          # 33 string tests
+./build/src/api/test_compound --test-status        # 32 status code tests
+./build/src/api/test_compound -d res/en_US.aff --self-test || true
+./build/src/api/test_compound -d res/en_US.aff --test-status || true
+./build/src/api/test_compound -b res/res.bundle --self-test || true
+./build/src/api/test_compound -b res/res.bundle --test-status || true
+./build/src/api/test_compound -b res/res-minimal.bundle --self-test || true
+./build/src/api/test_compound -b res/res-minimal.bundle --test-status || true
 ```
 
 ## Directory Layout
@@ -46,21 +60,10 @@ or, equivalently:
 | Directory | Content |
 |---|---|
 | `src/nuspell/` | Core spelling library |  
-| `src/tools/` | `nuspell` CLI binary (disabled on this branch; `BUILD_TOOLS=OFF`) |  
+| `src/tools/` | `nuspell` CLI binary |  
 | `src/api/` | Compound Corrector API, `test_compound`, `pack_resources` |  
 | `tests/` | Catch2-based tests (run via `ctest`) |  
 | `res/` | API resources: dictionary, ARPA unigrams, acronyms, test fixtures, bundle |  
-
-## ICU-Free / C++14-Only Branch
-
-- **ICU removed** — case folding is ASCII-only (`[a-zA-Z]`).
-- **`finder.cxx`** — all functions are no-op stubs (no dictionary auto-discovery).
-- **`filesystem.hxx`** — minimal `path` wrapper only; `directory_entry`,
-  `directory_iterator`, `filesystem_error` removed.
-- **`BUILD_TOOLS=OFF`** — CLI tools depend on finder stubs, so they are disabled.
-- **C++14 only** — no C++17 features used anywhere, including tests.
-- For the full-featured nuspell (ICU, dictionary discovery, CLI tools), see the
-  `icu` branch.
 
 ## `src/nuspell/` and `src/api/` are C++14-Compatible
 

@@ -6,18 +6,18 @@ Nuspell is written in modern C++ and it supports Hunspell dictionaries.
 
 Main features of Nuspell spelling checker:
 
-  - Provides software library (CLI tools available on the `icu` branch).
+  - Provides software library and command-line tool.
   - Suggests high-quality spelling corrections.
   - Backward compatibility with Hunspell dictionary file format.
   - Up to 3.5 times faster than Hunspell.
-  - No ICU dependency — pure C++14 with custom UTF-8 polyfills and ASCII case folding.
-    (Full Unicode case folding available on the `icu` branch.)
+  - Full Unicode support backed by ICU.
   - **Compound Corrector API** (`src/api/`) for fixing split acronyms
     and compound terms in ASR transcripts (e.g. `ap i` → `API`).
   - Twofold affix stripping (for agglutinative languages, like Azeri,
     Basque, Estonian, Finnish, Hungarian, Turkish, etc.).
   - Supports complex compounds (for example, Hungarian, German and Dutch).
-  - Supports advanced features, for example: ASCII case folding, conditional affixes, circumfixes,
+  - Supports advanced features, for example: special casing rules
+    (Turkish dotted i or German sharp s), conditional affixes, circumfixes,
     fogemorphemes, forbidden words, pseudoroots and homonyms.
   - Free and open source software. Licensed under GNU LGPL v3 or later.
 
@@ -36,8 +36,9 @@ Build-only dependencies:
   - Pandoc (optional, needed only when building the man-pages is enabled)
   - Doxygen (optional, needed only when building the API docs is enabled)
 
-No external run-time dependencies for encoding or locale — ICU has been removed.
-(The `icu` branch retains full ICU support.)
+Run-time (and build-time) dependencies:
+
+  - ICU4C
 
 Recommended tools for developers: qtcreator, ninja, clang-format, gdb, vim.
 
@@ -49,7 +50,7 @@ preinstalled.
 For Ubuntu and Debian:
 
 ```bash
-sudo apt install g++ cmake catch2 pandoc doxygen
+sudo apt install g++ cmake libicu-dev catch2 pandoc doxygen
 ```
 
 Then run the following commands inside the Nuspell directory:
@@ -68,10 +69,15 @@ of Make.
 
 ### C++14 compatibility
 
-Nuspell builds with strict C++14. The C++17 Catch2-based unit tests (which
-use CTAD, `is_same_v`, etc.) are **not available** on this branch.
-The default build runs the lighter `api_smoke_test` (<tt>ctest</tt>) and
-<tt>test_compound</tt> API tests instead.
+Nuspell builds with C++14. If you need the advanced unit tests (which use
+C++17 features such as CTAD and `is_same_v`), enable them explicitly:
+
+```bash
+cmake .. -DBUILD_API=ON -DBUILD_ADVANCED_TESTS=ON
+```
+
+Otherwise, the default C++14 build skips these tests and runs a lighter
+smoke test (`api_smoke_test`) instead.
 
 If you are making a Linux distribution package (deb, rpm) you need
 some additional configurations on the CMake invocation. For example:
@@ -84,7 +90,7 @@ To also include the Compound Corrector API and its demo tool, add `-DBUILD_API=O
 A convenience script is also provided:
 
 ```bash
-./install.sh    # builds with -DBUILD_API=ON (docs/tools off), then runs self-tests
+./install.sh    # builds with -DBUILD_API=ON, then runs self-tests
 ```
 
 ## Building on OSX and macOS
@@ -96,10 +102,14 @@ A convenience script is also provided:
 <!-- end list -->
 
 ```bash
-brew install cmake catch2 pandoc doxygen
+brew install cmake icu4c catch2 pandoc doxygen
+export ICU_ROOT=$(brew --prefix icu4c)
 ```
 
-Then run the standard cmake and make. See above.
+Then run the standard cmake and make. See above. The ICU\_ROOT variable
+is needed because icu4c is keg-only package in Homebrew and CMake can
+not find it by default. Alternatively, you can use `-DICU_ROOT=...` on
+the cmake command line.
 
 If you want to build with GCC instead of Clang, you need to pull GCC
 with Homebrew and rebuild all the dependencies with it. See Homewbrew
@@ -133,7 +143,7 @@ cmake --build .
 Download MSYS2, update everything and install the following packages:
 
 ```bash
-pacman -S base-devel mingw-w64-x86_64-toolchain \
+pacman -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-icu \
           mingw-w64-x86_64-cmake mingw-w64-x86_64-catch mingw-w64-x86_64-doxygen
 ```
 
@@ -158,7 +168,7 @@ Cygwin1.dll.
 Install the following required packages
 
 ```bash
-pkg cmake catch2 pandoc doxygen
+pkg cmake icu catch2 pandoc doxygen
 ```
 
 Then run the standard cmake and make as on Linux. See above.
@@ -167,16 +177,14 @@ Then run the standard cmake and make as on Linux. See above.
 
 ## Using the command-line tool
 
-> **Note:** The `nuspell` CLI binary is **disabled** on this branch
-> (`BUILD_TOOLS=OFF`). Dictionary finder functions are stubs, so
-> auto-discovery of installed dictionaries would not work. See the `icu`
-> branch for the full CLI tool with dictionary discovery.
+The main executable is located in `src/nuspell`.
 
-The nuspell spell checker would normally be invoked like:
+After compiling and installing you can run the Nuspell spell checker
+with a Nuspell, Hunspell or Myspell dictionary:
 
     nuspell -d en_US text.txt
 
-Its source code lives in `src/tools/`.
+For more details run see the [man-page](docs/nuspell.1.md).
 
 <!-- old hunspell v1 stuff
 The src/tools directory contains ten executables after compiling.
@@ -205,21 +213,27 @@ The src/tools directory contains ten executables after compiling.
 
 ## Using the Library
 
-> **Note:** On this (non-ICU) branch, the dictionary finder functions (`append_default_dir_paths`, `search_dirs_for_one_dict`, etc.) are stubs — dictionary auto-discovery is not available. Always provide an explicit path. For dictionary discovery support, see the `icu` branch.
-
 Sample program:
 
 ```cpp
 #include <iostream>
 #include <nuspell/dictionary.hxx>
+#include <nuspell/finder.hxx>
 
 using namespace std;
 
 int main()
 {
+	auto dirs = vector<nuspell::path>();
+	nuspell::append_default_dir_paths(dirs);
+	auto dict_path = nuspell::search_dirs_for_one_dict(dirs, "en_US");
+	if (empty(dict_path))
+		return 1; // Return error because we can not find the requested
+		          // dictionary.
+
 	auto dict = nuspell::Dictionary();
 	try {
-		dict.load_aff_dic("res/en_US.aff");
+		dict.load_aff_dic(dict_path);
 	}
 	catch (const nuspell::Dictionary_Loading_Error& e) {
 		cerr << e.what() << '\n';
@@ -248,9 +262,9 @@ int main()
 On the command line you can link like this:
 
 ```bash
-g++ example.cxx -std=c++14 -lnuspell
-# or better, use pkg-config (ICU is not needed on this branch)
-g++ example.cxx -std=c++14 $(pkg-config --cflags --libs nuspell)
+g++ example.cxx -std=c++17 -lnuspell -licuuc -licudata
+# or better, use pkg-config
+g++ example.cxx -std=c++17 $(pkg-config --cflags --libs nuspell)
 ```
 
 Within Cmake you can use `find_package()` to link. For example:
@@ -284,10 +298,18 @@ cmake .. -DBUILD_API=ON
 Or simply run the provided convenience script:
 
 ```bash
-./install.sh    # builds, packs res.bundle, copies it to res/,
-                # then runs test_compound sanity tests (default path + fix_single,
-                # and bundle mode + fix_single)
+./install.sh               # default: build full bundle, run 6 sanity tests
+./install.sh --build-both  # build both full and minimal bundles, run all 6 tests
+./install.sh --no-proper-names  # build minimal bundle (without proper names)
 ```
+
+Runs 6 sanity test configurations:
+1. Loose files (`-d`) + `--self-test`
+2. Loose files (`-d`) + `--test-status`
+3. Full bundle (`-b`) + `--self-test`
+4. Full bundle (`-b`) + `--test-status`
+5. Minimal bundle (`-b`) + `--self-test`
+6. Minimal bundle (`-b`) + `--test-status`
 
 ### Constructor
 
@@ -360,8 +382,11 @@ int main() {
 Built automatically when `-DBUILD_API=ON`. It is a line-processing CLI that demonstrates the API.
 
 ```bash
-# self-test (27 built-in cases)
+# self-test (33 built-in cases)
 ./build/src/api/test_compound --self-test
+
+# status-code regression test (32 built-in cases)
+./build/src/api/test_compound --test-status
 
 # process file or stdin
 echo "she is a ce o" | ./build/src/api/test_compound
@@ -426,18 +451,15 @@ All files are self-contained and committed to the repo for reproducible builds:
 If you are compiling a standalone program that uses `CompoundCorrector`:
 
 ```bash
-g++ example.cxx -std=c++14 -I src \
+g++ example.cxx -std=c++17 -I src \
     build/src/api/libcompound_corrector.a \
-    -lnuspell
+    -lnuspell -licuuc -licudata
 # or, if installed:
-g++ example.cxx -std=c++14 -lnuspell \
+g++ example.cxx -std=c++17 -lnuspell -licuuc -licudata \
     -L build/src/api -lcompound_corrector
 ```
 
-**Note:** This branch removes the ICU dependency entirely and builds with strict C++14.
-All C++17-only features (`std::filesystem`, `std::string_view`, `std::optional`,
-structured bindings, CTAD, `std::clamp`) are replaced with custom polyfills.
-Advanced C++17 unit tests are disabled — only `test_compound` API tests run.
+**Note:** The entire project now builds with C++14. Custom polyfills replace C++17-only features (`std::string_view`, `std::filesystem`, structured bindings, CTAD, `std::clamp`, `std::from_chars`), while preserving ABI compatibility. Use `-std=c++14` when linking your own code. C++17 advanced unit tests can be enabled with `-DBUILD_ADVANCED_TESTS=ON`.
 
 Bundled resources are handled by `src/api/bundle.hxx` and generated at build time by the `pack_resources` tool.
 
