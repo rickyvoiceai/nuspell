@@ -1114,7 +1114,6 @@ xerox
 ### additional names
 da vinci
 van gogh
-washington dc
 wright brothers
 
 ### religion
