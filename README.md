@@ -347,9 +347,9 @@ Old bundles without this tag are fully backward-compatible.
 - Single-word entries: one token (e.g. `john`, `berlin`, `microsoft`).
 - Two-word entries: exactly two tokens separated by a single space (e.g. `new zealand`, `hong kong`).
 - No tabs, no multiple/consecutive spaces, no trailing spaces.
-- Entries with 3+ tokens are NOT supported by `IsProperNameForTokens()`.
+- Entries with 3+ tokens are NOT supported by `IsSingleProperName()` / `IsDoubleProperName()`.
 
-Use `IsProperNameForTokens(token1, token2)` to query the set at runtime.
+Use `IsSingleProperName(token)` and `IsDoubleProperName(token1, token2)` to query the sets at runtime.
 It lowercases the input and joins the two tokens with a single space for lookup.
 
 This is useful for deployment — everything is shipped as a single file, no relative path issues.
