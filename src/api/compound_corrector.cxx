@@ -22,7 +22,8 @@ struct CompoundCorrector::Impl {
 	nuspell::Dictionary dict;
 	std::unordered_map<std::string, float> unigrams;
 	std::unordered_set<std::string> acronyms;
-	std::unordered_set<std::string> proper_names;
+	std::unordered_set<std::string> proper_names_single;
+	std::unordered_set<std::string> proper_names_double;
 	NuspellConfig config;
 
 	Impl() = default;
@@ -310,7 +311,10 @@ CompoundCorrector::CompoundCorrector(std::istream& bundle_stream,
 		std::istringstream pn_ss(pn->data);
 		for (std::string line; std::getline(pn_ss, line);) {
 			if (line.empty() || line[0] == '#' || line[0] == '\n') continue;
-			impl_->proper_names.insert(line);
+			if (line.find(' ') != std::string::npos)
+			impl_->proper_names_double.insert(line);
+		else
+			impl_->proper_names_single.insert(line);
 		}
 	}
 }
@@ -321,14 +325,18 @@ void CompoundCorrector::SetConfig(const NuspellConfig& cfg) {
 	impl_->config = cfg;
 }
 
-bool CompoundCorrector::IsProperNameForTokens(const std::string& token1,
-                                               const std::string& token2) const {
+bool CompoundCorrector::IsSingleProperName(const std::string& token) const {
+	return impl_->proper_names_single.find(Impl::to_lower(token))
+	       != impl_->proper_names_single.end();
+}
+
+bool CompoundCorrector::IsDoubleProperName(const std::string& token1,
+                                           const std::string& token2) const {
 	std::string key = Impl::to_lower(token1);
-	if (!token2.empty()) {
-		key.push_back(' ');
-		key += Impl::to_lower(token2);
-	}
-	return impl_->proper_names.find(key) != impl_->proper_names.end();
+	key.push_back(' ');
+	key += Impl::to_lower(token2);
+	return impl_->proper_names_double.find(key)
+	       != impl_->proper_names_double.end();
 }
 
 std::string CompoundCorrector::Correct(const std::string& input,
