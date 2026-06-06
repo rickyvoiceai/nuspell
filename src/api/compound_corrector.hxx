@@ -117,19 +117,23 @@ public:
 	                                    bool fix_single = false,
 	                                    std::vector<std::string>* verbose_log = nullptr) const;
 
-	// Check if a single token or two-token phrase is a known proper name.
-	// token1: first word (required)
-	// token2: second word (optional — empty string means single-token check)
+	// Check if a single token is a known proper name.
+	// token: word to check (required). Input is lowercased automatically.
+	// Returns true if the token is found in the single-token proper-names set.
+	bool IsSingleProperName(const std::string& token) const;
+
+	// Check if a two-token phrase is a known proper name.
+	// token1: first word (required). token2: second word (required).
 	// Input is lowercased automatically before lookup.
-	// Returns true if the phrase is found in the proper-names set.
+	// Returns true if "token1 token2" is found in the two-token proper-names set.
 	//
 	// FORMAT CONSTRAINT on the proper-names data file:
 	//   - Each entry is at most 2 tokens (single word, or two words separated
 	//     by exactly one space).
 	//   - No tabs, no multiple spaces, no trailing spaces.
 	//   - Entries with 3+ tokens are not supported by this API.
-	bool IsProperNameForTokens(const std::string& token1,
-	                            const std::string& token2 = std::string()) const;
+	bool IsDoubleProperName(const std::string& token1,
+	                         const std::string& token2) const;
 
 private:
 	// Internal spell-check backend (loaded once at construction).
