@@ -535,7 +535,7 @@ amazon
 berkshire hathaway
 alphabet
 exxon mobil
-jp morgan 
+jp morgan
 microsoft
 chevron
 ford motor
@@ -1097,8 +1097,7 @@ gucci
 heineken
 hewlett packard
 hilton
-j.p. morgan
-l'oréal
+l'oreal
 mcdonald's
 motorola
 nintendo
@@ -1115,7 +1114,7 @@ xerox
 ### additional names
 da vinci
 van gogh
-washington d.c.
+washington dc
 wright brothers
 
 ### religion
