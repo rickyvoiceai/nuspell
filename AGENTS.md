@@ -106,12 +106,12 @@ downstream capitalization.
 - Two-word entries: exactly two tokens separated by a single space
   (e.g. `new zealand`, `hong kong`, `costa rica`).
 - No tabs, no multiple/consecutive spaces, no trailing spaces.
-- Entries with 3+ tokens are NOT supported by `IsProperNameForTokens()`.
+- Entries with 3+ tokens are NOT supported by `IsSingleProperName()` / `IsDoubleProperName()`.
 
 ### Runtime loading
 
-`CompoundCorrector::Impl::proper_names` is an `unordered_set<std::string>`
-populated from the bundle at construction time:
+`CompoundCorrector::Impl::proper_names_single` and `proper_names_double` are
+`unordered_set<std::string>` populated from the bundle at construction time:
 
 ```cpp
 const BundleEntry* pn = bundle.find(BundleTag::PROPER_NAMES);
@@ -121,7 +121,7 @@ if (pn) { /* populate set line-by-line, skip headers */ }
 ### Backward compatibility
 
 - **Old bundle → New code:** `find(PROPER_NAMES)` returns `nullptr`,
-  `proper_names` stays empty. All existing tests pass.
+  both sets stay empty. All existing tests pass.
 - **New bundle → Old code:** Extra entries are never queried; `read_bundle`
   deserializes them fine (the format is extensible). No version bump needed.
 

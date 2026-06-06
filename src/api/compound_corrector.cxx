@@ -312,9 +312,9 @@ CompoundCorrector::CompoundCorrector(std::istream& bundle_stream,
 		for (std::string line; std::getline(pn_ss, line);) {
 			if (line.empty() || line[0] == '#' || line[0] == '\n') continue;
 			if (line.find(' ') != std::string::npos)
-			impl_->proper_names_double.insert(line);
-		else
-			impl_->proper_names_single.insert(line);
+				impl_->proper_names_double.insert(line);
+			else
+				impl_->proper_names_single.insert(line);
 		}
 	}
 }
