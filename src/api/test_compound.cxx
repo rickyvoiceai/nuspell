@@ -256,39 +256,71 @@ static int run_proper_name_test(const CompoundCorrector& corrector) {
 	int passed = 0;
 	int failed = 0;
 
-	struct TestCase {
+	// Single-token tests
+	struct SingleCase {
+		const char* token;
+		bool expected;
+	};
+
+	SingleCase singles[] = {
+		{"john",        true},
+		{"John",        true},
+		{"JOHN",        true},
+		{"hello",       false},
+		{"microsoft",   true},
+		{"berlin",      true},
+		{"tokyo",       true},
+		{"the",         false},
+		{"",            false},
+		{"at&t",        true},
+		{"mcdonald's",  true},
+		{"l'oreal",     true},
+	};
+
+	for (const auto& c : singles) {
+		bool result = corrector.IsSingleProperName(c.token);
+		if (result == c.expected) {
+			std::cout << "PASS: IsSingleProperName(\""
+			          << c.token << "\") = "
+			          << (result ? "true" : "false") << "\n";
+			++passed;
+		} else {
+			std::cout << "FAIL: IsSingleProperName(\""
+			          << c.token << "\") = "
+			          << (result ? "true" : "false")
+			          << " (expected: " << (c.expected ? "true" : "false") << ")\n";
+			++failed;
+		}
+	}
+
+	// Two-token tests
+	struct DoubleCase {
 		const char* token1;
 		const char* token2;
 		bool expected;
 	};
 
-	TestCase cases[] = {
-		{"john",   "",        true},
-		{"John",   "",        true},
-		{"hello",  "",        false},
+	DoubleCase doubles[] = {
 		{"new",    "zealand", true},
 		{"New",    "Zealand", true},
 		{"NEW",    "ZEALAND", true},
 		{"big",    "house",   false},
 		{"costa",  "rica",    true},
-		{"microsoft", "",     true},
 		{"san",    "marino",  true},
-		{"",       "",        false},
-		{"berlin", "",        true},
 		{"hong",   "kong",    true},
-		{"tokyo",  "",        true},
-		{"the",    "",        false},
+		{"",       "zealand", false},
+		{"new",    "",        false},
 	};
 
-	for (const auto& c : cases) {
-		bool result = corrector.IsProperNameForTokens(c.token1, c.token2);
+	for (const auto& c : doubles) {
+		bool result = corrector.IsDoubleProperName(c.token1, c.token2);
 		if (result == c.expected) {
-			std::cout << "PASS: IsProperNameForTokens(\""
+			std::cout << "PASS: IsDoubleProperName(\""
 			          << c.token1 << "\", \"" << c.token2 << "\") = "
 			          << (result ? "true" : "false") << "\n";
 			++passed;
 		} else {
-			std::cout << "FAIL: IsProperNameForTokens(\""
+			std::cout << "FAIL: IsDoubleProperName(\""
 			          << c.token1 << "\", \"" << c.token2 << "\") = "
 			          << (result ? "true" : "false")
 			          << " (expected: " << (c.expected ? "true" : "false") << ")\n";
